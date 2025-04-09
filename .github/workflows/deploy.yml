@@ -1,12 +1,16 @@
- name: 部署到GitHub Pages
+name: 部署到GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]  # 同时监听main和master分支
+    branches:
+      - main
+      - master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: 检出代码
         uses: actions/checkout@v3
@@ -26,5 +30,5 @@ jobs:
       - name: 部署
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist  # 构建输出目录
-          branch: gh-pages  # 部署到gh-pages分支
+          folder: dist
+          branch: gh-pages

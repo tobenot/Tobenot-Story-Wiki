@@ -120,12 +120,6 @@ export default defineComponent({
     const spoilerLinksMap = ref<Record<string, string>>({
       // 从示例文件添加的配置
       '《创世纪》第一章': '/works/genesis-chapter-1',
-      '《终章》最后的秘密': '/works/final-chapter-secret',
-      // 原有的示例配置
-      '第一章': '/works/chapter-1',
-      '红月篇': '/works/red-moon',
-      '起源故事': '/works/origin-story',
-      // 可以通过API动态加载更多配置
     })
     
     // 更新渲染内容的逻辑

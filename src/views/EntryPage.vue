@@ -79,7 +79,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { loadContentEntry, renderContent } from '../services/contentService'
 import type { ContentEntry } from '../services/contentService'
 
@@ -87,7 +87,6 @@ export default defineComponent({
   name: 'EntryPage',
   setup() {
     const route = useRoute()
-    const router = useRouter()
     const loading = ref(true)
     const showAllSpoilers = ref(false)
     const entry = ref<ContentEntry | null>(null)
@@ -121,6 +120,11 @@ export default defineComponent({
     const spoilerLinksMap = ref<Record<string, string>>({
       // 从示例文件添加的配置
       '《创世纪》第一章': '/works/genesis-chapter-1',
+      '《终章》最后的秘密': '/works/final-chapter-secret',
+      // 原有的示例配置
+      '第一章': '/works/chapter-1',
+      '红月篇': '/works/red-moon',
+      '起源故事': '/works/origin-story',
       // 可以通过API动态加载更多配置
     })
     
@@ -167,7 +171,7 @@ export default defineComponent({
       const target = event.target as HTMLElement
       
       // 查找被点击元素或其父元素中最近的 .spoiler 元素
-      const spoilerElement = target.closest('.spoiler')
+      const spoilerElement = target.closest('.spoiler') as HTMLElement | null
       
       if (spoilerElement && !spoilerElement.classList.contains('revealed')) {
         // 如果点击的是未揭示的剧透块，手动添加 revealed 类
@@ -180,7 +184,7 @@ export default defineComponent({
     // 处理鼠标悬停事件
     const handleEntryBodyHover = (event: MouseEvent) => {
       const target = event.target as HTMLElement
-      const spoilerElement = target.closest('.spoiler')
+      const spoilerElement = target.closest('.spoiler') as HTMLElement | null
       
       if (spoilerElement && !spoilerElement.classList.contains('revealed')) {
         // 存储当前激活的剧透元素

@@ -12,14 +12,13 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v3
-        
-      - name: 设置Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "20"
           
       - name: 安装依赖
         run: npm ci

@@ -24,7 +24,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory('/Tobenot-Story-Wiki/'),
+  history: createWebHashHistory(),
   routes
 })
 

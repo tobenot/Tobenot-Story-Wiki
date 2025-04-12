@@ -42,38 +42,7 @@
         </router-link>
       </div>
       
-      <!-- 剧透提示元素 -->
-      <div class="spoiler-tooltip" :style="tooltipStyle" v-show="showTooltip">
-        <div class="tooltip-title">{{ tooltipText }}</div>
-        <div class="tooltip-actions">
-          <router-link 
-            v-if="tooltipLink" 
-            :to="tooltipLink" 
-            class="tooltip-btn tooltip-link"
-            @click.stop="handleTooltipLinkClick"
-          >
-            前往原作
-          </router-link>
-          <button 
-            v-else
-            class="tooltip-btn tooltip-pending"
-            @click.stop="handleCloseTooltip"
-          >
-            敬请催更
-          </button>
-          <button 
-            class="tooltip-btn tooltip-reveal"
-            @click.stop="handleRevealSpoiler"
-          >
-            查看剧透
-          </button>
-        </div>
-        <button class="tooltip-close" @click.stop="handleCloseTooltip">×</button>
-      </div>
     </div>
-    
-    <!-- 点击其他区域关闭提示的遮罩层 -->
-    <div class="overlay" v-if="showTooltip" @click="handleCloseTooltip"></div>
   </div>
 </template>
 
@@ -92,17 +61,7 @@ export default defineComponent({
     const entry = ref<ContentEntry | null>(null)
     const parsedContent = ref('')
     
-    // 提示相关状态
-    const showTooltip = ref(false)
-    const tooltipText = ref('')
-    const tooltipLink = ref('')
-    const tooltipStyle = ref({
-      top: '0px',
-      left: '0px'
-    })
-    
-    // 记录当前激活的剧透元素
-    const activeSpoilerElement = ref<HTMLElement | null>(null)
+    // We no longer need to track the active spoiler element
     
     const categoryType = computed(() => route.params.type as string)
     const entryId = computed(() => route.params.id as string)
@@ -128,7 +87,69 @@ export default defineComponent({
         parsedContent.value = ''
         return
       }
-      parsedContent.value = renderContent(entry.value.content, showAllSpoilers.value)
+      // 先渲染Markdown内容
+      let renderedContent = renderContent(entry.value.content, showAllSpoilers.value)
+      
+      // 为所有剧透块添加按钮和来源
+      const parser = new DOMParser()
+      const doc = parser.parseFromString(renderedContent, 'text/html')
+      
+      doc.querySelectorAll('.spoiler').forEach((spoiler) => {
+        const source = spoiler.getAttribute('data-source') || '剧透内容'
+        
+        // 创建来源标签
+        const sourceDiv = document.createElement('div')
+        sourceDiv.className = 'spoiler-source'
+        sourceDiv.textContent = '出自：' + source
+        spoiler.appendChild(sourceDiv)
+        
+        // 将剧透内容包装到一个 div 中以应用模糊效果
+        const contentDiv = document.createElement('div')
+        contentDiv.className = 'spoiler-content'
+        // 将所有子元素移动到新的内容 div 中
+        while (spoiler.firstChild && spoiler.firstChild !== sourceDiv) {
+          contentDiv.appendChild(spoiler.firstChild)
+        }
+        spoiler.appendChild(contentDiv)
+        
+        // 创建操作按钮容器
+        const actionsDiv = document.createElement('div')
+        actionsDiv.className = 'spoiler-actions'
+        
+        // 创建查看剧透按钮
+        const revealBtn = document.createElement('button')
+        revealBtn.className = 'spoiler-btn view-spoiler'
+        revealBtn.textContent = '点击查看剧透'
+        revealBtn.onclick = (e) => {
+          e.stopPropagation()
+          spoiler.classList.add('revealed')
+        }
+        actionsDiv.appendChild(revealBtn)
+        
+        // 检查是否有对应的链接配置
+        const link = spoilerLinksMap.value[source] || ''
+        if (link) {
+          // 创建前往原作按钮
+          const sourceBtn = document.createElement('a')
+          sourceBtn.className = 'spoiler-btn goto-source'
+          sourceBtn.textContent = '前往原作'
+          sourceBtn.href = link
+          actionsDiv.appendChild(sourceBtn)
+        } else {
+          // 创建敬请催更按钮
+          const pendingBtn = document.createElement('button')
+          pendingBtn.className = 'spoiler-btn pending-source'
+          pendingBtn.textContent = '敬请催更'
+          pendingBtn.onclick = (e) => {
+            e.stopPropagation()
+          }
+          actionsDiv.appendChild(pendingBtn)
+        }
+        
+        spoiler.appendChild(actionsDiv)
+      })
+      
+      parsedContent.value = doc.body.innerHTML
     }
 
     // 加载数据的函数
@@ -170,58 +191,24 @@ export default defineComponent({
       if (spoilerElement && !spoilerElement.classList.contains('revealed')) {
         // 如果点击的是未揭示的剧透块，手动添加 revealed 类
         spoilerElement.classList.add('revealed')
-        // 点击后关闭提示
-        handleCloseTooltip()
+        // 不再需要调用关闭提示，因为现在按钮直接显示在剧透元素上
       }
     }
     
-    // 处理鼠标悬停事件
-    const handleEntryBodyHover = (event: MouseEvent) => {
+    // 处理鼠标悬停事件 - 保留但不再需要实际功能
+    const handleEntryBodyHover = () => {
+      // 不再需要处理悬停事件
+    }
+    
+    // 处理显示剧透内容 - 直接在元素上操作
+    const handleRevealSpoiler = (event: MouseEvent) => {
       const target = event.target as HTMLElement
       const spoilerElement = target.closest('.spoiler') as HTMLElement | null
       
-      if (spoilerElement && !spoilerElement.classList.contains('revealed')) {
-        // 存储当前激活的剧透元素
-        activeSpoilerElement.value = spoilerElement
-        
-        // 获取剧透内容来源
-        const source = spoilerElement.getAttribute('data-source') || '剧透内容'
-        tooltipText.value = source
-        
-        // 检查是否有对应的链接配置
-        tooltipLink.value = spoilerLinksMap.value[source] || ''
-        
-        // 计算提示位置
-        const rect = spoilerElement.getBoundingClientRect()
-        tooltipStyle.value = {
-          top: `${rect.top - 50}px`, // 略微抬高位置以适应更大的提示框
-          left: `${rect.left + (rect.width / 2)}px`
-        }
-        
-        showTooltip.value = true
+      if (spoilerElement) {
+        // 给剧透元素添加 revealed 类
+        spoilerElement.classList.add('revealed')
       }
-    }
-    
-    // 处理提示链接点击
-    const handleTooltipLinkClick = () => {
-      // 点击链接后关闭提示
-      handleCloseTooltip()
-    }
-    
-    // 处理显示剧透内容
-    const handleRevealSpoiler = () => {
-      if (activeSpoilerElement.value) {
-        // 给当前激活的剧透元素添加 revealed 类
-        activeSpoilerElement.value.classList.add('revealed')
-        // 显示剧透后关闭提示
-        handleCloseTooltip()
-      }
-    }
-    
-    // 关闭提示
-    const handleCloseTooltip = () => {
-      showTooltip.value = false
-      activeSpoilerElement.value = null
     }
     
     return {
@@ -233,13 +220,7 @@ export default defineComponent({
       showAllSpoilers,
       handleEntryBodyClick,
       handleEntryBodyHover,
-      handleRevealSpoiler,
-      handleCloseTooltip,
-      handleTooltipLinkClick,
-      showTooltip,
-      tooltipText,
-      tooltipLink,
-      tooltipStyle
+      handleRevealSpoiler
     }
   }
 })
@@ -363,138 +344,94 @@ h1 {
 /* 处理剧透样式 */
 :deep(.spoiler) {
   position: relative;
-  padding: 1rem;
+  padding: 2.5rem 1rem 3rem;
   margin: 1rem 0;
   border-radius: 4px;
   background-color: #f5f5f5;
-  filter: blur(5px);
   user-select: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+:deep(.spoiler .spoiler-content) {
+  filter: blur(5px);
   transition: filter 0.3s;
-  cursor: pointer;
 }
 
-/* 剧透提示样式 */
-.spoiler-tooltip {
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.85);
-  color: white;
-  padding: 0.8rem 1rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  text-align: center;
-  pointer-events: auto;
-  z-index: 1000;
-  transform: translateX(-50%);
-  max-width: 400px; /* 扩大最大宽度以适应更长的文本 */
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
-}
-
-.tooltip-title {
-  font-weight: 500;
-  max-width: 100%;
-  word-wrap: break-word;
-  padding: 0 15px; /* 为关闭按钮留出空间 */
-}
-
-.tooltip-actions {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.8rem;
-  width: 100%;
-}
-
-.tooltip-btn {
-  flex: 1;
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.2s;
-  white-space: nowrap; /* 防止文本换行 */
-  min-width: 80px; /* 设置最小宽度 */
-}
-
-/* 前往原作按钮样式 */
-.tooltip-link {
-  background-color: rgba(79, 195, 247, 0.2);
-  color: #4fc3f7;
-  text-decoration: none;
-  font-weight: 500;
-  border: 1px solid rgba(79, 195, 247, 0.3);
-}
-
-.tooltip-link:hover {
-  background-color: rgba(79, 195, 247, 0.3);
-  text-decoration: none;
-}
-
-/* 敬请催更按钮样式 */
-.tooltip-pending {
-  background-color: rgba(156, 39, 176, 0.2);
-  color: #ce93d8;
-  border: 1px solid rgba(156, 39, 176, 0.3);
-  font-weight: 500;
-}
-
-.tooltip-pending:hover {
-  background-color: rgba(156, 39, 176, 0.3);
-}
-
-/* 查看剧透按钮样式 */
-.tooltip-reveal {
-  background-color: rgba(255, 87, 34, 0.2);
-  color: #ff9800;
-  border: 1px solid rgba(255, 87, 34, 0.3);
-  font-weight: 500;
-}
-
-.tooltip-reveal:hover {
-  background-color: rgba(255, 87, 34, 0.3);
-}
-
-/* 提示框中的关闭按钮 */
-.tooltip-close {
+/* 添加剧透来源样式 */
+:deep(.spoiler) .spoiler-source {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.1rem;
-  cursor: pointer;
-  padding: 2px 6px;
-  line-height: 1;
-  border-radius: 50%;
-}
-
-.tooltip-close:hover {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: white;
-}
-
-/* 点击其他区域关闭提示的遮罩层 */
-.overlay {
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background-color: transparent;
-  z-index: 999;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border-radius: 4px 4px 0 0;
+  z-index: 10;
+  text-align: center;
+  font-weight: 500;
+  color: #606060;
 }
 
-:deep(.spoiler):hover {
+/* 添加按钮样式 */
+:deep(.spoiler .spoiler-actions) {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px;
+  border-radius: 0 0 4px 4px;
+  z-index: 10;
+}
+
+:deep(.spoiler .spoiler-btn) {
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-color: #f0f0f0;
+  color: #505050;
+  border: 1px solid #ddd;
+}
+
+:deep(.spoiler .view-spoiler) {
+  background-color: #fff4e6;
+  color: #ff6b00;
+  border: 1px solid #ffd0a1;
+}
+
+:deep(.spoiler .goto-source) {
+  background-color: #e6f7ff;
+  color: #0078d4;
+  border: 1px solid #a1d6ff;
+  text-decoration: none;
+}
+
+:deep(.spoiler .goto-source:hover) {
+  text-decoration: none;
+  background-color: #cceeff;
+}
+
+:deep(.spoiler .pending-source) {
+  background-color: #f3e6ff;
+  color: #9c27b0;
+  border: 1px solid #d8a1ff;
+}
+
+:deep(.spoiler):hover .spoiler-content {
   filter: blur(3px);
 }
 
-:deep(.spoiler.revealed),
-:deep(.spoiler:active) {
+:deep(.spoiler.revealed) .spoiler-content,
+:deep(.spoiler:active) .spoiler-content {
   filter: blur(0);
+}
+
+:deep(.spoiler.revealed) {
   user-select: auto;
   cursor: text;
 }

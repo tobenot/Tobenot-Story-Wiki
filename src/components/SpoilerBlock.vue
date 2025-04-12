@@ -3,15 +3,16 @@
     class="spoiler" 
     :class="{ 'revealed': isRevealed || globallyRevealed }"
     :data-source="source"
+    @click="reveal"
   >
     <div class="spoiler-source">出自：{{ source }}</div>
     
-    <div class="spoiler-content">
+    <div class="spoiler-content" :class="{ 'blur-md': !isRevealed && !globallyRevealed }">
       <slot></slot>
     </div>
     
     <div class="spoiler-actions" v-if="!isRevealed && !globallyRevealed">
-      <button @click="reveal" class="spoiler-btn view-spoiler">
+      <button @click.stop="reveal" class="spoiler-btn view-spoiler">
         点击查看剧透
       </button>
       

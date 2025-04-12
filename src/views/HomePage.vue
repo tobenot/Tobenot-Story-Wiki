@@ -1,70 +1,55 @@
 <template>
-  <div class="home">
-    <h1>托贝诺特世界观 Wiki</h1>
-    <p>欢迎来到世界观 Wiki，在这里你可以探索各种作品中的设定。</p>
+  <div class="wiki-container">
+    <section class="text-center py-12 md:py-20">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl mb-6 text-slate-900 dark:text-white">托贝诺特世界观 Wiki</h1>
+      <p class="text-lg md:text-xl text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-12">
+        欢迎来到世界观 Wiki，在这里你可以探索各种作品中的设定。
+      </p>
+      
+      <div class="wiki-grid">
+        <router-link to="/category/characters" class="wiki-card">
+          <div class="p-4 flex flex-col items-center text-center">
+            <!-- 图标组件 -->
+            <div class="mb-4 p-3 rounded-full bg-primary-100 text-primary-600 dark:bg-primary-900/40 dark:text-primary-400">
+              <!-- 人物图标 -->
+            </div>
+            <h2 class="text-xl font-bold mb-2">人物</h2>
+            <p class="text-slate-600 dark:text-slate-400">探索各种作品中的角色</p>
+          </div>
+        </router-link>
+        
+        <router-link to="/category/locations" class="wiki-card">
+          <div class="p-4 flex flex-col items-center text-center">
+            <div class="mb-4 p-3 rounded-full bg-secondary-100 text-secondary-600 dark:bg-secondary-900/40 dark:text-secondary-400">
+              <!-- 地点图标 -->
+            </div>
+            <h2 class="text-xl font-bold mb-2">地点</h2>
+            <p class="text-slate-600 dark:text-slate-400">发现各种作品中的地点</p>
+          </div>
+        </router-link>
+        
+        <router-link to="/category/events" class="wiki-card">
+          <div class="p-4 flex flex-col items-center text-center">
+            <div class="mb-4 p-3 rounded-full bg-accent-100 text-accent-600 dark:bg-accent-900/40 dark:text-accent-400">
+              <!-- 事件图标 -->
+            </div>
+            <h2 class="text-xl font-bold mb-2">事件</h2>
+            <p class="text-slate-600 dark:text-slate-400">了解各种作品中的事件</p>
+          </div>
+        </router-link>
+      </div>
+    </section>
     
-    <div class="category-grid">
-      <router-link to="/category/characters" class="category-card">
-        <h2>人物</h2>
-        <p>探索各种作品中的角色</p>
-      </router-link>
+    <!-- 最近更新区块 -->
+    <section class="mt-16 md:mt-24">
+      <div class="flex items-baseline justify-between mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold">最近更新</h2>
+        <a href="#" class="text-primary-600 dark:text-primary-400">查看全部</a>
+      </div>
       
-      <router-link to="/category/locations" class="category-card">
-        <h2>地点</h2>
-        <p>发现各种作品中的地点</p>
-      </router-link>
-      
-      <router-link to="/category/events" class="category-card">
-        <h2>事件</h2>
-        <p>了解各种作品中的事件</p>
-      </router-link>
-    </div>
+      <div class="space-y-4">
+        <!-- 这里可以放置最近更新的条目列表 -->
+      </div>
+    </section>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'HomePage'
-})
-</script>
-
-<style scoped>
-.home {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.category-card {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-</style> 

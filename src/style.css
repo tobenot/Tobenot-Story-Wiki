@@ -1,79 +1,82 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-.card {
-  padding: 2em;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-@media (prefers-color-scheme: light) {
+@layer base {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    font-family: 'Noto Sans SC', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  a:hover {
-    color: #747bff;
+}
+
+@layer components {
+  .wiki-container {
+    @apply container mx-auto px-4 py-8 max-w-7xl;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .wiki-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
   }
+
+  .wiki-card {
+    @apply bg-white dark:bg-slate-800 rounded-xl shadow-card hover:shadow-card-hover transition-shadow p-6 border border-slate-200 dark:border-slate-700;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600;
+  }
+
+  .tag {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300;
+  }
+
+  .loading-spinner {
+    @apply animate-spin h-5 w-5 text-slate-600 dark:text-slate-400;
+  }
+}
+
+/* 剧透块样式 */
+.spoiler {
+  @apply relative p-6 my-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 overflow-hidden;
+}
+
+.spoiler:not(.revealed) .spoiler-content {
+  @apply blur-sm select-none;
+}
+
+.spoiler-source {
+  @apply mb-3 text-sm font-medium text-slate-500 dark:text-slate-400;
+}
+
+.spoiler-actions {
+  @apply mt-4 flex flex-wrap gap-2 items-center;
+}
+
+.spoiler-btn {
+  @apply px-3 py-1.5 text-sm rounded-lg transition-colors;
+}
+
+.view-spoiler {
+  @apply bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600;
+}
+
+.goto-source {
+  @apply bg-secondary-600 text-white hover:bg-secondary-700 dark:bg-secondary-500 dark:hover:bg-secondary-600;
+}
+
+.pending-source {
+  @apply bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600;
+}
+
+.spoiler.revealed .spoiler-actions {
+  @apply hidden;
 }

@@ -64,7 +64,6 @@
           <div 
             class="prose prose-slate dark:prose-invert max-w-none" 
             v-html="parsedContent"
-            @click="handleEntryBodyClick"
           ></div>
           
           <!-- 相关条目 -->
@@ -102,9 +101,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { loadContentEntry, renderContent } from '../services/contentService';
+import { loadContentEntry, renderContent, getSpoilerLink } from '../services/contentService';
 import Header from '../components/layout/Header.vue';
 import Footer from '../components/layout/Footer.vue';
 import Tag from '../components/ui/Tag.vue';
@@ -139,92 +138,166 @@ const categoryTitle = computed(() => {
   }
 });
 
-// 剧透链接配置映射
-const spoilerLinksMap = ref({
-  // 从示例文件添加的配置
-  '《创世纪》第一章': '/works/genesis-chapter-1',
-});
+const pendingSourceLink = 'https://github.com/tobenot/tobenot.github.io/issues';
 
 // 更新渲染内容的逻辑
 const updateParsedContent = () => {
-  if (!entry.value) {
+  console.log('%cupdateParsedContent START. showAllSpoilers:', 'color: green;', showAllSpoilers.value); // Log function start and state
+  if (!entry.value || !entry.value.content) {
+    console.log('updateParsedContent: No entry or content, returning.'); // Log exit condition
     parsedContent.value = '';
     return;
   }
-  // 先渲染Markdown内容
-  let renderedContent = renderContent(entry.value.content, showAllSpoilers.value);
-  
-  // 为所有剧透块添加按钮和来源
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(renderedContent, 'text/html');
-  
-  doc.querySelectorAll('.spoiler').forEach((spoiler) => {
-    const source = spoiler.getAttribute('data-source') || '剧透内容';
-    
-    // 创建来源标签
-    const sourceDiv = document.createElement('div');
-    sourceDiv.className = 'spoiler-source';
-    sourceDiv.textContent = '出自：' + source;
-    spoiler.appendChild(sourceDiv);
-    
-    // 将剧透内容包装到一个 div 中以应用模糊效果
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'spoiler-content';
-    // 将所有子元素移动到新的内容 div 中
-    while (spoiler.firstChild && spoiler.firstChild !== sourceDiv) {
-      contentDiv.appendChild(spoiler.firstChild);
+  parsedContent.value = renderContent(entry.value.content);
+  console.log('updateParsedContent: Content rendered.'); // Log content rendering
+
+  // Use nextTick to ensure the DOM is updated with parsedContent
+  nextTick(() => {
+    console.log('%cupdateParsedContent: nextTick START.', 'color: orange;'); // Log nextTick start
+    const container = document.querySelector('.prose');
+    if (!container) {
+        console.error('Content container .prose not found after nextTick');
+        return;
     }
-    spoiler.appendChild(contentDiv);
-    
-    // 创建操作按钮容器
-    const actionsDiv = document.createElement('div');
-    actionsDiv.className = 'spoiler-actions';
-    
-    // 创建查看剧透按钮
-    const revealBtn = document.createElement('button');
-    revealBtn.className = 'spoiler-btn view-spoiler';
-    revealBtn.textContent = '点击查看剧透';
-    revealBtn.onclick = (e) => {
-      e.stopPropagation();
-      spoiler.classList.add('revealed');
-    };
-    actionsDiv.appendChild(revealBtn);
-    
-    // 检查是否有对应的链接配置
-    const link = spoilerLinksMap.value[source] || '';
-    if (link) {
-      // 创建前往原作按钮
-      const sourceBtn = document.createElement('a');
-      sourceBtn.className = 'spoiler-btn goto-source';
-      sourceBtn.textContent = '前往原作';
-      sourceBtn.href = link;
-      actionsDiv.appendChild(sourceBtn);
-    } else {
-      // 创建敬请催更按钮
-      const pendingBtn = document.createElement('button');
-      pendingBtn.className = 'spoiler-btn pending-source';
-      pendingBtn.textContent = '敬请催更';
-      pendingBtn.onclick = (e) => {
+    console.log('updateParsedContent: Container found.'); // Log container found
+
+    const spoilers = container.querySelectorAll('.spoiler');
+    console.log(`updateParsedContent: Found ${spoilers.length} spoilers.`); // Log spoiler count
+
+    spoilers.forEach((spoiler, index) => {
+      console.log(`Processing spoiler ${index}...`); // Log each spoiler
+      const source = spoiler.getAttribute('data-source') || '未知来源';
+
+      // --- 1. Ensure Structure --- 
+      let sourceDiv = spoiler.querySelector('.spoiler-source');
+      if (!sourceDiv) {
+          console.log(`Spoiler ${index}: Creating sourceDiv.`);
+          sourceDiv = document.createElement('div');
+          sourceDiv.className = 'spoiler-source';
+          spoiler.insertBefore(sourceDiv, spoiler.firstChild);
+      } else {
+          console.log(`Spoiler ${index}: Found existing sourceDiv.`);
+      }
+      sourceDiv.textContent = '出自：' + source;
+
+      let contentDiv = spoiler.querySelector('.spoiler-content');
+      if (!contentDiv) {
+          console.log(`Spoiler ${index}: Creating contentDiv.`);
+          contentDiv = document.createElement('div');
+          contentDiv.className = 'spoiler-content';
+          let currentActionsDiv = spoiler.querySelector('.spoiler-actions');
+          const nodesToMove = [];
+          let currentNode = sourceDiv.nextSibling;
+          // Carefully iterate and collect nodes between source and actions (or end)
+          while (currentNode && currentNode !== currentActionsDiv) {
+              nodesToMove.push(currentNode);
+              currentNode = currentNode.nextSibling;
+          }
+          console.log(`Spoiler ${index}: Moving ${nodesToMove.length} nodes into contentDiv.`);
+          nodesToMove.forEach(node => contentDiv.appendChild(node));
+          sourceDiv.insertAdjacentElement('afterend', contentDiv);
+      } else {
+         console.log(`Spoiler ${index}: Found existing contentDiv.`);
+      }
+
+      let actionsDiv = spoiler.querySelector('.spoiler-actions');
+      if (!actionsDiv) {
+        console.log(`Spoiler ${index}: Creating actionsDiv.`);
+        actionsDiv = document.createElement('div');
+        actionsDiv.className = 'spoiler-actions';
+        spoiler.appendChild(actionsDiv);
+      } else {
+        console.log(`Spoiler ${index}: Clearing existing actionsDiv.`);
+        actionsDiv.innerHTML = ''; // Clear old buttons
+      }
+      console.log(`Spoiler ${index}: Structure ensured.`);
+      
+      // --- 2. Apply Global State --- 
+      const isGloballyRevealed = showAllSpoilers.value;
+      console.log(`Spoiler ${index}: Applying global state. isGloballyRevealed = ${isGloballyRevealed}`); // Log state application
+      spoiler.classList.toggle('revealed', isGloballyRevealed);
+      console.log(`Spoiler ${index}: classList after toggle = ${spoiler.className}`); // Log class list
+
+      // --- 3. Create Buttons --- 
+      // a) Toggle Button
+      console.log(`Spoiler ${index}: Creating revealBtn.`);
+      const revealBtn = document.createElement('button');
+      revealBtn.className = 'spoiler-btn view-spoiler';
+      revealBtn.textContent = isGloballyRevealed ? '收起剧透' : '点击查看剧透';
+
+      revealBtn.onclick = (e) => {
         e.stopPropagation();
+        console.log(`Spoiler ${index}: revealBtn clicked. showAllSpoilers = ${showAllSpoilers.value}`);
+        if (!showAllSpoilers.value) { 
+            const shouldBeRevealedNow = !spoiler.classList.contains('revealed');
+            console.log(`Spoiler ${index}: Toggling individual state to ${shouldBeRevealedNow}`);
+            spoiler.classList.toggle('revealed', shouldBeRevealedNow);
+            revealBtn.textContent = shouldBeRevealedNow ? '收起剧透' : '点击查看剧透';
+        } else {
+             console.log(`Spoiler ${index}: Global reveal is active. Use the main toggle first.`);
+        }
       };
-      actionsDiv.appendChild(pendingBtn);
-    }
-    
-    spoiler.appendChild(actionsDiv);
+      actionsDiv.appendChild(revealBtn);
+
+      // b) Link/Pending Button
+      const link = getSpoilerLink(source);
+      if (link) {
+        console.log(`Spoiler ${index}: Creating source link button.`);
+        const sourceLinkEl = document.createElement('a');
+        sourceLinkEl.className = 'spoiler-btn goto-source';
+        sourceLinkEl.textContent = '前往原作';
+        sourceLinkEl.href = link;
+        sourceLinkEl.target = '_blank';
+        sourceLinkEl.rel = 'noopener noreferrer';
+        actionsDiv.appendChild(sourceLinkEl);
+      } else {
+        console.log(`Spoiler ${index}: Creating pending link button.`);
+        const pendingLinkEl = document.createElement('a'); 
+        pendingLinkEl.className = 'spoiler-btn pending-source';
+        pendingLinkEl.textContent = '敬请催更';
+        pendingLinkEl.href = pendingSourceLink;
+        pendingLinkEl.target = '_blank'; 
+        pendingLinkEl.rel = 'noopener noreferrer';
+        actionsDiv.appendChild(pendingLinkEl);
+      }
+      console.log(`Spoiler ${index}: Processing complete.`); // Log spoiler completion
+    });
+    console.log('%cupdateParsedContent: nextTick END.', 'color: orange; font-weight: bold;'); // Log nextTick end
   });
-  
-  parsedContent.value = doc.body.innerHTML;
+  console.log('%cupdateParsedContent END.', 'color: green; font-weight: bold;'); // Log function end
 };
+
+// Watcher remains the same: triggers re-run of updateParsedContent
+watch(showAllSpoilers, (newValue) => {
+  console.log('%cWATCH showAllSpoilers triggered. New value:', 'color: blue; font-weight: bold;', newValue); // Log global toggle watch
+  updateParsedContent();
+});
+
+watch(entry, (newEntry) => {
+  console.log('%cWATCH entry triggered. New entry exists:', 'color: blue; font-weight: bold;', !!newEntry); // Log watch trigger
+  if (newEntry) {
+    updateParsedContent();
+  } else {
+    parsedContent.value = '';
+  }
+}, { immediate: true }); // Ensure it runs on initial load
 
 // 加载数据的函数
 const loadData = async () => {
   loading.value = true;
+  entry.value = null; // Reset entry
   try {
     const data = await loadContentEntry(categoryType.value, entryId.value);
     entry.value = data;
-    updateParsedContent(); // 初始渲染
+    // Ensure updateParsedContent runs AFTER entry data is loaded
+    // and the initial parsedContent is set in the DOM
+    if (data) { 
+      updateParsedContent(); // Setup spoilers after data load
+    } else {
+       console.error(`Entry data is null for ${categoryType.value}/${entryId.value}`);
+    }
   } catch (error) {
-    console.error('Failed to load entry', error);
+    console.error(`Failed to load content entry for ${categoryType.value}/${entryId.value}:`, error);
   } finally {
     loading.value = false;
   }
@@ -234,27 +307,5 @@ const loadData = async () => {
 onMounted(loadData);
 
 // 监听路由参数变化，重新加载数据
-watch([() => route.params.type, () => route.params.id], ([newType, newId], [oldType, oldId]) => {
-  if (newType !== oldType || newId !== oldId) {
-    loadData();
-  }
-});
-
-// 监听 showAllSpoilers 的变化，重新渲染内容
-watch(showAllSpoilers, () => {
-  updateParsedContent();
-});
-
-// 事件委托处理函数
-const handleEntryBodyClick = (event) => {
-  const target = event.target;
-  
-  // 查找被点击元素或其父元素中最近的 .spoiler 元素
-  const spoilerElement = target.closest('.spoiler');
-  
-  if (spoilerElement && !spoilerElement.classList.contains('revealed')) {
-    // 如果点击的是未揭示的剧透块，手动添加 revealed 类
-    spoilerElement.classList.add('revealed');
-  }
-};
+watch([categoryType, entryId], loadData);
 </script>

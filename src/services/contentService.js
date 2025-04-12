@@ -92,16 +92,20 @@ export function renderContent(content, showAllSpoilers = false) {
   // 自定义渲染器
   const renderer = new marked.Renderer();
   
-  // 处理剧透块
-  content = content.replace(
-    /<div class="spoiler"([^>]*)>([\s\S]*?)<\/div>/g,
-    (match, attrs, innerContent) => {
-      if (showAllSpoilers) {
-        return `<div class="spoiler revealed"${attrs}>${innerContent}</div>`;
-      }
-      return match;
-    }
-  );
-  
+  // Simply parse the content
   return marked(content, { renderer });
+}
+
+// Example: Add function to get source links (can be expanded)
+const spoilerLinksConfig = {
+  '《心界录》': '/works/xin-jie-lu', // Example
+  '《创世纪》': '/works/genesis-chapter-1', // From previous EntryPage code
+  // Add more links here
+};
+
+export function getSpoilerLink(source) {
+  if (!source) return null;
+  const match = source.match(/《(.+?)》/);
+  const bookTitle = match ? `《${match[1]}》` : null;
+  return bookTitle ? spoilerLinksConfig[bookTitle] : null;
 }

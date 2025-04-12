@@ -51,6 +51,19 @@
 
 .spoiler:not(.revealed) .spoiler-content {
   @apply blur-sm select-none;
+  /* Ensure filter is targeted */
+  filter: blur(4px); /* Use a specific value for transition */
+}
+
+.spoiler.revealed .spoiler-content {
+   filter: blur(0); /* Explicitly remove blur */
+}
+
+.spoiler-content {
+  /* Add transition for the blur effect */
+  transition: filter 0.5s ease-in-out;
+  /* Contain potential layout shifts during blur/unblur */
+  /* backface-visibility: hidden; */ /* Might help performance/rendering */
 }
 
 .spoiler-source {
@@ -59,6 +72,7 @@
 
 .spoiler-actions {
   @apply mt-4 flex flex-wrap gap-2 items-center;
+  /* Actions are now always visible */
 }
 
 .spoiler-btn {
@@ -74,9 +88,8 @@
 }
 
 .pending-source {
-  @apply bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600;
-}
-
-.spoiler.revealed .spoiler-actions {
-  @apply hidden;
+  /* Make it look like a link/button */
+   @apply bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600;
+   /* Ensure cursor indicates clickability */
+   cursor: pointer;
 }

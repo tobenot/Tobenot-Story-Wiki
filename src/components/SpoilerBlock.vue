@@ -3,7 +3,6 @@
     class="spoiler" 
     :class="{ 'revealed': isRevealed || globallyRevealed }"
     :data-source="source"
-    @click="reveal"
   >
     <div class="spoiler-source">出自：{{ source }}</div>
     

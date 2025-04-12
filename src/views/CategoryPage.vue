@@ -44,38 +44,48 @@
         v-for="entry in entries" 
         :key="entry.id" 
         :to="`/entry/${categoryType}/${entry.id}`"
-        class="wiki-card flex flex-col"
+        class="wiki-card group flex flex-col overflow-hidden"
       >
-        <ImageLoader 
-          v-if="entry.image" 
-          :src="entry.image" 
-          :alt="`${entry.title} preview image`" 
-          class="w-full h-48 object-cover rounded-t-lg" 
-        />
+        <div v-if="entry.image" class="aspect-video overflow-hidden bg-slate-100 dark:bg-slate-700">
+          <ImageLoader 
+            :src="entry.image" 
+            :alt="`${entry.title} preview image`" 
+            imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            placeholderClass="w-full h-full flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
+            errorClass="w-full h-full flex items-center justify-center bg-red-100 dark:bg-red-800 text-red-600 dark:text-red-300"
+          />
+        </div>
+        <div v-else class="aspect-video flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
         
         <div class="flex-grow flex flex-col p-4">
-          <h2 class="text-xl font-bold mb-2">{{ entry.title }}</h2>
+          <h2 class="text-xl font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ entry.title }}</h2>
           
           <div class="flex flex-wrap gap-2 my-3" v-if="entry.tags && entry.tags.length > 0">
             <Tag 
               v-for="tag in entry.tags" 
               :key="tag" 
               :text="tag"
-              color="primary"
+              color="secondary"
               :clickable="true"
               @click.prevent="handleTagClick(tag)"
             />
           </div>
           
-          <p v-if="entry.description" class="text-slate-600 dark:text-slate-400 line-clamp-3 flex-grow">
+          <p v-if="entry.description" class="text-slate-600 dark:text-slate-400 line-clamp-3 flex-grow mb-4">
             {{ entry.description }}
           </p>
           
-          <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
+          <div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
             <span class="text-sm text-slate-500 dark:text-slate-400">
               <!-- 可以添加创建/更新日期 -->
             </span>
-            <span class="text-primary-600 dark:text-primary-400 text-sm font-medium">查看详情 →</span>
+            <span class="text-primary-600 dark:text-primary-400 text-sm font-medium flex items-center">
+              查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+            </span>
           </div>
         </div>
       </router-link>
@@ -168,24 +178,24 @@ onMounted(async () => {
 }
 
 .wiki-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   padding: 0;
   border-radius: 0.5rem;
-  border: 1px solid var(--border-color, #e2e8f0);
+  border: 1px solid var(--border-color, theme('colors.slate.200'));
   background-color: var(--card-bg, white);
   transition: all 0.2s ease;
-  height: 100%;
+  overflow: hidden;
 }
 
 .wiki-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  border-color: var(--hover-border-color, theme('colors.primary.300'));
 }
 
-.wiki-card img {
-  /* Ensure image doesn't overflow rounded corners */
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
+.aspect-video {
+  aspect-ratio: 16 / 9;
 }
 
 .tag {
@@ -214,8 +224,9 @@ onMounted(async () => {
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --border-color: #2d3748;
-    --card-bg: #1a202c;
+    --border-color: theme('colors.slate.700');
+    --card-bg: theme('colors.slate.800');
+    --hover-border-color: theme('colors.primary.600');
     --tag-bg: #2d3748;
     --tag-color: #cbd5e0;
     --spinner-color: #7f9cf5;

@@ -44,30 +44,39 @@
         v-for="entry in entries" 
         :key="entry.id" 
         :to="`/entry/${categoryType}/${entry.id}`"
-        class="wiki-card"
+        class="wiki-card flex flex-col"
       >
-        <h2 class="text-xl font-bold mb-2">{{ entry.title }}</h2>
+        <ImageLoader 
+          v-if="entry.image" 
+          :src="entry.image" 
+          :alt="`${entry.title} preview image`" 
+          class="w-full h-48 object-cover rounded-t-lg" 
+        />
         
-        <div class="flex flex-wrap gap-2 my-3" v-if="entry.tags && entry.tags.length > 0">
-          <Tag 
-            v-for="tag in entry.tags" 
-            :key="tag" 
-            :text="tag"
-            color="primary"
-            :clickable="true"
-            @click="handleTagClick(tag)"
-          />
-        </div>
-        
-        <p v-if="entry.description" class="text-slate-600 dark:text-slate-400 line-clamp-3">
-          {{ entry.description }}
-        </p>
-        
-        <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
-          <span class="text-sm text-slate-500 dark:text-slate-400">
-            <!-- 可以添加创建/更新日期 -->
-          </span>
-          <span class="text-primary-600 dark:text-primary-400 text-sm font-medium">查看详情 →</span>
+        <div class="flex-grow flex flex-col p-4">
+          <h2 class="text-xl font-bold mb-2">{{ entry.title }}</h2>
+          
+          <div class="flex flex-wrap gap-2 my-3" v-if="entry.tags && entry.tags.length > 0">
+            <Tag 
+              v-for="tag in entry.tags" 
+              :key="tag" 
+              :text="tag"
+              color="primary"
+              :clickable="true"
+              @click.prevent="handleTagClick(tag)"
+            />
+          </div>
+          
+          <p v-if="entry.description" class="text-slate-600 dark:text-slate-400 line-clamp-3 flex-grow">
+            {{ entry.description }}
+          </p>
+          
+          <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
+            <span class="text-sm text-slate-500 dark:text-slate-400">
+              <!-- 可以添加创建/更新日期 -->
+            </span>
+            <span class="text-primary-600 dark:text-primary-400 text-sm font-medium">查看详情 →</span>
+          </div>
         </div>
       </router-link>
     </div>
@@ -100,6 +109,7 @@ import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { loadContentList } from '../services/contentService';
 import Tag from '../components/ui/Tag.vue';
+import ImageLoader from '../components/ui/ImageLoader.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -107,9 +117,10 @@ const loading = ref(true);
 const entries = ref([]);
 
 const handleTagClick = (tag) => {
-  // 更新查询参数，保持在当前分类页面
+  // Prevent navigation when clicking tag inside the link
   router.push({
-    query: { tag }
+    path: route.path, // Stay on the current category page
+    query: { tag } 
   });
 };
 
@@ -158,7 +169,7 @@ onMounted(async () => {
 
 .wiki-card {
   display: block;
-  padding: 1.5rem;
+  padding: 0;
   border-radius: 0.5rem;
   border: 1px solid var(--border-color, #e2e8f0);
   background-color: var(--card-bg, white);
@@ -169,6 +180,12 @@ onMounted(async () => {
 .wiki-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.wiki-card img {
+  /* Ensure image doesn't overflow rounded corners */
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 }
 
 .tag {

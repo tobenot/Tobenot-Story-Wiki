@@ -4,7 +4,9 @@ type: "人物"
 tags: ["横雨军", "心界", "心界人类"]
 related: ["横雨军", "心界"]
 description: "横雨军中一位平平无奇的新人。"
+image: "/images/characters/heartworld/luobei.jpg"
 ---
+![luobei](/images/characters/heartworld/luobei.jpg)
 
 # 萝北
 

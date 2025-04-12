@@ -47,7 +47,8 @@ export async function loadContentList(type, { tag } = {}) {
       title: attributes.title,
       description,
       tags: attributes.tags || [],
-      type: attributes.type || metadata.type // Use type from attributes or infer from path
+      type: attributes.type || metadata.type, // Use type from attributes or infer from path
+      image: attributes.image // Add image field
     });
   }
 
@@ -63,6 +64,7 @@ export async function loadContentEntry(type, id) {
       const { attributes, body } = fm(rawContent);
       return {
         ...attributes,
+        image: attributes.image, // Add image field
         content: renderContent(body), // Assuming renderContent exists elsewhere
         id
       };
@@ -89,10 +91,10 @@ export function renderContent(content, showAllSpoilers = false) {
     headerIds: false
   });
   
-  // 自定义渲染器
+  // 自定义渲染器 (Keep the basic renderer)
   const renderer = new marked.Renderer();
   
-  // Simply parse the content
+  // Parse the content with the standard renderer
   return marked(content, { renderer });
 }
 

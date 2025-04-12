@@ -37,44 +37,55 @@
         
         <!-- 条目内容卡片 -->
         <article class="wiki-card mb-8">
-          <h1 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">{{ entry.title }}</h1>
-          
-          <div class="flex flex-wrap gap-2 mb-6" v-if="entry.tags && entry.tags.length > 0">
-            <Tag 
-              v-for="tag in entry.tags" 
-              :key="tag" 
-              :text="tag" 
-              color="primary"
-              :clickable="true"
-              @click="handleTagClick(tag)"
-            />
-          </div>
-          
-          <!-- 剧透控制 -->
-          <div class="mb-8 flex justify-end">
-            <button @click="showAllSpoilers = !showAllSpoilers" 
-              class="btn"
-              :class="showAllSpoilers ? 'btn-secondary' : 'btn-primary'"
-            >
-              {{ showAllSpoilers ? '隐藏所有剧透' : '我不怕剧透' }}
-            </button>
-          </div>
-          
-          <!-- 条目主体内容 -->
-          <div 
-            class="prose prose-slate dark:prose-invert max-w-none" 
-            v-html="parsedContent"
-          ></div>
-          
-          <!-- 相关条目 -->
-          <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700" v-if="entry.related && entry.related.length > 0">
-            <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-white">相关条目</h3>
-            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <li v-for="item in entry.related" :key="item" class="flex items-center">
-                <span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
-                <a href="#" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400">{{ item }}</a>
-              </li>
-            </ul>
+          <!-- Display Main Entry Image using ImageLoader -->
+          <ImageLoader 
+            v-if="entry.image" 
+            :src="entry.image" 
+            :alt="`${entry.title} primary image`" 
+            class="w-full h-auto max-h-[400px] object-cover rounded-t-lg mb-6" 
+          />
+        
+          <div class="p-4 md:p-6"> <!-- Add padding wrapper for content if image exists -->
+            <h1 class="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">{{ entry.title }}</h1>
+            
+            <div class="flex flex-wrap gap-2 mb-6" v-if="entry.tags && entry.tags.length > 0">
+              <Tag 
+                v-for="tag in entry.tags" 
+                :key="tag" 
+                :text="tag" 
+                color="primary"
+                :clickable="true"
+                @click="handleTagClick(tag)"
+              />
+            </div>
+            
+            <!-- 剧透控制 -->
+            <div class="mb-8 flex justify-end">
+              <button @click="showAllSpoilers = !showAllSpoilers" 
+                class="btn"
+                :class="showAllSpoilers ? 'btn-secondary' : 'btn-primary'"
+              >
+                {{ showAllSpoilers ? '隐藏所有剧透' : '我不怕剧透' }}
+              </button>
+            </div>
+            
+            <!-- 条目主体内容 -->
+            <div 
+              ref="contentContainer"
+              class="prose prose-slate dark:prose-invert max-w-none" 
+              v-html="parsedContent"
+            ></div>
+            
+            <!-- 相关条目 -->
+            <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700" v-if="entry.related && entry.related.length > 0">
+              <h3 class="text-lg font-bold mb-4 text-slate-900 dark:text-white">相关条目</h3>
+              <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <li v-for="item in entry.related" :key="item" class="flex items-center">
+                  <span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
+                  <a href="#" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400">{{ item }}</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </article>
         
@@ -107,6 +118,7 @@ import { loadContentEntry, renderContent, getSpoilerLink } from '../services/con
 import Header from '../components/layout/Header.vue';
 import Footer from '../components/layout/Footer.vue';
 import Tag from '../components/ui/Tag.vue';
+import ImageLoader from '../components/ui/ImageLoader.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -114,6 +126,7 @@ const loading = ref(true);
 const showAllSpoilers = ref(false);
 const entry = ref(null);
 const parsedContent = ref('');
+const contentContainer = ref(null);
 
 // 处理标签点击
 const handleTagClick = (tag) => {
@@ -140,29 +153,66 @@ const categoryTitle = computed(() => {
 
 const pendingSourceLink = 'https://github.com/tobenot/tobenot.github.io/issues';
 
+// Base URL for manual path fixing
+const BASE_URL = import.meta.env.BASE_URL;
+console.log('[EntryPage] BASE_URL:', BASE_URL); // Log BASE_URL on component setup
+
+// Function to prepend base URL if the path is root-relative
+function resolveAssetPath(path) {
+  if (!path || typeof path !== 'string' || !path.startsWith('/')) {
+    return path; 
+  }
+  // Prevent double slashes 
+  const normalizedBase = BASE_URL.endsWith('/') ? BASE_URL : BASE_URL + '/';
+  const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
+  // Ensure we don't end up with triple slashes if base is '/' and path starts with '/' (handled by substring)
+  return `${normalizedBase}${normalizedPath}`;
+}
+
 // 更新渲染内容的逻辑
 const updateParsedContent = () => {
-  console.log('%cupdateParsedContent START. showAllSpoilers:', 'color: green;', showAllSpoilers.value); // Log function start and state
+  console.log('%cupdateParsedContent START. showAllSpoilers:', 'color: green;', showAllSpoilers.value);
   if (!entry.value || !entry.value.content) {
-    console.log('updateParsedContent: No entry or content, returning.'); // Log exit condition
+    console.log('updateParsedContent: No entry or content, returning.');
     parsedContent.value = '';
     return;
   }
   parsedContent.value = renderContent(entry.value.content);
-  console.log('updateParsedContent: Content rendered.'); // Log content rendering
+  console.log('updateParsedContent: Content rendered.');
 
-  // Use nextTick to ensure the DOM is updated with parsedContent
   nextTick(() => {
-    console.log('%cupdateParsedContent: nextTick START.', 'color: orange;'); // Log nextTick start
-    const container = document.querySelector('.prose');
+    console.log('%cupdateParsedContent: nextTick START.', 'color: orange;');
+    const container = contentContainer.value;
     if (!container) {
-        console.error('Content container .prose not found after nextTick');
+        console.error('%cContent container ref not found after nextTick', 'color: red;');
         return;
     }
-    console.log('updateParsedContent: Container found.'); // Log container found
+    console.log('updateParsedContent: Container found.');
+
+    // Fix image paths within the v-html content
+    const images = container.querySelectorAll('img');
+    console.log(`%cupdateParsedContent: Found ${images.length} images in v-html content. BASE_URL is: ${BASE_URL}`, 'color: purple;');
+    images.forEach((img, index) => {
+      const originalSrc = img.getAttribute('src');
+      console.log(`%c[Image ${index}] Original src: ${originalSrc}`, 'color: purple; opacity: 0.8;');
+      // Only fix root-relative paths that haven't already been fixed
+      if (originalSrc && originalSrc.startsWith('/') && !originalSrc.startsWith(BASE_URL)) { 
+        const resolvedSrc = resolveAssetPath(originalSrc);
+        console.log(`%c[Image ${index}] Fixing path. Resolved src: ${resolvedSrc}`, 'color: purple; font-weight: bold;');
+        img.setAttribute('src', resolvedSrc);
+        // Optional: Add error handling for the manually fixed images
+        img.onerror = () => {
+          console.error(`%cFailed to load manually fixed image: ${resolvedSrc}`, 'color: red;');
+          // You could replace the src with a placeholder or add an error class
+          img.classList.add('load-error'); 
+        };
+      } else {
+        console.log(`%c[Image ${index}] Skipping (not root relative or already has base URL)`, 'color: purple; opacity: 0.6;');
+      }
+    });
 
     const spoilers = container.querySelectorAll('.spoiler');
-    console.log(`updateParsedContent: Found ${spoilers.length} spoilers.`); // Log spoiler count
+    console.log(`updateParsedContent: Found ${spoilers.length} spoilers.`);
 
     spoilers.forEach((spoiler, index) => {
       console.log(`Processing spoiler ${index}...`); // Log each spoiler
@@ -309,3 +359,12 @@ onMounted(loadData);
 // 监听路由参数变化，重新加载数据
 watch([categoryType, entryId], loadData);
 </script>
+
+<style scoped>
+/* Add styling for load error if needed */
+.prose img.load-error {
+  /* For example: show a border or a placeholder background */
+  border: 2px dashed red;
+  background-color: #fee2e2; /* Light red background */
+}
+</style>

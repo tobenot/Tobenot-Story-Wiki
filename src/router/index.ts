@@ -12,7 +12,7 @@ const routes = [
     component: () => import('../views/CategoryPage.vue')
   },
   {
-    path: '/entry/:type/:id',
+    path: '/entry/:type/:id(.*)',
     name: 'Entry',
     component: () => import('../views/EntryPage.vue')
   },

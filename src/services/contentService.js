@@ -15,9 +15,26 @@ const contentFiles = {
 
 // Function to extract metadata from a path
 function extractMetadataFromPath(path) {
-  const match = path.match(/\/src\/content\/([^/]+)\/([^/]+)\.md$/);
+  // 支持子文件夹的新正则表达式
+  const match = path.match(/\/src\/content\/([^/]+)\/(.+)\.md$/);
   if (match) {
-    return { type: match[1], id: match[2] };
+    const type = match[1];
+    let id = match[2];
+    
+    // 检查ID是否包含子文件夹路径
+    const containsSubfolder = id.includes('/');
+    
+    // 如果需要，可以在这里处理子文件夹信息
+    const category = containsSubfolder ? id.split('/').slice(0, -1).join('/') : null;
+    const baseId = containsSubfolder ? id.split('/').pop() : id;
+    
+    return { 
+      type, 
+      id,           // 完整ID，包含子文件夹路径
+      baseId,       // 不含路径的基本ID
+      category,     // 子文件夹路径作为分类
+      hasSubfolder: containsSubfolder
+    };
   }
   return null;
 }
@@ -44,6 +61,8 @@ export async function loadContentList(type, { tag } = {}) {
 
     entries.push({
       id: metadata.id,
+      baseId: metadata.baseId,
+      category: metadata.category, // 新增字段，表示子文件夹分类
       title: attributes.title,
       description,
       tags: attributes.tags || [],
@@ -57,16 +76,22 @@ export async function loadContentList(type, { tag } = {}) {
 
 // Load single content entry
 export async function loadContentEntry(type, id) {
+  // 处理子文件夹路径
+  // 如果id包含'/'，则它已经包含子文件夹路径
   const path = `/src/content/${type}/${id}.md`;
+  
   if (contentModules[path]) {
     try {
       const rawContent = await contentModules[path](); // Await the promise
       const { attributes, body } = fm(rawContent);
+      const metadata = extractMetadataFromPath(path);
+      
       return {
         ...attributes,
         image: attributes.image, // Add image field
         content: renderContent(body), // Assuming renderContent exists elsewhere
-        id
+        id,
+        category: metadata?.category // 添加分类信息
       };
     } catch (error) {
       console.error(`Failed to load content entry for ${type}/${id}:`, error);

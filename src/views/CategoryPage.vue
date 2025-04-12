@@ -3,6 +3,17 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
       <h1 class="text-3xl md:text-4xl font-bold mb-4 md:mb-0">{{ categoryTitle }}</h1>
       
+      <!-- 当前文件夹指示 -->
+      <div v-if="currentFolder" class="mb-4 md:mb-0 ml-4 text-slate-600 dark:text-slate-400">
+        <span>当前文件夹: {{ currentFolder }}</span>
+        <button 
+          @click="clearFolder" 
+          class="ml-2 text-primary-600 dark:text-primary-400 hover:underline"
+        >
+          返回全部
+        </button>
+      </div>
+      
       <!-- 搜索和筛选部分 -->
       <div class="flex flex-col sm:flex-row gap-3">
         <div class="relative">
@@ -25,23 +36,42 @@
         </div>
       </div>
     </div>
+
+    <!-- 文件夹列表 -->
+    <div v-if="folders.length > 0 && !currentFolder" class="mb-8">
+      <h2 class="text-xl font-bold mb-4">文件夹</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div 
+          v-for="folder in folders" 
+          :key="folder"
+          @click="selectFolder(folder)"
+          class="cursor-pointer p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 flex items-center"
+        >
+          <span class="text-lg">📁</span>
+          <span class="ml-2">{{ folder }}</span>
+        </div>
+      </div>
+    </div>
     
     <div v-if="loading" class="flex justify-center items-center py-20">
       <div class="loading-spinner"></div>
       <span class="ml-3 text-slate-600 dark:text-slate-400">加载中...</span>
     </div>
     
-    <div v-else-if="entries.length === 0" class="text-center py-20">
+    <div v-else-if="filteredEntries.length === 0" class="text-center py-20">
       <div class="mb-4 text-slate-400 dark:text-slate-500">
         <!-- 空状态图标 -->
       </div>
-      <h3 class="text-xl font-medium text-slate-700 dark:text-slate-300 mb-2">暂无{{ categoryTitle }}内容</h3>
+      <h3 class="text-xl font-medium text-slate-700 dark:text-slate-300 mb-2">
+        {{ currentFolder ? `文件夹 "${currentFolder}" 中` : '' }}暂无{{ categoryTitle }}内容
+      </h3>
       <p class="text-slate-600 dark:text-slate-400">敬请期待！</p>
     </div>
     
     <div v-else class="wiki-grid">
+      <!-- 条目卡片 -->
       <router-link 
-        v-for="entry in entries" 
+        v-for="entry in filteredEntries" 
         :key="entry.id" 
         :to="`/entry/${categoryType}/${entry.id}`"
         class="wiki-card group flex flex-col overflow-hidden"
@@ -115,7 +145,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { loadContentList } from '../services/contentService';
 import Tag from '../components/ui/Tag.vue';
@@ -124,7 +154,9 @@ import ImageLoader from '../components/ui/ImageLoader.vue';
 const route = useRoute();
 const router = useRouter();
 const loading = ref(true);
-const entries = ref([]);
+const allEntries = ref([]); // Store all loaded entries
+const folders = ref([]);
+const currentFolder = ref(route.query.folder || null); // 从 query 获取当前文件夹
 
 const handleTagClick = (tag) => {
   // Prevent navigation when clicking tag inside the link
@@ -149,19 +181,61 @@ const categoryTitles = {
 // Get the display title based on category type
 const categoryTitle = computed(() => categoryTitles[categoryType.value] || '内容');
 
+// 根据当前文件夹过滤条目
+const filteredEntries = computed(() => {
+  if (!currentFolder.value) {
+    // 如果没有选择文件夹，显示所有根目录下的条目 (category 为 null)
+    return allEntries.value.filter(entry => !entry.category);
+  }
+  // 如果选择了文件夹，显示该文件夹下的条目
+  return allEntries.value.filter(entry => entry.category === currentFolder.value);
+});
+
+// 选择文件夹
+const selectFolder = (folder) => {
+  currentFolder.value = folder;
+  router.push({ query: { ...route.query, folder } }); // 更新 URL query
+};
+
+// 清除文件夹选择
+const clearFolder = () => {
+  currentFolder.value = null;
+  const { folder, ...restQuery } = route.query; // 移除 folder query
+  router.push({ query: restQuery });
+};
+
 // 加载内容列表
-onMounted(async () => {
+const loadData = async () => {
+  loading.value = true;
   try {
     const tag = route.query.tag;
     const result = await loadContentList(categoryType.value, { tag });
-    entries.value = result;
+    allEntries.value = result;
+    
+    // 提取所有唯一的文件夹名称
+    const uniqueFolders = new Set(result.map(entry => entry.category).filter(Boolean));
+    folders.value = Array.from(uniqueFolders);
+    
   } catch (error) {
     console.error('Failed to load entries:', error);
     // Handle error state if needed
   } finally {
     loading.value = false;
   }
+};
+
+onMounted(loadData);
+
+// 监听路由 query 的变化，特别是 'folder'
+watch(() => route.query.folder, (newFolder) => {
+  currentFolder.value = newFolder || null;
+  // 如果需要，可以在这里重新加载数据或仅重新计算过滤后的列表
+  // loadData(); // 如果需要在文件夹切换时重新请求数据
 });
+
+// 监听路由参数 (type) 和标签 query 的变化
+watch([categoryType, () => route.query.tag], loadData);
+
 </script>
 
 <style scoped>

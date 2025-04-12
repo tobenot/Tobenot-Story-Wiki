@@ -32,6 +32,16 @@
             {{ categoryTitle }}
           </router-link>
           <span class="mx-2 text-slate-400">/</span>
+          <!-- 如果有分类，显示分类路径 -->
+          <template v-if="entry.category">
+            <router-link 
+              :to="`/category/${categoryType}?folder=${entry.category}`" 
+              class="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+            >
+              {{ entry.category }}
+            </router-link>
+            <span class="mx-2 text-slate-400">/</span>
+          </template>
           <span class="text-slate-700 dark:text-slate-300">{{ entry.title }}</span>
         </nav>
         
@@ -82,7 +92,8 @@
               <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <li v-for="item in entry.related" :key="item" class="flex items-center">
                   <span class="mr-2 text-primary-600 dark:text-primary-400">•</span>
-                  <a href="#" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400">{{ item }}</a>
+                  <!-- 需要解决相关条目的链接问题，暂时保持为简单文本 -->
+                  <span class="text-slate-700 dark:text-slate-300">{{ item }}</span>
                 </li>
               </ul>
             </div>
@@ -337,7 +348,9 @@ const loadData = async () => {
   loading.value = true;
   entry.value = null; // Reset entry
   try {
+    console.log(`Loading content entry for type: ${categoryType.value}, id: ${entryId.value}`);
     const data = await loadContentEntry(categoryType.value, entryId.value);
+    console.log('Content entry loaded:', data); // 添加日志检查数据
     entry.value = data;
     // Ensure updateParsedContent runs AFTER entry data is loaded
     // and the initial parsedContent is set in the DOM

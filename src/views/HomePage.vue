@@ -37,6 +37,26 @@
             <p class="text-slate-600 dark:text-slate-400">了解各种作品中的事件</p>
           </div>
         </router-link>
+        
+        <router-link to="/category/items" class="wiki-card">
+          <div class="p-4 flex flex-col items-center text-center">
+            <div class="mb-4 p-3 rounded-full bg-yellow-100 text-yellow-600 dark:bg-yellow-900/40 dark:text-yellow-400">
+              <!-- 物品图标 -->
+            </div>
+            <h2 class="text-xl font-bold mb-2">物品</h2>
+            <p class="text-slate-600 dark:text-slate-400">浏览各种作品中的物品</p>
+          </div>
+        </router-link>
+        
+        <router-link to="/category/concepts" class="wiki-card">
+          <div class="p-4 flex flex-col items-center text-center">
+            <div class="mb-4 p-3 rounded-full bg-purple-100 text-purple-600 dark:bg-purple-900/40 dark:text-purple-400">
+              <!-- 概念图标 -->
+            </div>
+            <h2 class="text-xl font-bold mb-2">概念</h2>
+            <p class="text-slate-600 dark:text-slate-400">理解各种作品中的概念</p>
+          </div>
+        </router-link>
       </div>
     </section>
     

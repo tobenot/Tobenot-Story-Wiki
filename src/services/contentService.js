@@ -125,8 +125,7 @@ export function renderContent(content, showAllSpoilers = false) {
 
 // Example: Add function to get source links (can be expanded)
 const spoilerLinksConfig = {
-  '《心界录》': '/works/xin-jie-lu', // Example
-  '《创世纪》': '/works/genesis-chapter-1', // From previous EntryPage code
+  '《不止于纸上的故事：银月篇》': 'https://tobenot.itch.io/beyond-books', // Example
   // Add more links here
 };
 

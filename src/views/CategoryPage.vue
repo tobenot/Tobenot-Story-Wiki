@@ -80,7 +80,7 @@
           <ImageLoader 
             :src="entry.image" 
             :alt="`${entry.title} preview image`" 
-            imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            imageClass="w-full h-full object-cover object-[center_30%] transition-transform duration-300 group-hover:scale-105"
             placeholderClass="w-full h-full flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
             errorClass="w-full h-full flex items-center justify-center bg-red-100 dark:bg-red-800 text-red-600 dark:text-red-300"
           />

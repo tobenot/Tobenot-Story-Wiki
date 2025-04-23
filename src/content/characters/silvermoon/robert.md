@@ -23,7 +23,7 @@ image: "/images/characters/silvermoon/robert.png"
 
 ## 历史背景
 
-<div class="spoiler" data-source="《不止于纸上的故事：银月篇》在回家之前到家">
+<div class="spoiler" data-source="《在回家之前到家》">
 罗伯特在2008年高中时期经历过异能溢出事件【在回家之前到家】，当时他的时间停止能力首次显现但失控，导致了一系列混乱。
 </div>
 

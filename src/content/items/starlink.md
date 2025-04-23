@@ -4,7 +4,7 @@ type: "物品"
 tags: ["银月篇", "能量之体", "望穿秋水", "不止于纸上的故事：银月篇"]
 related: ["望穿秋水", "能量之体", "琼"]
 description: "望穿秋水湖底的一种能量之体。是受到丰沛灵力滋润的小石子。"
-image: "/images/items/starlink.jpg"
+image: "/images/no_image.png"
 ---
 # 星辰
 

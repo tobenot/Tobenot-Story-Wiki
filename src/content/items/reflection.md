@@ -4,7 +4,7 @@ type: "物品"
 tags: ["银月篇", "能量之体", "银月寺"]
 related: ["银月寺", "能量之体", "贝利斯"]
 description: "银月寺持有的一种能量之体。"
-image: "/images/items/reflection.jpg"
+image: "/images/no_image.png"
 ---
 # 折射
 

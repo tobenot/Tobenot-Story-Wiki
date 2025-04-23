@@ -8,7 +8,7 @@ image: "/images/characters/silvermoon/robert.png"
 ---
 # 罗伯特
 
-罗伯特是银月寺的保安，拥有【苍穹缝隙】异能，可以停止时间并在时停中行动。
+罗伯特是银月寺的保安。
 
 ## 基本信息
 

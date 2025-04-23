@@ -8,7 +8,7 @@ image: "/images/characters/silvermoon/norton.png"
 ---
 # 诺顿
 
-诺顿是银月寺的保安，虽未觉醒特定异能，但拥有灵能盾保护，并且棍术精湛。
+诺顿是银月寺的保安。
 
 ## 基本信息
 
@@ -23,7 +23,7 @@ image: "/images/characters/silvermoon/norton.png"
 
 ## 历史背景
 
-诺顿加入银月寺担任保安，主要负责保护保留地的安全。尽管没有特殊异能，他凭借出色的战斗技巧和冷静的头脑成为了团队的重要成员。
+待补充
 
 ## 个人特点
 

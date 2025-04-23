@@ -126,6 +126,7 @@ export function renderContent(content, showAllSpoilers = false) {
 // Example: Add function to get source links (can be expanded)
 const spoilerLinksConfig = {
   '《不止于纸上的故事：银月篇》': 'https://tobenot.itch.io/beyond-books', // Example
+  '《在回家之前到家》': 'https://tobenot.github.io/2024/06/28/Story-Arrive-Before-Go-Home/',
   // Add more links here
 };
 

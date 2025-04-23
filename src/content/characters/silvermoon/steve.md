@@ -4,7 +4,7 @@ type: "人物"
 tags: ["银月篇", "银月寺", "主持", "不止于纸上的故事：银月篇"]
 related: ["银月寺", "罗伯特", "折射"]
 description: "银月寺的主持。"
-image: "/images/characters/no_image.png"
+image: "/images/no_image.png"
 ---
 # 史蒂文
 

@@ -1,8 +1,8 @@
 import fm from 'front-matter';
 import { marked } from 'marked';
 
-// Import all markdown files from the content directory
-const contentModules = import.meta.glob('/src/content/**/*.md', { as: 'raw' });
+// Import all markdown files from the content directory eagerly
+const contentModules = import.meta.glob('/src/content/**/*.md', { eager: true, as: 'raw' });
 
 // Predefined content type mapping (if still needed, otherwise remove or adjust)
 const contentFiles = {
@@ -39,13 +39,18 @@ function extractMetadataFromPath(path) {
   return null;
 }
 
-// Load content list
-export async function loadContentList(type, { tag } = {}) {
+// Load content list (Now synchronous as content is preloaded)
+export function loadContentList(type, { tag } = {}) {
   const entries = [];
-  const pathsToLoad = type ? contentFiles[type] : Object.keys(contentModules);
+  // Determine paths based on type - contentFiles needs to be defined using Object.keys(contentModules)
+  const allPaths = Object.keys(contentModules);
+  const contentFilesForType = type 
+    ? allPaths.filter(path => path.startsWith(`/src/content/${type}/`)) 
+    : allPaths;
 
-  for (const path of pathsToLoad) {
-    const rawContent = await contentModules[path](); // Await the promise returned by the glob import
+  for (const path of contentFilesForType) {
+    const rawContent = contentModules[path]; // Access preloaded content directly
+    // No await needed here
     const { attributes, body } = fm(rawContent);
     const metadata = extractMetadataFromPath(path);
 
@@ -71,25 +76,28 @@ export async function loadContentList(type, { tag } = {}) {
     });
   }
 
+  // Sort entries? (Optional, e.g., by title)
+  // entries.sort((a, b) => a.title.localeCompare(b.title));
+
   return entries;
 }
 
-// Load single content entry
-export async function loadContentEntry(type, id) {
+// Load single content entry (Now largely synchronous for fetching)
+export function loadContentEntry(type, id) {
   // 处理子文件夹路径
-  // 如果id包含'/'，则它已经包含子文件夹路径
   const path = `/src/content/${type}/${id}.md`;
   
   if (contentModules[path]) {
     try {
-      const rawContent = await contentModules[path](); // Await the promise
+      const rawContent = contentModules[path]; // Access preloaded content directly
+      // No await needed here
       const { attributes, body } = fm(rawContent);
       const metadata = extractMetadataFromPath(path);
       
       return {
         ...attributes,
         image: attributes.image, // Add image field
-        content: renderContent(body), // Assuming renderContent exists elsewhere
+        content: renderContent(body), // renderContent itself might have async parts if plugins were used, but base marked is sync
         id,
         category: metadata?.category // 添加分类信息
       };

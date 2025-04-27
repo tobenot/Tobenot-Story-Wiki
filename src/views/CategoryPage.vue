@@ -1,14 +1,14 @@
 <template>
   <div class="wiki-container">
-    <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold mb-4 md:mb-0">{{ categoryTitle }}</h1>
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-12">
+      <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-0 bg-gradient-to-r from-starlight-200 to-starlight-400 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
       
       <!-- 当前文件夹指示 -->
-      <div v-if="currentFolder" class="mb-4 md:mb-0 ml-4 text-slate-600 dark:text-slate-400">
+      <div v-if="currentFolder" class="mb-4 md:mb-0 ml-4 text-starlight-300">
         <span>当前文件夹: {{ currentFolder }}</span>
         <button 
           @click="clearFolder" 
-          class="ml-2 text-primary-600 dark:text-primary-400 hover:underline"
+          class="ml-2 text-secondary-400 hover:text-secondary-300 transition-colors"
         >
           返回全部
         </button>
@@ -21,55 +21,72 @@
             type="search" 
             placeholder="搜索..." 
             v-model="searchQuery"
-            class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary-500"
+            class="w-full pl-10 pr-4 py-2.5 rounded-full border border-cosmic-500/40 bg-cosmic-800/60 backdrop-blur-sm focus:border-secondary-500/50 focus:ring-1 focus:ring-secondary-500/30 text-starlight-200 placeholder-starlight-400/50"
           />
           <!-- 搜索图标 -->
+          <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-starlight-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </span>
         </div>
         
         <div class="relative">
           <select 
             v-model="sortOption"
-            class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 focus:ring-2 focus:ring-primary-500 appearance-none pr-8"
+            class="w-full rounded-full border border-cosmic-500/40 bg-cosmic-800/60 backdrop-blur-sm px-4 py-2.5 focus:border-secondary-500/50 focus:ring-1 focus:ring-secondary-500/30 appearance-none pr-8 text-starlight-200"
           >
             <option value="newest">最新添加</option>
             <option value="oldest">最早添加</option>
             <option value="a-z">字母排序 A-Z</option>
             <option value="z-a">字母排序 Z-A</option>
           </select>
-          <!-- 筛选图标 -->
+          <!-- 下拉图标 -->
+          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-starlight-400 pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
         </div>
       </div>
     </div>
 
     <!-- 文件夹列表 -->
-    <div v-if="folders.length > 0 && !currentFolder" class="mb-8">
-      <h2 class="text-xl font-bold mb-4">文件夹</h2>
+    <div v-if="folders.length > 0 && !currentFolder" class="mb-12">
+      <h2 class="text-xl font-bold mb-5 text-starlight-200 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+        </svg>
+        文件夹
+      </h2>
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         <div 
           v-for="folder in folders" 
           :key="folder"
           @click="selectFolder(folder)"
-          class="cursor-pointer p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 flex items-center"
+          class="cursor-pointer p-4 bg-cosmic-700/20 backdrop-blur-sm rounded-lg border border-cosmic-500/50 hover:border-secondary-500/50 hover:shadow-glow flex items-center transition-all duration-300 group"
         >
-          <span class="text-lg">📁</span>
-          <span class="ml-2">{{ folder }}</span>
+          <span class="text-lg text-secondary-300 mr-2 group-hover:text-secondary-200 transition-colors">📁</span>
+          <span class="text-starlight-300 group-hover:text-starlight-100 transition-colors">{{ folder }}</span>
         </div>
       </div>
     </div>
     
     <div v-if="loading" class="flex justify-center items-center py-20">
-      <div class="loading-spinner"></div>
-      <span class="ml-3 text-slate-600 dark:text-slate-400">加载中...</span>
+      <div class="animate-spin h-10 w-10 rounded-full border-t-2 border-b-2 border-starlight-300"></div>
+      <span class="ml-3 text-starlight-400">加载中...</span>
     </div>
     
     <div v-else-if="paginatedEntries.length === 0" class="text-center py-20">
-      <div class="mb-4 text-slate-400 dark:text-slate-500">
-        <!-- 空状态图标 -->
+      <div class="mb-4 text-starlight-500">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        </svg>
       </div>
-      <h3 class="text-xl font-medium text-slate-700 dark:text-slate-300 mb-2">
+      <h3 class="text-xl font-medium text-starlight-200 mb-2">
         {{ currentFolder ? `文件夹 "${currentFolder}" 中` : '' }}{{ searchQuery ? '匹配搜索结果' : '' }}暂无{{ categoryTitle }}内容
       </h3>
-      <p class="text-slate-600 dark:text-slate-400">敬请期待！</p>
+      <p class="text-starlight-400">敬请期待！</p>
     </div>
     
     <div v-else class="wiki-grid">
@@ -80,23 +97,30 @@
         :to="`/entry/${categoryType}/${entry.id}`"
         class="wiki-card group flex flex-col overflow-hidden"
       >
-        <div v-if="entry.image" class="aspect-video overflow-hidden bg-slate-100 dark:bg-slate-700">
+        <div v-if="entry.image" class="aspect-video overflow-hidden bg-cosmic-700/50 relative">
           <ImageLoader 
             :src="entry.image" 
             :alt="`${entry.title} preview image`" 
-            imageClass="w-full h-full object-cover object-[center_30%] transition-transform duration-300 group-hover:scale-105"
-            placeholderClass="w-full h-full flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500"
-            errorClass="w-full h-full flex items-center justify-center bg-red-100 dark:bg-red-800 text-red-600 dark:text-red-300"
+            imageClass="w-full h-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-105"
+            placeholderClass="w-full h-full flex items-center justify-center bg-cosmic-600/50 text-starlight-500"
+            errorClass="w-full h-full flex items-center justify-center bg-red-900/30 text-red-300"
           />
+          <!-- 渐变遮罩 -->
+          <div class="absolute inset-0 bg-gradient-to-t from-cosmic-800/90 via-cosmic-800/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <div v-else class="aspect-video flex items-center justify-center bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <div v-else class="aspect-video flex items-center justify-center bg-cosmic-700/30 text-starlight-500 relative overflow-hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
+          <!-- 装饰背景 -->
+          <div class="absolute inset-0">
+            <div class="absolute w-20 h-20 rounded-full bg-secondary-500/5 blur-xl -top-5 -left-5"></div>
+            <div class="absolute w-16 h-16 rounded-full bg-primary-500/5 blur-xl bottom-2 right-2"></div>
+          </div>
         </div>
         
-        <div class="flex-grow flex flex-col p-4">
-          <h2 class="text-xl font-bold mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ entry.title }}</h2>
+        <div class="flex-grow flex flex-col p-5">
+          <h2 class="text-xl font-bold mb-2 text-starlight-200 group-hover:text-starlight-100 transition-colors">{{ entry.title }}</h2>
           
           <div class="flex flex-wrap gap-2 my-3" v-if="entry.tags && entry.tags.length > 0">
             <Tag 
@@ -109,39 +133,45 @@
             />
           </div>
           
-          <p v-if="entry.description" class="text-slate-600 dark:text-slate-400 line-clamp-3 flex-grow mb-4">
+          <p v-if="entry.description" class="text-starlight-400 line-clamp-3 flex-grow mb-4 text-sm">
             {{ entry.description }}
           </p>
           
-          <div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
-            <span class="text-sm text-slate-500 dark:text-slate-400">
+          <div class="mt-auto pt-4 border-t border-cosmic-600/30 flex justify-between items-center">
+            <span class="text-xs text-starlight-500">
               <!-- 可以添加创建/更新日期 -->
             </span>
-            <span class="text-primary-600 dark:text-primary-400 text-sm font-medium flex items-center">
+            <span class="text-secondary-400 text-sm font-medium flex items-center group-hover:text-secondary-300 transition-colors">
               查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
             </span>
           </div>
+        </div>
+
+        <!-- 卡片hover装饰 -->
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300">
+          <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary-500/30 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary-500/30 to-transparent"></div>
         </div>
       </router-link>
     </div>
     
     <!-- 分页控件 -->
-    <div v-if="totalPages > 1" class="mt-10 flex justify-center">
+    <div v-if="totalPages > 1" class="mt-12 flex justify-center">
       <nav class="flex items-center space-x-2">
         <button 
-          class="btn btn-secondary p-2" 
+          class="btn-page" 
           :disabled="currentPage === 1" 
           @click="prevPage"
+          :class="{'btn-page-disabled': currentPage === 1}"
         >
-          <!-- 上一页图标 -->
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
         </button>
 
         <button 
           v-for="page in pagesToShow" 
           :key="page"
-          class="btn px-4" 
-          :class="page === currentPage ? 'btn-primary' : 'btn-secondary'"
+          class="btn-page" 
+          :class="{'btn-page-active': page === currentPage, 'btn-page-disabled': page === '...'}"
           @click="goToPage(page)"
           :disabled="page === '...'"
         >
@@ -149,17 +179,17 @@
         </button>
 
         <button 
-          class="btn btn-secondary p-2" 
+          class="btn-page" 
           :disabled="currentPage === totalPages" 
           @click="nextPage"
+          :class="{'btn-page-disabled': currentPage === totalPages}"
         >
-          <!-- 下一页图标 -->
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
         </button>
       </nav>
     </div>
     
-    <div class="mt-8 text-center">
+    <div class="mt-10 text-center">
       <router-link to="/" class="btn btn-secondary">
         返回首页
       </router-link>
@@ -382,70 +412,56 @@ watch([categoryType, () => route.query.tag], loadData);
 
 <style scoped>
 .wiki-container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .wiki-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
 }
 
 .wiki-card {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  border-radius: 0.5rem;
-  border: 1px solid var(--border-color, theme('colors.slate.200'));
-  background-color: var(--card-bg, white);
-  transition: all 0.2s ease;
-  overflow: hidden;
+  @apply bg-cosmic-800/60 backdrop-blur-sm rounded-lg border border-cosmic-600/40 transition-all duration-300 relative;
+  transform: translateY(0);
 }
 
 .wiki-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-  border-color: var(--hover-border-color, theme('colors.primary.300'));
+  @apply border-secondary-500/40 shadow-glow;
+  transform: translateY(-3px);
 }
 
 .aspect-video {
   aspect-ratio: 16 / 9;
 }
 
-.tag {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background-color: var(--tag-bg, #edf2f7);
-  color: var(--tag-color, #4a5568);
-  font-size: 0.75rem;
-  font-weight: 500;
+.btn-page {
+  @apply flex items-center justify-center h-9 w-9 rounded-md bg-cosmic-700/40 text-starlight-300 border border-cosmic-600/30 transition-all;
 }
 
-.loading-spinner {
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top: 3px solid var(--spinner-color, #3498db);
-  width: 1.5rem;
-  height: 1.5rem;
-  animation: spin 1s linear infinite;
+.btn-page:hover:not(:disabled) {
+  @apply bg-cosmic-600/50 text-starlight-100 border-cosmic-500/40;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.btn-page-active {
+  @apply bg-secondary-700/50 text-starlight-100 border-secondary-600/30;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --border-color: theme('colors.slate.700');
-    --card-bg: theme('colors.slate.800');
-    --hover-border-color: theme('colors.primary.600');
-    --tag-bg: #2d3748;
-    --tag-color: #cbd5e0;
-    --spinner-color: #7f9cf5;
+.btn-page-disabled {
+  @apply cursor-not-allowed opacity-40;
+}
+
+@media (max-width: 768px) {
+  .wiki-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .wiki-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

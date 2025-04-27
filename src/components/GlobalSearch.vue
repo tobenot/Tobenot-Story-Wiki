@@ -11,9 +11,9 @@
         @keydown.esc="hideResults"
         type="text"
         placeholder="搜索任何内容..."
-        class="w-full px-12 py-3.5 rounded-full bg-cosmic-800/70 backdrop-blur-md border border-cosmic-500/50 focus:border-secondary-500/70 text-starlight-200 placeholder-starlight-500/50 outline-none transition-all duration-300 shadow-inner shadow-cosmic-900/20 focus:shadow-glow"
+        class="w-full px-12 py-3.5 rounded-full bg-gray-200/90 backdrop-blur-md border border-gray-300/50 focus:border-starlight-500/70 text-gray-700 placeholder-gray-500/80 outline-none transition-all duration-300 shadow-inner shadow-gray-300/20 focus:shadow-starlight"
       />
-      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-secondary-400">
+      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-starlight-600">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
@@ -21,7 +21,7 @@
       <span 
         v-if="searchQuery" 
         @click="clearSearch" 
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-starlight-500 hover:text-starlight-300 cursor-pointer"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-starlight-600 hover:text-starlight-700 cursor-pointer"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -38,8 +38,8 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-2"
     >
-      <div v-if="showResults && filteredItems.length > 0" class="search-results absolute z-50 w-full mt-2 rounded-lg overflow-hidden bg-cosmic-800/90 backdrop-blur-lg border border-cosmic-600/50 shadow-lg shadow-cosmic-900/30">
-        <div class="search-results-header border-b border-cosmic-600/30 px-4 py-2 text-xs text-starlight-400">
+      <div v-if="showResults && filteredItems.length > 0" class="search-results absolute z-50 w-full mt-2 rounded-lg overflow-hidden bg-white/90 backdrop-blur-lg border border-gray-200 shadow-lg shadow-gray-300/30">
+        <div class="search-results-header border-b border-gray-200 px-4 py-2 text-xs text-gray-600">
           找到 {{ filteredItems.length }} 个匹配的结果
         </div>
         <ul class="max-h-96 overflow-y-auto">
@@ -47,8 +47,8 @@
             v-for="(item, index) in filteredItems" 
             :key="index"
             @click="navigateToItem(item)"
-            :class="{ 'bg-cosmic-700/50': index === selectedIndex }"
-            class="p-4 border-b border-cosmic-600/20 last:border-0 cursor-pointer hover:bg-cosmic-700/30"
+            :class="{ 'bg-gray-100/80': index === selectedIndex }"
+            class="p-4 border-b border-gray-200/20 last:border-0 cursor-pointer hover:bg-gray-100/50"
           >
             <div class="flex items-center">
               <!-- 类型标志 -->
@@ -56,17 +56,17 @@
                 <div class="inner-icon w-4 h-4"></div>
               </div>
               <div class="flex-1">
-                <div class="text-starlight-100 font-medium">{{ item.title }}</div>
-                <div v-if="item.description" class="text-starlight-400 text-sm mt-1 line-clamp-1">{{ item.description }}</div>
+                <div class="text-gray-800 font-medium">{{ item.title }}</div>
+                <div v-if="item.description" class="text-gray-600 text-sm mt-1 line-clamp-1">{{ item.description }}</div>
                 <div class="flex mt-1.5 space-x-2">
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-cosmic-600/50 text-secondary-300">{{ getCategoryName(item.type) }}</span>
-                  <span v-for="(tag, tagIndex) in item.tags?.slice(0, 2)" :key="tagIndex" class="text-xs px-2 py-0.5 rounded-full bg-cosmic-600/30 text-starlight-400">{{ tag }}</span>
+                  <span class="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-starlight-700">{{ getCategoryName(item.type) }}</span>
+                  <span v-for="(tag, tagIndex) in item.tags?.slice(0, 2)" :key="tagIndex" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{{ tag }}</span>
                 </div>
               </div>
             </div>
           </li>
         </ul>
-        <div v-if="filteredItems.length > 5" class="search-results-footer border-t border-cosmic-600/30 px-4 py-2 text-xs text-starlight-400 text-center">
+        <div v-if="filteredItems.length > 5" class="search-results-footer border-t border-gray-200 px-4 py-2 text-xs text-gray-600 text-center">
           请使用 ↑ ↓ 箭头键选择，Enter 确认
         </div>
       </div>
@@ -81,12 +81,12 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-2"
     >
-      <div v-if="showResults && searchQuery && filteredItems.length === 0" class="search-results absolute z-50 w-full mt-2 rounded-lg overflow-hidden bg-cosmic-800/90 backdrop-blur-lg border border-cosmic-600/50 shadow-lg shadow-cosmic-900/30 p-4 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-starlight-500/50 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div v-if="showResults && searchQuery && filteredItems.length === 0" class="search-results absolute z-50 w-full mt-2 rounded-lg overflow-hidden bg-white/90 backdrop-blur-lg border border-gray-200 shadow-lg shadow-gray-200/30 p-4 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12.5h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p class="text-starlight-300">未找到关于 "{{ searchQuery }}" 的结果</p>
-        <p class="text-starlight-500 text-sm mt-1">请尝试使用其他关键词</p>
+        <p class="text-gray-700">未找到关于 "{{ searchQuery }}" 的结果</p>
+        <p class="text-gray-500 text-sm mt-1">请尝试使用其他关键词</p>
       </div>
     </transition>
   </div>
@@ -141,14 +141,14 @@ const getCategoryName = (type) => {
 // 获取分类样式类
 const getCategoryClass = (type) => {
   const classMap = {
-    'characters': 'bg-primary-700/30 border-primary-500/50',
-    'locations': 'bg-secondary-700/30 border-secondary-500/50',
-    'events': 'bg-cosmic-700/30 border-cosmic-500/50',
-    'items': 'bg-accent-700/30 border-accent-500/50',
-    'concepts': 'bg-starlight-700/30 border-starlight-500/50'
+    'characters': 'bg-primary-100 border-primary-200',
+    'locations': 'bg-gray-100 border-gray-200',
+    'events': 'bg-gray-100 border-gray-200',
+    'items': 'bg-accent-100 border-accent-200',
+    'concepts': 'bg-starlight-100 border-starlight-300'
   };
   
-  return `border ${classMap[type] || 'bg-cosmic-700/30 border-cosmic-500/50'}`;
+  return `border ${classMap[type] || 'bg-gray-100 border-gray-200'}`;
 };
 
 // 处理输入
@@ -243,7 +243,7 @@ onBeforeUnmount(() => {
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(170, 137, 74, 0.1);
 }
 
 /* 自定义滚动条样式 */
@@ -252,16 +252,16 @@ onBeforeUnmount(() => {
 }
 
 .search-results ul::-webkit-scrollbar-track {
-  background: rgba(30, 20, 60, 0.2);
+  background: rgba(200, 200, 200, 0.2);
   border-radius: 3px;
 }
 
 .search-results ul::-webkit-scrollbar-thumb {
-  background-color: rgba(130, 86, 255, 0.3);
+  background-color: rgba(170, 137, 74, 0.3);
   border-radius: 3px;
 }
 
 .search-results ul::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(130, 86, 255, 0.5);
+  background-color: rgba(170, 137, 74, 0.5);
 }
 </style> 

@@ -1,11 +1,11 @@
 <!-- src/App.vue -->
 <template>
-  <div class="min-h-screen bg-cosmic-gradient bg-fixed relative overflow-hidden">
-    <!-- 星空背景效果 -->
-    <div class="absolute inset-0 bg-star-field opacity-70"></div>
-    <div class="absolute inset-0 bg-galaxy opacity-50"></div>
+  <div class="min-h-screen bg-white bg-fixed relative overflow-hidden">
+    <!-- 浅灰色背景层 -->
+    <div class="absolute inset-0 bg-gray-50/70"></div>
+    <div class="absolute inset-0 bg-gray-100/30"></div>
     
-    <!-- 星系图案 - 模仿图片中的魔法阵效果 -->
+    <!-- 极简几何图案 - 模仿图片中的魔法阵效果 -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
       <div class="magic-circle"></div>
     </div>
@@ -26,7 +26,7 @@
     </div>
     
     <!-- 主要内容区域 -->
-    <div class="relative z-10 min-h-screen text-slate-200 dark:text-white">
+    <div class="relative z-10 min-h-screen text-gray-800 dark:text-gray-200">
       <router-view />
     </div>
   </div>
@@ -51,15 +51,16 @@ onMounted(() => {
 <style>
 /* 全局样式和星光效果 */
 :root {
-  --star-color: rgba(255, 255, 255, 0.8);
+  --star-color: rgba(170, 137, 74, 0.4); /* 淡金色星光 */
   --star-tail-length: 6em;
   --star-tail-height: 2px;
   --star-width: 3px;
   --star-delay-range: 5s;
-  --cosmic-primary: #160D2A;
-  --cosmic-secondary: #0A0514;
-  --starlight-primary: #D0BC92;
-  --starlight-secondary: #BFB2E0;
+  /* 使用白/灰/金色系 */
+  --cosmic-primary: #FFFFFF; /* 纯白色 */
+  --cosmic-secondary: #F5F5F8; /* cosmic-50 - 几乎纯白 */
+  --starlight-primary: #AA894A; /* starlight-500 */
+  --starlight-secondary: #E9D4A4; /* starlight-200 */
 }
 
 body {
@@ -69,12 +70,12 @@ body {
   background-color: var(--cosmic-primary);
 }
 
-/* 背景渐变 */
+/* 背景渐变 - 改为白色/浅灰色调 */
 .bg-cosmic-gradient {
-  background: linear-gradient(to bottom, var(--cosmic-secondary), var(--cosmic-primary) 85%);
+  background: linear-gradient(to bottom, #FFFFFF, #F5F5F8);
 }
 
-/* 魔法阵设计 */
+/* 魔法阵设计 - 改为金色调 */
 .magic-circle {
   position: absolute;
   top: 50%;
@@ -82,10 +83,10 @@ body {
   transform: translate(-50%, -50%);
   width: 60vh;
   height: 60vh;
-  border: 1px solid rgba(208, 188, 146, 0.15);
+  border: 1px solid rgba(170, 137, 74, 0.25); /* starlight-500 with alpha */
   border-radius: 50%;
-  box-shadow: 0 0 60px rgba(208, 188, 146, 0.05);
-  opacity: 0.5;
+  box-shadow: 0 0 60px rgba(170, 137, 74, 0.1); /* starlight-500 with alpha */
+  opacity: 0.7;
 }
 
 .magic-circle::before {
@@ -96,7 +97,7 @@ body {
   transform: translate(-50%, -50%);
   width: 45vh;
   height: 45vh;
-  border: 1px solid rgba(191, 178, 224, 0.15);
+  border: 1px solid rgba(219, 189, 125, 0.2); /* starlight-300 with alpha */
   border-radius: 50%;
 }
 
@@ -108,11 +109,11 @@ body {
   transform: translate(-50%, -50%);
   width: 30vh;
   height: 30vh;
-  border: 1px solid rgba(208, 188, 146, 0.15);
+  border: 1px solid rgba(170, 137, 74, 0.25); /* starlight-500 with alpha */
   border-radius: 50%;
 }
 
-/* 定义流动星光粒子 */
+/* 定义流动星光粒子 - 使用新的 --star-color */
 .star-particle {
   position: absolute;
   top: 50%;
@@ -192,14 +193,14 @@ body {
 }
 
 .btn-secondary {
-  @apply bg-cosmic-600/80 hover:bg-cosmic-700/90 text-starlight-200 shadow-md shadow-cosmic-900/30 backdrop-blur-sm;
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm border border-gray-200/80 backdrop-blur-sm;
 }
 
 .wiki-card {
-  @apply bg-cosmic-800/80 backdrop-blur-sm rounded-lg border border-cosmic-600/60 shadow-cosmic transition-all duration-300 overflow-hidden text-inherit no-underline;
+  @apply bg-white/90 backdrop-blur-sm rounded-lg border border-gray-100 shadow-sm transition-all duration-300 overflow-hidden text-inherit no-underline;
 }
 
 .wiki-card:hover {
-  @apply border-secondary-500/70 shadow-glow transform -translate-y-1;
+  @apply border-starlight-400/50 shadow-starlight transform -translate-y-1;
 }
 </style>

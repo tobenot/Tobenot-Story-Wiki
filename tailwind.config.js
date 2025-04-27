@@ -8,32 +8,35 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 宇宙主题色彩方案
+        // 恢复 cosmic 名称，使用新的白/灰颜色值
         cosmic: {
-          900: '#0A0514', // 深宇宙黑
-          800: '#110A27', // 深空色
-          700: '#1A1138', // 暗紫罗兰
-          600: '#261A4D', // 深靛蓝
-          500: '#312559', // 星云紫
-          400: '#4A347A', // 中等紫罗兰
-          300: '#624A9E', // 淡紫罗兰
-          200: '#9079C6', // 薄雾紫
-          100: '#BFB2E0', // 幻影紫
-          50: '#EBE5F9',  // 星尘白
+          950: '#0F0F11', // 深黑
+          900: '#141518', // 纯黑
+          800: '#1C1C21', // 深灰黑
+          700: '#26262D', // 深石墨
+          600: '#303038', // 暗灰
+          500: '#404046', // 中灰
+          400: '#5A5A64', // 灰色
+          300: '#7E7E8A', // 浅灰
+          200: '#B0B0BA', // 银灰
+          100: '#E0E0E6', // 亮灰
+          50: '#F5F5F8',  // 几乎纯白
         },
+        // 恢复 starlight 名称，使用新的金色系颜色值
         starlight: {
-          900: '#342C1A', // 深琥珀
-          800: '#594F2D', // 古铜色
-          700: '#7F704F', // 暗金色
-          600: '#A89670', // 中金色
-          500: '#D0BC92', // 淡金色
-          400: '#D5C9A6', // 象牙金（更深）
-          300: '#DAD0B4', // 轻金丝（更深）
-          200: '#E6DECB', // 珍珠色（更深）
-          100: '#F0EAD9', // 星光色（更深）
-          50: '#FFFCF7',  // 纯白光
+          950: '#2A2310', // 深金黑
+          900: '#362B14', // 深橄榄金
+          800: '#483A1C', // 暗金
+          700: '#5E4A24', // 古铜
+          600: '#8C7034', // 暗金黄
+          500: '#AA894A', // 中金色
+          400: '#C9A65E', // 浅金
+          300: '#DBBD7D', // 淡金
+          200: '#E9D4A4', // 米金
+          100: '#F3E7C8', // 象牙金
+          50: '#FCF8ED',  // 纯白光
         },
-        // 保留原有颜色方案但做微调
+        // 恢复原有的颜色方案
         primary: {
           50: '#F0F7FF',
           100: '#E0F2FE',
@@ -74,6 +77,7 @@ export default {
           950: '#422006',
         },
       },
+      // 恢复原有的 boxShadow
       boxShadow: {
         'card': '0 4px 12px rgba(49, 37, 89, 0.08)',
         'card-hover': '0 8px 24px rgba(49, 37, 89, 0.16)',
@@ -81,18 +85,21 @@ export default {
         'starlight': '0 0 20px rgba(226, 214, 181, 0.6)',
         'cosmic': '0 0 25px rgba(96, 74, 158, 0.3)',
       },
+      // 恢复原有的 backgroundImage
       backgroundImage: {
         'cosmic-gradient': 'linear-gradient(to bottom, #0A0514, #261A4D)',
         'star-field': 'radial-gradient(circle at top right, rgba(96, 74, 158, 0.15), rgba(10, 5, 20, 0) 70%)',
         'aurora': 'linear-gradient(to right, rgba(162, 138, 235, 0.2), rgba(96, 214, 181, 0.2), rgba(162, 138, 235, 0.2))',
         'galaxy': 'radial-gradient(ellipse at center, rgba(49, 37, 89, 0.3) 0%, rgba(10, 5, 20, 0) 70%)',
       },
+      // 恢复原有的 animation
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'shimmer': 'shimmer 3s linear infinite',
         'starlight': 'starlight 4s ease-in-out infinite',
       },
+      // 恢复原有的 keyframes
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
@@ -107,6 +114,7 @@ export default {
           '50%': { opacity: 0.8 },
         }
       },
+      // 恢复原有的 typography
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -117,29 +125,29 @@ export default {
               },
             },
             h1: {
-              color: theme('colors.slate.900'),
+              color: theme('colors.slate.900'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
               fontWeight: '700',
               letterSpacing: '0.025em',
             },
             h2: {
-              color: theme('colors.slate.900'),
+              color: theme('colors.slate.900'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
               fontWeight: '600',
               letterSpacing: '0.015em',
             },
             h3: {
-              color: theme('colors.slate.900'),
+              color: theme('colors.slate.900'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
               fontWeight: '600',
             },
             blockquote: {
               borderLeftColor: theme('colors.secondary.300'),
-              color: theme('colors.slate.700'),
+              color: theme('colors.slate.700'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
               fontStyle: 'italic',
             },
           },
         },
         dark: {
           css: {
-            color: theme('colors.slate.300'),
+            color: theme('colors.slate.300'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
             a: {
               color: theme('colors.secondary.400'),
               '&:hover': {
@@ -157,7 +165,7 @@ export default {
             },
             blockquote: {
               borderLeftColor: theme('colors.secondary.500'),
-              color: theme('colors.slate.400'),
+              color: theme('colors.slate.400'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
             },
           },
         },

@@ -1,14 +1,14 @@
 <template>
   <div class="wiki-container">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-0 bg-gradient-to-r from-starlight-200 to-starlight-400 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
+      <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-0 bg-gradient-to-r from-starlight-500 to-starlight-600 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
       
       <!-- 当前文件夹指示 -->
-      <div v-if="currentFolder" class="mb-4 md:mb-0 ml-4 text-starlight-300">
+      <div v-if="currentFolder" class="mb-4 md:mb-0 ml-4 text-gray-700">
         <span>当前文件夹: {{ currentFolder }}</span>
         <button 
           @click="clearFolder" 
-          class="ml-2 text-secondary-400 hover:text-secondary-300 transition-colors"
+          class="ml-2 text-starlight-600 hover:text-starlight-700 transition-colors"
         >
           返回全部
         </button>
@@ -21,10 +21,10 @@
             type="search" 
             placeholder="搜索..." 
             v-model="searchQuery"
-            class="w-full pl-10 pr-4 py-2.5 rounded-full border border-cosmic-500/40 bg-cosmic-800/60 backdrop-blur-sm focus:border-secondary-500/50 focus:ring-1 focus:ring-secondary-500/30 text-starlight-200 placeholder-starlight-400/50"
+            class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-300 bg-white/90 backdrop-blur-sm focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 text-gray-700 placeholder-gray-500"
           />
           <!-- 搜索图标 -->
-          <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-starlight-400">
+          <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-starlight-500">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -34,7 +34,7 @@
         <div class="relative">
           <select 
             v-model="sortOption"
-            class="w-full rounded-full border border-cosmic-500/40 bg-cosmic-800/60 backdrop-blur-sm px-4 py-2.5 focus:border-secondary-500/50 focus:ring-1 focus:ring-secondary-500/30 appearance-none pr-8 text-starlight-200"
+            class="w-full rounded-full border border-gray-300 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 appearance-none pr-8 text-gray-700"
           >
             <option value="newest">最新添加</option>
             <option value="oldest">最早添加</option>
@@ -42,7 +42,7 @@
             <option value="z-a">字母排序 Z-A</option>
           </select>
           <!-- 下拉图标 -->
-          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-starlight-400 pointer-events-none">
+          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-starlight-500 pointer-events-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
@@ -53,8 +53,8 @@
 
     <!-- 文件夹列表 -->
     <div v-if="folders.length > 0 && !currentFolder" class="mb-12">
-      <h2 class="text-xl font-bold mb-5 text-starlight-200 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-secondary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <h2 class="text-xl font-bold mb-5 text-gray-700 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-starlight-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
         </svg>
         文件夹
@@ -64,17 +64,17 @@
           v-for="folder in folders" 
           :key="folder"
           @click="selectFolder(folder)"
-          class="cursor-pointer p-4 bg-cosmic-700/20 backdrop-blur-sm rounded-lg border border-cosmic-500/50 hover:border-secondary-500/50 hover:shadow-glow flex items-center transition-all duration-300 group"
+          class="cursor-pointer p-4 bg-white/80 backdrop-blur-sm rounded-lg border border-gray-200 hover:border-starlight-400 hover:shadow-starlight flex items-center transition-all duration-300 group"
         >
-          <span class="text-lg text-secondary-300 mr-2 group-hover:text-secondary-200 transition-colors">📁</span>
-          <span class="text-starlight-300 group-hover:text-starlight-100 transition-colors">{{ folder }}</span>
+          <span class="text-lg text-starlight-500 mr-2 group-hover:text-starlight-600 transition-colors">📁</span>
+          <span class="text-gray-700 group-hover:text-gray-800 transition-colors">{{ folder }}</span>
         </div>
       </div>
     </div>
     
     <div v-if="loading" class="flex justify-center items-center py-20">
-      <div class="animate-spin h-10 w-10 rounded-full border-t-2 border-b-2 border-starlight-300"></div>
-      <span class="ml-3 text-starlight-400">加载中...</span>
+      <div class="animate-spin h-10 w-10 rounded-full border-t-2 border-b-2 border-starlight-500"></div>
+      <span class="ml-3 text-gray-600">加载中...</span>
     </div>
     
     <div v-else-if="paginatedEntries.length === 0" class="text-center py-20">
@@ -83,10 +83,10 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
         </svg>
       </div>
-      <h3 class="text-xl font-medium text-starlight-200 mb-2">
+      <h3 class="text-xl font-medium text-gray-700 mb-2">
         {{ currentFolder ? `文件夹 "${currentFolder}" 中` : '' }}{{ searchQuery ? '匹配搜索结果' : '' }}暂无{{ categoryTitle }}内容
       </h3>
-      <p class="text-starlight-400">敬请期待！</p>
+      <p class="text-gray-500">敬请期待！</p>
     </div>
     
     <div v-else class="wiki-grid">
@@ -97,51 +97,51 @@
         :to="`/entry/${categoryType}/${entry.id}`"
         class="wiki-card group flex flex-col overflow-hidden"
       >
-        <div v-if="entry.image" class="aspect-video overflow-hidden bg-cosmic-700/50 relative">
+        <div v-if="entry.image" class="aspect-video overflow-hidden bg-gray-100 relative">
           <ImageLoader 
             :src="entry.image" 
             :alt="`${entry.title} preview image`" 
             imageClass="w-full h-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-105"
-            placeholderClass="w-full h-full flex items-center justify-center bg-cosmic-600/50 text-starlight-500"
-            errorClass="w-full h-full flex items-center justify-center bg-red-900/30 text-red-300"
+            placeholderClass="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400"
+            errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
           />
           <!-- 渐变遮罩 -->
-          <div class="absolute inset-0 bg-gradient-to-t from-cosmic-800/90 via-cosmic-800/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-white/90 via-gray-50/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <div v-else class="aspect-video flex items-center justify-center bg-cosmic-700/30 text-starlight-500 relative overflow-hidden">
+        <div v-else class="aspect-video flex items-center justify-center bg-gray-50 text-gray-400 relative overflow-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
           <!-- 装饰背景 -->
           <div class="absolute inset-0">
-            <div class="absolute w-20 h-20 rounded-full bg-secondary-500/5 blur-xl -top-5 -left-5"></div>
-            <div class="absolute w-16 h-16 rounded-full bg-primary-500/5 blur-xl bottom-2 right-2"></div>
+            <div class="absolute w-20 h-20 rounded-full bg-starlight-500/5 blur-xl -top-5 -left-5"></div>
+            <div class="absolute w-16 h-16 rounded-full bg-starlight-400/5 blur-xl bottom-2 right-2"></div>
           </div>
         </div>
         
         <div class="flex-grow flex flex-col p-5">
-          <h2 class="text-xl font-bold mb-2 text-starlight-200 group-hover:text-starlight-100 transition-colors">{{ entry.title }}</h2>
+          <h2 class="text-xl font-bold mb-2 text-gray-800 group-hover:text-starlight-700 transition-colors">{{ entry.title }}</h2>
           
           <div class="flex flex-wrap gap-2 my-3" v-if="entry.tags && entry.tags.length > 0">
             <Tag 
               v-for="tag in entry.tags" 
               :key="tag" 
               :text="tag"
-              color="secondary"
+              color="starlight"
               :clickable="true"
               @click.prevent="handleTagClick(tag)"
             />
           </div>
           
-          <p v-if="entry.description" class="text-starlight-400 line-clamp-3 flex-grow mb-4 text-sm">
+          <p v-if="entry.description" class="text-gray-600 line-clamp-3 flex-grow mb-4 text-sm">
             {{ entry.description }}
           </p>
           
-          <div class="mt-auto pt-4 border-t border-cosmic-600/30 flex justify-between items-center">
-            <span class="text-xs text-starlight-500">
+          <div class="mt-auto pt-4 border-t border-gray-200 flex justify-between items-center">
+            <span class="text-xs text-gray-500">
               <!-- 可以添加创建/更新日期 -->
             </span>
-            <span class="text-secondary-400 text-sm font-medium flex items-center group-hover:text-secondary-300 transition-colors">
+            <span class="text-starlight-600 text-sm font-medium flex items-center group-hover:text-starlight-700 transition-colors">
               查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
             </span>
           </div>
@@ -149,8 +149,8 @@
 
         <!-- 卡片hover装饰 -->
         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300">
-          <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary-500/30 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary-500/30 to-transparent"></div>
+          <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-starlight-300 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-starlight-300 to-transparent"></div>
         </div>
       </router-link>
     </div>
@@ -424,12 +424,12 @@ watch([categoryType, () => route.query.tag], loadData);
 }
 
 .wiki-card {
-  @apply bg-cosmic-800/60 backdrop-blur-sm rounded-lg border border-cosmic-600/40 transition-all duration-300 relative;
+  @apply bg-white backdrop-blur-sm rounded-lg border border-gray-200 transition-all duration-300 relative shadow-sm;
   transform: translateY(0);
 }
 
 .wiki-card:hover {
-  @apply border-secondary-500/40 shadow-glow;
+  @apply border-starlight-400 shadow-starlight;
   transform: translateY(-3px);
 }
 
@@ -438,15 +438,15 @@ watch([categoryType, () => route.query.tag], loadData);
 }
 
 .btn-page {
-  @apply flex items-center justify-center h-9 w-9 rounded-md bg-cosmic-700/40 text-starlight-300 border border-cosmic-600/30 transition-all;
+  @apply flex items-center justify-center h-9 w-9 rounded-md bg-white text-gray-700 border border-gray-200 transition-all;
 }
 
 .btn-page:hover:not(:disabled) {
-  @apply bg-cosmic-600/50 text-starlight-100 border-cosmic-500/40;
+  @apply bg-gray-50 text-gray-800 border-gray-300;
 }
 
 .btn-page-active {
-  @apply bg-secondary-700/50 text-starlight-100 border-secondary-600/30;
+  @apply bg-starlight-50 text-starlight-700 border-starlight-200;
 }
 
 .btn-page-disabled {

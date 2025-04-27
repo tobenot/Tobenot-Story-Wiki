@@ -42,6 +42,87 @@
   .loading-spinner {
     @apply animate-spin h-5 w-5 text-slate-600 dark:text-slate-400;
   }
+  
+  /* 增强prose文本可读性 */
+  .prose {
+    @apply text-slate-800 dark:text-slate-200;
+  }
+  
+  .prose p {
+    @apply text-slate-800 dark:text-slate-200 leading-relaxed;
+  }
+  
+  .prose-starlight {
+    @apply prose;
+  }
+  
+  .prose-starlight a {
+    @apply text-secondary-600 hover:text-secondary-700 dark:text-secondary-400 dark:hover:text-secondary-300 font-medium;
+  }
+  
+  .prose-starlight p, 
+  .prose-starlight li, 
+  .prose-starlight ol, 
+  .prose-starlight ul {
+    @apply text-slate-800 dark:text-starlight-200;
+  }
+  
+  .prose-starlight strong {
+    @apply text-slate-900 dark:text-white font-semibold;
+  }
+  
+  .prose-starlight em {
+    @apply text-slate-800 dark:text-starlight-100;
+  }
+  
+  /* 特别处理白底卡片中的内容 */
+  .wiki-card .prose h1,
+  .wiki-card .prose h2,
+  .wiki-card .prose h3,
+  .wiki-card .prose h4 {
+    @apply text-slate-900 font-bold;
+  }
+  
+  .wiki-card .prose p,
+  .wiki-card .prose li,
+  .wiki-card .prose ol,
+  .wiki-card .prose ul {
+    @apply text-slate-800 font-medium;
+  }
+  
+  /* 增强白底下的文本内容深度和对比度 */
+  .wiki-card h1 {
+    @apply text-slate-900 !important;
+  }
+  
+  .wiki-card .prose-starlight p {
+    @apply text-slate-800 !important;
+  }
+  
+  /* 条目内容区域的深色文本样式 */
+  .wiki-card div[v-html] {
+    @apply text-slate-800;
+  }
+  
+  /* 确保条目内容文本足够深 */
+  .wiki-card .structuredContent p,
+  .wiki-card .prose > p,
+  .wiki-card .prose > div > p {
+    @apply text-slate-900 font-normal;
+  }
+  
+  .wiki-card .prose a {
+    @apply text-secondary-700 hover:text-secondary-800 font-medium;
+  }
+  
+  .wiki-card .tag {
+    @apply text-primary-700 bg-primary-50 border border-primary-200;
+  }
+  
+  /* 针对显示在图像上的按钮和链接 */
+  .wiki-card .btn-secondary {
+    @apply text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-300;
+  }
 }
 
 /* 剧透块样式 */

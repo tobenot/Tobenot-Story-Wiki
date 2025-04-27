@@ -76,30 +76,48 @@ export default {
           900: '#713F12',
           950: '#422006',
         },
+        // 新增大理石颜色
+        marble: {
+          50: '#FFFFFF',
+          100: '#F9F9F9',
+          200: '#F0F0F0',
+          300: '#E6E6E6',
+          400: '#D9D9D9',
+          500: '#CCCCCC',
+          600: '#ABABAB',
+          700: '#8A8A8A',
+          800: '#595959',
+          900: '#282828',
+        },
       },
-      // 恢复原有的 boxShadow
+      // 更新阴影为粗野主义风格
       boxShadow: {
-        'card': '0 4px 12px rgba(49, 37, 89, 0.08)',
-        'card-hover': '0 8px 24px rgba(49, 37, 89, 0.16)',
-        'glow': '0 0 15px rgba(162, 138, 235, 0.5)',
-        'starlight': '0 0 20px rgba(226, 214, 181, 0.6)',
-        'cosmic': '0 0 25px rgba(96, 74, 158, 0.3)',
+        'card': '6px 6px 0 0 rgba(15, 23, 42, 0.9)',
+        'card-hover': '8px 8px 0 0 rgba(15, 23, 42, 0.9)',
+        'glow': '0 0 0 2px rgba(162, 138, 235, 0.8)',
+        'starlight': '6px 6px 0 0 rgba(170, 137, 74, 0.9)',
+        'cosmic': '6px 6px 0 0 rgba(96, 74, 158, 0.9)',
+        'brutal': '6px 6px 0 0 rgba(15, 23, 42, 0.9)',
+        'brutal-lg': '10px 10px 0 0 rgba(15, 23, 42, 0.9)',
+        'brutal-white': '6px 6px 0 0 rgba(255, 255, 255, 0.9)',
       },
-      // 恢复原有的 backgroundImage
+      // 更新背景图案为大理石纹理
       backgroundImage: {
         'cosmic-gradient': 'linear-gradient(to bottom, #0A0514, #261A4D)',
         'star-field': 'radial-gradient(circle at top right, rgba(96, 74, 158, 0.15), rgba(10, 5, 20, 0) 70%)',
         'aurora': 'linear-gradient(to right, rgba(162, 138, 235, 0.2), rgba(96, 214, 181, 0.2), rgba(162, 138, 235, 0.2))',
         'galaxy': 'radial-gradient(ellipse at center, rgba(49, 37, 89, 0.3) 0%, rgba(10, 5, 20, 0) 70%)',
+        'marble-pattern': 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,240,240,0.9) 50%, rgba(230,230,230,0.9) 51%, rgba(245,245,245,0.9) 100%)',
+        'marble-dark': 'linear-gradient(135deg, rgba(30,30,30,0.9) 0%, rgba(25,25,25,0.9) 50%, rgba(20,20,20,0.9) 51%, rgba(28,28,28,0.9) 100%)',
       },
-      // 恢复原有的 animation
+      // 保持原有的 animation
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'shimmer': 'shimmer 3s linear infinite',
         'starlight': 'starlight 4s ease-in-out infinite',
       },
-      // 恢复原有的 keyframes
+      // 保持原有的 keyframes
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
@@ -114,7 +132,7 @@ export default {
           '50%': { opacity: 0.8 },
         }
       },
-      // 恢复原有的 typography
+      // 更新 typography
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -125,29 +143,32 @@ export default {
               },
             },
             h1: {
-              color: theme('colors.slate.900'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
+              color: theme('colors.slate.900'),
               fontWeight: '700',
               letterSpacing: '0.025em',
             },
             h2: {
-              color: theme('colors.slate.900'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
+              color: theme('colors.slate.900'),
               fontWeight: '600',
               letterSpacing: '0.015em',
             },
             h3: {
-              color: theme('colors.slate.900'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
+              color: theme('colors.slate.900'),
               fontWeight: '600',
             },
             blockquote: {
               borderLeftColor: theme('colors.secondary.300'),
-              color: theme('colors.slate.700'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
+              borderLeftWidth: '4px',
+              color: theme('colors.slate.700'),
               fontStyle: 'italic',
+              backgroundColor: theme('colors.slate.50'),
+              padding: theme('spacing.4'),
             },
           },
         },
         dark: {
           css: {
-            color: theme('colors.slate.300'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
+            color: theme('colors.slate.300'),
             a: {
               color: theme('colors.secondary.400'),
               '&:hover': {
@@ -165,11 +186,24 @@ export default {
             },
             blockquote: {
               borderLeftColor: theme('colors.secondary.500'),
-              color: theme('colors.slate.400'), // 注意：这里可能需要根据实际情况调整回原配置的颜色引用
+              borderLeftWidth: '4px',
+              color: theme('colors.slate.400'),
+              backgroundColor: theme('colors.slate.800'),
+              padding: theme('spacing.4'),
             },
           },
         },
       }),
+      // 添加自定义边框风格
+      borderWidth: {
+        '3': '3px',
+        '6': '6px',
+      },
+    },
+    // 确保默认无圆角
+    borderRadius: {
+      'none': '0',
+      'DEFAULT': '0',
     },
   },
   plugins: [

@@ -2,16 +2,18 @@
   <div class="global-search relative">
     <div class="search-container relative">
       <input
+        ref="searchInput"
         v-model="searchQuery"
-        @focus="showResults = true"
+        @focus="showResults = true; onFocus && onFocus()"
         @input="handleInput"
         @keydown.down="navigateResults(1)"
         @keydown.up="navigateResults(-1)"
         @keydown.enter="handleEnter"
         @keydown.esc="hideResults"
+        @blur="onBlur"
         type="text"
         placeholder="搜索任何内容..."
-        class="w-full px-12 py-3.5 rounded-full bg-gray-200/90 backdrop-blur-md border border-gray-300/50 focus:border-starlight-500/70 text-gray-700 placeholder-gray-500/80 outline-none transition-all duration-300 shadow-inner shadow-gray-300/20 focus:shadow-starlight"
+        class="w-full py-3 pl-10 pr-4 bg-white border-2 border-slate-900 dark:border-slate-700 dark:bg-cosmic-800 shadow-brutal text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:border-starlight-500 focus:ring-1 focus:ring-starlight-500 transition-colors"
       />
       <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-starlight-600">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -38,8 +40,8 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-2"
     >
-      <div v-if="showResults && filteredItems.length > 0" class="search-results absolute z-50 w-full mt-2 rounded-lg overflow-hidden bg-white/90 backdrop-blur-lg border border-gray-200 shadow-lg shadow-gray-300/30">
-        <div class="search-results-header border-b border-gray-200 px-4 py-2 text-xs text-gray-600">
+      <div v-if="showResults && filteredItems.length > 0" class="search-results absolute z-50 w-full mt-2 bg-white/90 backdrop-blur-sm border-2 border-slate-900 shadow-brutal overflow-hidden">
+        <div class="search-results-header border-b border-slate-200 px-4 py-2 text-xs text-slate-600">
           找到 {{ filteredItems.length }} 个匹配的结果
         </div>
         <ul class="max-h-96 overflow-y-auto">
@@ -51,16 +53,17 @@
             class="p-4 border-b border-gray-200/20 last:border-0 cursor-pointer hover:bg-gray-100/50"
           >
             <div class="flex items-center">
-              <!-- 类型标志 -->
-              <div class="category-icon mr-3 w-8 h-8 rounded-full flex items-center justify-center" :class="getCategoryClass(item.type)">
-                <div class="inner-icon w-4 h-4"></div>
+              <div class="flex-shrink-0 mr-3">
+                <span :class="getCategoryClass(item.type)" class="category-icon inline-flex items-center justify-center w-8 h-8 border-2 border-slate-900 bg-slate-100 dark:bg-cosmic-700">
+                  <span class="text-xs text-starlight-600">{{ getCategoryInitial(item.type) }}</span>
+                </span>
               </div>
               <div class="flex-1">
                 <div class="text-gray-800 font-medium">{{ item.title }}</div>
                 <div v-if="item.description" class="text-gray-600 text-sm mt-1 line-clamp-1">{{ item.description }}</div>
                 <div class="flex mt-1.5 space-x-2">
-                  <span class="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-starlight-700">{{ getCategoryName(item.type) }}</span>
-                  <span v-for="(tag, tagIndex) in item.tags?.slice(0, 2)" :key="tagIndex" class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">{{ tag }}</span>
+                  <span class="text-xs px-2 py-0.5 border border-slate-900 bg-gray-200 text-starlight-700">{{ getCategoryName(item.type) }}</span>
+                  <span v-for="(tag, tagIndex) in item.tags?.slice(0, 2)" :key="tagIndex" class="text-xs px-2 py-0.5 border border-slate-900 bg-gray-100 text-gray-600">{{ tag }}</span>
                 </div>
               </div>
             </div>
@@ -81,12 +84,12 @@
       leave-from-class="opacity-100 translate-y-0"
       leave-to-class="opacity-0 -translate-y-2"
     >
-      <div v-if="showResults && searchQuery && filteredItems.length === 0" class="search-results absolute z-50 w-full mt-2 rounded-lg overflow-hidden bg-white/90 backdrop-blur-lg border border-gray-200 shadow-lg shadow-gray-200/30 p-4 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div v-if="showResults && searchQuery && filteredItems.length === 0" class="search-results absolute z-50 w-full mt-2 bg-white/90 backdrop-blur-sm border-2 border-slate-900 shadow-brutal overflow-hidden p-4 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mx-auto text-slate-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12.5h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p class="text-gray-700">未找到关于 "{{ searchQuery }}" 的结果</p>
-        <p class="text-gray-500 text-sm mt-1">请尝试使用其他关键词</p>
+        <p class="text-slate-700">未找到关于 "{{ searchQuery }}" 的结果</p>
+        <p class="text-slate-500 text-sm mt-1">请尝试使用其他关键词</p>
       </div>
     </transition>
   </div>
@@ -103,6 +106,7 @@ const allItems = ref([]);
 const showResults = ref(false);
 const selectedIndex = ref(0);
 const loading = ref(true);
+const resultRefs = ref([]);
 
 // 当搜索查询变化时，重置选中的索引
 watch(searchQuery, () => {
@@ -216,6 +220,33 @@ const loadAllItems = async () => {
   } finally {
     loading.value = false;
   }
+};
+
+// 获取分类初始字母
+const getCategoryInitial = (type) => {
+  const initialMap = {
+    'characters': '人',
+    'locations': '地',
+    'events': '事',
+    'items': '物',
+    'concepts': '念'
+  };
+  
+  return initialMap[type] || '?';
+};
+
+// 新增键盘导航焦点方法
+const onFocus = () => {
+  // 可以添加焦点处理逻辑
+};
+
+const onBlur = () => {
+  // 可以延迟隐藏结果，以便于点击结果
+  setTimeout(() => {
+    if (!document.activeElement.closest('.search-results')) {
+      hideResults();
+    }
+  }, 200);
 };
 
 onMounted(() => {

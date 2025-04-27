@@ -44,18 +44,41 @@ const onImageError = (event) => {
 </script>
 
 <style scoped>
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.375rem; /* Optional: Add rounded corners */
-    margin-top: 1em;
-    margin-bottom: 1em;
+.markdown-image-wrapper {
+  margin: 1.5rem 0;
+  overflow: hidden;
+  position: relative;
 }
 
-img.load-error {
-    /* Example error style */
-    border: 2px dashed red;
-    background-color: #fee2e2; /* Light red background */
-    padding: 1rem;
+.markdown-image {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #1a202c; /* 添加硬边框 */
+}
+
+.image-caption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
+  font-style: italic;
+}
+
+/* 加载状态和错误状态的样式 */
+.image-loading-placeholder,
+.image-error-placeholder {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8fafc;
+  color: #94a3b8;
+  border: 2px solid #1a202c;
+}
+
+.image-error-placeholder {
+  color: #ef4444;
+  background-color: #fee2e2;
 }
 </style> 

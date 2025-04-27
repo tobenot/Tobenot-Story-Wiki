@@ -1,9 +1,9 @@
 <template>
   <header class="sticky top-0 z-50 w-full backdrop-blur-sm bg-cosmic-800/60 border-b border-cosmic-600/40">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <router-link to="/" class="flex items-center space-x-2 group">
-        <div class="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-starlight-300 to-starlight-600 rounded-full overflow-hidden">
-          <div class="w-6 h-6 bg-cosmic-900/40 rounded-full group-hover:scale-110 transition-transform"></div>
+      <router-link to="/" class="flex items-center space-x-3 group">
+        <div class="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-starlight-300 to-starlight-600 border-2 border-slate-900 overflow-hidden">
+          <div class="w-6 h-6 bg-cosmic-900/40 group-hover:scale-110 transition-transform"></div>
         </div>
         <span class="font-serif text-xl font-bold bg-gradient-to-r from-starlight-100 to-starlight-400 bg-clip-text text-transparent group-hover:from-starlight-50 group-hover:to-starlight-300 transition-colors">托贝诺特Wiki</span>
       </router-link>
@@ -21,30 +21,12 @@
           </router-link>
         </nav>
         
-        <button class="theme-toggle p-2 rounded-full bg-cosmic-700/60 hover:bg-cosmic-600/80 text-starlight-200 transition-colors" @click="toggleTheme">
-          <span v-if="isDark" class="block w-5 h-5">
-            <!-- Sun Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </span>
-          <span v-else class="block w-5 h-5">
-            <!-- Moon Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </span>
-          <span class="sr-only">{{ isDark ? '切换到浅色模式' : '切换到深色模式' }}</span>
-        </button>
+        <ThemeSwitcher />
         
         <!-- 移动端菜单按钮 -->
-        <button class="md:hidden p-2 rounded-full bg-cosmic-700/60 hover:bg-cosmic-600/80 text-starlight-200 transition-colors" @click="toggleMobileMenu">
-          <span class="sr-only">打开菜单</span>
-          <svg v-if="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <button class="md:hidden p-2 border-2 border-slate-900 bg-cosmic-700/60 hover:bg-cosmic-600/80 text-starlight-200 transition-colors" @click="toggleMobileMenu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
       </div>

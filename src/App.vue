@@ -185,22 +185,22 @@ body {
 
 /* 为适用于全应用程序的组件样式 */
 .btn {
-  @apply inline-flex items-center px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm;
+  @apply inline-flex items-center px-4 py-2 transition-all duration-300 font-medium text-sm border-2 border-slate-900;
 }
 
 .btn-primary {
-  @apply bg-secondary-600 hover:bg-secondary-700 focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 text-white shadow-md shadow-secondary-900/30;
+  @apply bg-secondary-600 hover:bg-secondary-700 focus:ring-2 focus:ring-offset-2 focus:ring-secondary-500 text-white shadow-brutal dark:shadow-brutal-white;
 }
 
 .btn-secondary {
-  @apply bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm border border-gray-200/80 backdrop-blur-sm;
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm border-2 border-slate-900 backdrop-blur-sm;
 }
 
 .wiki-card {
-  @apply bg-white/90 backdrop-blur-sm rounded-lg border border-gray-100 shadow-sm transition-all duration-300 overflow-hidden text-inherit no-underline;
+  @apply bg-white/90 backdrop-blur-sm border-2 border-slate-900 shadow-brutal transition-all duration-300 overflow-hidden text-inherit no-underline;
 }
 
 .wiki-card:hover {
-  @apply border-starlight-400/50 shadow-starlight transform -translate-y-1;
+  @apply border-starlight-400/50 shadow-brutal-lg transform -translate-y-1;
 }
 </style>

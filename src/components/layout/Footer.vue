@@ -2,8 +2,8 @@
   <footer class="bg-cosmic-800/80 backdrop-blur-sm border-t border-cosmic-600/40 mt-12 relative overflow-hidden">
     <!-- 星空装饰元素 -->
     <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute bottom-10 left-10 w-32 h-32 bg-aurora rounded-full filter blur-3xl opacity-10 animate-pulse-slow"></div>
-      <div class="absolute top-5 right-10 w-24 h-24 bg-aurora rounded-full filter blur-3xl opacity-10 animate-pulse-slow" style="animation-delay: 2s;"></div>
+      <div class="absolute bottom-10 left-10 w-32 h-32 bg-aurora filter blur-3xl opacity-10 animate-pulse-slow"></div>
+      <div class="absolute top-5 right-10 w-24 h-24 bg-aurora filter blur-3xl opacity-10 animate-pulse-slow" style="animation-delay: 2s;"></div>
     </div>
 
     <div class="container mx-auto px-4 py-10 relative z-10">

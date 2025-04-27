@@ -3,8 +3,8 @@
     <Header />
     <main class="wiki-container py-16 md:py-24 relative">
       <!-- 装饰性图案 - 使用 starlight 金色调 -->
-      <div class="absolute top-20 left-10 w-96 h-96 bg-gradient-radial from-starlight-500/10 via-transparent to-transparent rounded-full filter blur-3xl opacity-20 animate-pulse-slow"></div>
-      <div class="absolute bottom-40 right-10 w-80 h-80 bg-gradient-radial from-starlight-400/10 via-transparent to-transparent rounded-full filter blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
+      <div class="absolute top-20 left-10 w-96 h-96 bg-gradient-radial from-starlight-500/10 via-transparent to-transparent filter blur-3xl opacity-20 animate-pulse-slow"></div>
+      <div class="absolute bottom-40 right-10 w-80 h-80 bg-gradient-radial from-starlight-400/10 via-transparent to-transparent filter blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
       
       <!-- 中央魔法阵 -->
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vh] h-[70vh] pointer-events-none">
@@ -45,7 +45,7 @@
           </router-link>
         </div>
         
-        <div class="mt-20 max-w-2xl mx-auto px-6 py-8 bg-gray-50 backdrop-blur-sm rounded-lg border border-gray-100">
+        <div class="mt-20 max-w-2xl mx-auto px-6 py-8 bg-gray-50 backdrop-blur-sm border-2 border-slate-900 shadow-brutal">
           <p class="text-center text-gray-700 italic leading-relaxed">
             "在很远的古代，他们称我们为变异者。<br>
             后来，他们称我们为异人。<br>
@@ -122,12 +122,12 @@ const categories = [
 }
 
 .category-card {
-  @apply bg-white backdrop-blur-sm rounded-lg border border-gray-100 transition-all duration-500 p-6 flex flex-col items-center text-center hover:border-starlight-300 overflow-hidden no-underline shadow-sm;
+  @apply bg-white backdrop-blur-sm border-2 border-slate-900 transition-all duration-500 p-6 flex flex-col items-center text-center hover:border-starlight-300 overflow-hidden no-underline shadow-brutal;
   transform: perspective(1000px) rotateX(0deg);
 }
 
 .category-card:hover {
-  @apply shadow-starlight;
+  @apply shadow-brutal-lg;
   transform: perspective(1000px) rotateX(5deg) translateY(-5px);
 }
 
@@ -138,7 +138,7 @@ const categories = [
 .category-4 { animation-delay: 0.4s; }
 
 .category-symbol {
-  @apply w-16 h-16 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden;
+  @apply w-16 h-16 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden border-2 border-slate-900;
   box-shadow: 0 0 15px rgba(170, 137, 74, 0.15);
 }
 
@@ -159,14 +159,14 @@ const categories = [
 }
 
 .symbol-inner {
-  @apply w-12 h-12 rounded-full absolute;
+  @apply w-12 h-12 absolute;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(2px);
   animation: pulse 4s infinite alternate;
 }
 
 .symbol-glow {
-  @apply w-14 h-14 rounded-full absolute opacity-0;
+  @apply w-14 h-14 absolute opacity-0;
   background: radial-gradient(circle, rgba(219, 189, 125, 0.3) 0%, transparent 70%);
   transition: opacity 0.3s ease;
 }

@@ -21,7 +21,7 @@
             type="search" 
             placeholder="搜索..." 
             v-model="searchQuery"
-            class="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-300 bg-white/90 backdrop-blur-sm focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 text-gray-700 placeholder-gray-500"
+            class="w-full pl-10 pr-4 py-2.5 border-2 border-slate-900 bg-white/90 backdrop-blur-sm focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 text-gray-700 placeholder-gray-500"
           />
           <!-- 搜索图标 -->
           <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-starlight-500">
@@ -34,7 +34,7 @@
         <div class="relative">
           <select 
             v-model="sortOption"
-            class="w-full rounded-full border border-gray-300 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 appearance-none pr-8 text-gray-700"
+            class="w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 appearance-none pr-8 text-gray-700"
           >
             <option value="newest">最新添加</option>
             <option value="oldest">最早添加</option>
@@ -64,7 +64,7 @@
           v-for="folder in folders" 
           :key="folder"
           @click="selectFolder(folder)"
-          class="cursor-pointer p-4 bg-white/80 backdrop-blur-sm rounded-lg border border-gray-200 hover:border-starlight-400 hover:shadow-starlight flex items-center transition-all duration-300 group"
+          class="cursor-pointer p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-900 hover:border-starlight-400 hover:shadow-brutal flex items-center transition-all duration-300 group"
         >
           <span class="text-lg text-starlight-500 mr-2 group-hover:text-starlight-600 transition-colors">📁</span>
           <span class="text-gray-700 group-hover:text-gray-800 transition-colors">{{ folder }}</span>
@@ -73,7 +73,7 @@
     </div>
     
     <div v-if="loading" class="flex justify-center items-center py-20">
-      <div class="animate-spin h-10 w-10 rounded-full border-t-2 border-b-2 border-starlight-500"></div>
+      <div class="animate-spin h-10 w-10 border-t-2 border-b-2 border-l-2 border-r-2 border-starlight-500"></div>
       <span class="ml-3 text-gray-600">加载中...</span>
     </div>
     
@@ -114,8 +114,8 @@
           </svg>
           <!-- 装饰背景 -->
           <div class="absolute inset-0">
-            <div class="absolute w-20 h-20 rounded-full bg-starlight-500/5 blur-xl -top-5 -left-5"></div>
-            <div class="absolute w-16 h-16 rounded-full bg-starlight-400/5 blur-xl bottom-2 right-2"></div>
+            <div class="absolute w-20 h-20 bg-starlight-500/5 blur-xl -top-5 -left-5"></div>
+            <div class="absolute w-16 h-16 bg-starlight-400/5 blur-xl bottom-2 right-2"></div>
           </div>
         </div>
         
@@ -424,12 +424,12 @@ watch([categoryType, () => route.query.tag], loadData);
 }
 
 .wiki-card {
-  @apply bg-white backdrop-blur-sm rounded-lg border border-gray-200 transition-all duration-300 relative shadow-sm;
+  @apply bg-white backdrop-blur-sm border-2 border-slate-900 transition-all duration-300 relative shadow-brutal;
   transform: translateY(0);
 }
 
 .wiki-card:hover {
-  @apply border-starlight-400 shadow-starlight;
+  @apply border-starlight-400 shadow-brutal-lg;
   transform: translateY(-3px);
 }
 
@@ -438,7 +438,7 @@ watch([categoryType, () => route.query.tag], loadData);
 }
 
 .btn-page {
-  @apply flex items-center justify-center h-9 w-9 rounded-md bg-white text-gray-700 border border-gray-200 transition-all;
+  @apply flex items-center justify-center h-9 w-9 bg-white text-gray-700 border-2 border-slate-900 transition-all;
 }
 
 .btn-page:hover:not(:disabled) {

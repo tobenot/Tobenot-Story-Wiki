@@ -39,9 +39,9 @@ image: "/images/no_image.png"
     - 举例说明特定行为或习惯
     - 在故事中的表现特点
 
-<div class="spoiler" data-source="剧透来源">
+:::spoiler source="剧透来源"
 如果有任何剧透内容，可以放在这里。
-</div>
+:::
 
 ## 人际关系
 

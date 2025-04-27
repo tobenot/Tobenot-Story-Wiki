@@ -30,9 +30,9 @@ image: "/images/characters/silvermoon/corn.png"
 
 珂茵性格谨慎负责，情绪波动溢于言表。
 
-<div class="spoiler" data-source="《不止于纸上的故事：访客篇》完结">
+:::spoiler source="《不止于纸上的故事：访客篇》完结"
 对罗伯特的追求配合但不接受。
-</div>
+:::
 
 
 ## 人际关系

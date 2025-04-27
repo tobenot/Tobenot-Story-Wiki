@@ -24,9 +24,9 @@ image: "/images/locations/penetrating-autumn-water.webp"
 
 ## 重要物品
 
-<div class="spoiler" data-source="《不止于纸上的故事：银月篇》镜中实像">
+:::spoiler source="《不止于纸上的故事：银月篇》镜中实像"
 望穿秋水湖底蕴藏着能量之体【星辰】，这是一种受到丰沛灵力滋润的小石子，具有特殊的能量。
-</div>
+:::
 
 ## 居住者
 
@@ -34,9 +34,9 @@ image: "/images/locations/penetrating-autumn-water.webp"
 
 ## 相关事件
 
-<div class="spoiler" data-source="《不止于纸上的故事：银月篇》冰雪风暴">
+:::spoiler source="《不止于纸上的故事：银月篇》冰雪风暴"
 在破晓行动后期，银月寺与贝利斯集团的战斗转移至望穿秋水附近。在这里，琼释放了强大的【冰雪风暴】，利用环境中丰富的灵力创造出极端恶劣的天气条件，显著影响了战斗的走向。
-</div>
+:::
 
 ## 外部链接
 

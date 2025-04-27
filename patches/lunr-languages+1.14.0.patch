@@ -1,0 +1,13 @@
+diff --git a/node_modules/lunr-languages/lunr.zh.js b/node_modules/lunr-languages/lunr.zh.js
+index 48f5890..f3d11bc 100644
+--- a/node_modules/lunr-languages/lunr.zh.js
++++ b/node_modules/lunr-languages/lunr.zh.js
+@@ -30,7 +30,7 @@
+      * only CommonJS-like environments that support module.exports,
+      * like Node.
+      */
+-    module.exports = factory(require('@node-rs/jieba'))
++    module.exports = factory(require('nodejieba'))
+   } else {
+     // Browser globals (root is window)
+     factory()(root.lunr);

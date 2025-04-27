@@ -209,6 +209,7 @@ const loadData = async () => {
   loading.value = true;
   try {
     const tag = route.query.tag;
+    // Await the async function call
     const result = await loadContentList(categoryType.value, { tag });
     allEntries.value = result;
     

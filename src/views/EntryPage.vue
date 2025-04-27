@@ -80,11 +80,23 @@
             </div>
 
             <!-- 条目主体内容 -->
-            <div
-              ref="contentContainer"
-              class="prose prose-slate dark:prose-invert max-w-none"
-              v-html="parsedContent"
-            ></div>
+            <div class="prose prose-slate dark:prose-invert max-w-none">
+              <!-- Restore Original Loop -->
+              <template v-for="(part, index) in structuredContent" :key="index">
+                <div v-if="part.type === 'html'" v-html="part.content"></div>
+                <MarkdownImage
+                  v-else-if="part.type === 'image'"
+                  :src="part.src"
+                  :alt="part.alt"
+                />
+                <SpoilerBlock
+                  v-else-if="part.type === 'spoiler'"
+                  :source="part.source"
+                  :initial-content-html="part.content" 
+                  :is-globally-revealed="showAllSpoilers"
+                />
+              </template>
+            </div>
 
             <!-- 相关条目 -->
             <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700" v-if="entry.related && entry.related.length > 0">
@@ -179,14 +191,14 @@ import Header from '../components/layout/Header.vue';
 import Footer from '../components/layout/Footer.vue';
 import Tag from '../components/ui/Tag.vue';
 import ImageLoader from '../components/ui/ImageLoader.vue';
+import SpoilerBlock from '../components/ui/SpoilerBlock.vue';
+import MarkdownImage from '../components/ui/MarkdownImage.vue';
 
 const route = useRoute();
 const router = useRouter();
 const loading = ref(true);
 const showAllSpoilers = ref(false);
 const entry = ref(null);
-const parsedContent = ref('');
-const contentContainer = ref(null);
 const isShareMenuOpen = ref(false);
 const showCopySuccess = ref(false);
 
@@ -259,146 +271,15 @@ const shareToQQ = () => {
 
 const pendingSourceLink = 'https://github.com/tobenot/tobenot.github.io/issues';
 
-// Base URL for manual path fixing
-const BASE_URL = import.meta.env.BASE_URL;
-
-// Function to prepend base URL if the path is root-relative
-function resolveAssetPath(path) {
-  if (!path || typeof path !== 'string' || !path.startsWith('/')) {
-    return path;
-  }
-  // Prevent double slashes
-  const normalizedBase = BASE_URL.endsWith('/') ? BASE_URL : BASE_URL + '/';
-  const normalizedPath = path.startsWith('/') ? path.substring(1) : path;
-  return `${normalizedBase}${normalizedPath}`;
-}
-
-// 更新渲染内容的逻辑
-const updateParsedContent = () => {
+// NEW: Compute structured content
+const structuredContent = computed(() => {
   if (!entry.value || !entry.value.content) {
-    parsedContent.value = '';
-    return;
+    return [];
   }
-  parsedContent.value = renderContent(entry.value.content);
-
-  nextTick(() => {
-    const container = contentContainer.value;
-    if (!container) {
-        console.error('Content container ref not found after nextTick');
-        return;
-    }
-
-    // Fix image paths within the v-html content
-    const images = container.querySelectorAll('img');
-    images.forEach((img) => {
-      const originalSrc = img.getAttribute('src');
-      // Only fix root-relative paths that haven't already been fixed
-      if (originalSrc && originalSrc.startsWith('/') && !originalSrc.startsWith(BASE_URL)) {
-        const resolvedSrc = resolveAssetPath(originalSrc);
-        img.setAttribute('src', resolvedSrc);
-        img.onerror = () => {
-          console.error(`Failed to load manually fixed image: ${resolvedSrc}`);
-          img.classList.add('load-error');
-        };
-      }
-    });
-
-    const spoilers = container.querySelectorAll('.spoiler');
-    spoilers.forEach((spoiler) => {
-      const source = spoiler.getAttribute('data-source') || '未知来源';
-
-      // --- 1. Ensure Structure ---
-      let sourceDiv = spoiler.querySelector('.spoiler-source');
-      if (!sourceDiv) {
-          sourceDiv = document.createElement('div');
-          sourceDiv.className = 'spoiler-source';
-          spoiler.insertBefore(sourceDiv, spoiler.firstChild);
-      }
-      sourceDiv.textContent = '出自：' + source;
-
-      let contentDiv = spoiler.querySelector('.spoiler-content');
-      if (!contentDiv) {
-          contentDiv = document.createElement('div');
-          contentDiv.className = 'spoiler-content';
-          let currentActionsDiv = spoiler.querySelector('.spoiler-actions');
-          const nodesToMove = [];
-          let currentNode = sourceDiv.nextSibling;
-          while (currentNode && currentNode !== currentActionsDiv) {
-              nodesToMove.push(currentNode);
-              currentNode = currentNode.nextSibling;
-          }
-          nodesToMove.forEach(node => contentDiv.appendChild(node));
-          sourceDiv.insertAdjacentElement('afterend', contentDiv);
-      }
-
-      let actionsDiv = spoiler.querySelector('.spoiler-actions');
-      if (!actionsDiv) {
-        actionsDiv = document.createElement('div');
-        actionsDiv.className = 'spoiler-actions';
-        spoiler.appendChild(actionsDiv);
-      } else {
-        actionsDiv.innerHTML = ''; // Clear old buttons
-      }
-
-      // --- 2. Apply Global State ---
-      const isGloballyRevealed = showAllSpoilers.value;
-      spoiler.classList.toggle('revealed', isGloballyRevealed);
-
-      // --- 3. Create Buttons ---
-      // a) Toggle Button
-      const revealBtn = document.createElement('button');
-      revealBtn.className = 'spoiler-btn view-spoiler';
-      revealBtn.textContent = isGloballyRevealed ? '收起剧透' : '点击查看剧透';
-
-      revealBtn.onclick = (e) => {
-        e.stopPropagation();
-        if (!showAllSpoilers.value) {
-            const shouldBeRevealedNow = !spoiler.classList.contains('revealed');
-            spoiler.classList.toggle('revealed', shouldBeRevealedNow);
-            revealBtn.textContent = shouldBeRevealedNow ? '收起剧透' : '点击查看剧透';
-        } else {
-             // Optionally alert the user or simply do nothing
-             // console.log('Global reveal is active. Use the main toggle first.');
-        }
-      };
-      actionsDiv.appendChild(revealBtn);
-
-      // b) Link/Pending Button
-      const link = getSpoilerLink(source);
-      if (link) {
-        const sourceLinkEl = document.createElement('a');
-        sourceLinkEl.className = 'spoiler-btn goto-source';
-        sourceLinkEl.textContent = '前往原作';
-        sourceLinkEl.href = link;
-        sourceLinkEl.target = '_blank';
-        sourceLinkEl.rel = 'noopener noreferrer';
-        actionsDiv.appendChild(sourceLinkEl);
-      } else {
-        const pendingLinkEl = document.createElement('a');
-        pendingLinkEl.className = 'spoiler-btn pending-source';
-        pendingLinkEl.textContent = '敬请催更';
-        pendingLinkEl.href = pendingSourceLink;
-        pendingLinkEl.target = '_blank';
-        pendingLinkEl.rel = 'noopener noreferrer';
-        actionsDiv.appendChild(pendingLinkEl);
-      }
-    });
-  });
-};
-
-// Watcher for global spoiler toggle
-watch(showAllSpoilers, () => {
-  updateParsedContent();
+  const result = renderContent(entry.value.content);
+  console.log('[EntryPage] Structured Content:', JSON.stringify(result, null, 2)); // Log the structured data
+  return result;
 });
-
-// Watcher for entry data changes
-watch(entry, (newEntry) => {
-  if (newEntry) {
-    updateParsedContent();
-  } else {
-    parsedContent.value = '';
-  }
-}, { immediate: true }); // Ensure it runs on initial load
 
 // 加载数据的函数
 const loadData = async () => {
@@ -406,12 +287,11 @@ const loadData = async () => {
   entry.value = null; // Reset entry
   isShareMenuOpen.value = false; // Close share menu on navigation
   try {
+    // Await the async function call
     const data = await loadContentEntry(categoryType.value, entryId.value);
     entry.value = data;
-    if (data) {
-      // Initial title set is handled by the pageTitle watcher
-      // updateParsedContent is called by the entry watcher
-    } else {
+    // No need to call updateParsedContent here anymore
+    if (!data) {
        console.error(`Entry data is null for ${categoryType.value}/${entryId.value}`);
        document.title = '未找到条目 - Tobenot Story Wiki'; // Set title for not found
     }
@@ -442,7 +322,6 @@ onMounted(() => {
 onUnmounted(() => {
   document.removeEventListener('click', handleClickOutside);
 });
-
 
 // 监听路由参数变化，重新加载数据
 watch([categoryType, entryId], loadData);

@@ -1,17 +1,12 @@
 import fm from 'front-matter';
 import { marked } from 'marked';
 
-// Import all markdown files from the content directory eagerly
-const contentModules = import.meta.glob('/src/content/**/*.md', { eager: true, as: 'raw' });
+// Import all markdown files from the content directory dynamically
+const contentModules = import.meta.glob('/src/content/**/*.md', { eager: false, as: 'raw' });
 
 // Predefined content type mapping (if still needed, otherwise remove or adjust)
-const contentFiles = {
-  characters: Object.keys(contentModules).filter(path => path.startsWith('/src/content/characters/')),
-  locations: Object.keys(contentModules).filter(path => path.startsWith('/src/content/locations/')),
-  events: Object.keys(contentModules).filter(path => path.startsWith('/src/content/events/')),
-  items: Object.keys(contentModules).filter(path => path.startsWith('/src/content/items/')),
-  concepts: Object.keys(contentModules).filter(path => path.startsWith('/src/content/concepts/')),
-};
+// Note: This might become less useful or need adjustment with dynamic loading
+// const contentFiles = { ... } // Consider removing or adapting this
 
 // Function to extract metadata from a path
 function extractMetadataFromPath(path) {
@@ -39,42 +34,48 @@ function extractMetadataFromPath(path) {
   return null;
 }
 
-// Load content list (Now synchronous as content is preloaded)
-export function loadContentList(type, { tag } = {}) {
+// Load content list (Now asynchronous)
+export async function loadContentList(type, { tag } = {}) { // Make async
   const entries = [];
-  // Determine paths based on type - contentFiles needs to be defined using Object.keys(contentModules)
   const allPaths = Object.keys(contentModules);
-  const contentFilesForType = type 
-    ? allPaths.filter(path => path.startsWith(`/src/content/${type}/`)) 
+  const contentFilesForType = type
+    ? allPaths.filter(path => path.startsWith(`/src/content/${type}/`))
     : allPaths;
 
-  for (const path of contentFilesForType) {
-    const rawContent = contentModules[path]; // Access preloaded content directly
-    // No await needed here
-    const { attributes, body } = fm(rawContent);
-    const metadata = extractMetadataFromPath(path);
+  // Process paths concurrently for potentially faster loading
+  await Promise.all(contentFilesForType.map(async (path) => { // Use Promise.all
+    const loadModule = contentModules[path]; // Get the async function
+    if (!loadModule) return; // Skip if module loader not found
 
-    if (!metadata) continue; // Skip if path doesn't match expected format
+    try {
+      const rawContent = await loadModule(); // Await the dynamic import
+      const { attributes, body } = fm(rawContent);
+      const metadata = extractMetadataFromPath(path);
 
-    // Filter by tag if provided
-    if (tag && (!attributes.tags || !attributes.tags.includes(tag))) {
-      continue;
+      if (!metadata) return; // Skip if path doesn't match expected format
+
+      // Filter by tag if provided
+      if (tag && (!attributes.tags || !attributes.tags.includes(tag))) {
+        return;
+      }
+
+      // Limit description length
+      const description = attributes.description || body.substring(0, 100) + (body.length > 100 ? '...' : '');
+
+      entries.push({
+        id: metadata.id,
+        baseId: metadata.baseId,
+        category: metadata.category,
+        title: attributes.title,
+        description,
+        tags: attributes.tags || [],
+        type: attributes.type || metadata.type,
+        image: attributes.image // Add image field
+      });
+    } catch (error) {
+        console.error(`Failed to load or parse content for path ${path}:`, error);
     }
-
-    // Limit description length
-    const description = attributes.description || body.substring(0, 100) + (body.length > 100 ? '...' : '');
-
-    entries.push({
-      id: metadata.id,
-      baseId: metadata.baseId,
-      category: metadata.category, // 新增字段，表示子文件夹分类
-      title: attributes.title,
-      description,
-      tags: attributes.tags || [],
-      type: attributes.type || metadata.type, // Use type from attributes or infer from path
-      image: attributes.image // Add image field
-    });
-  }
+  })); // End Promise.all
 
   // Sort entries? (Optional, e.g., by title)
   // entries.sort((a, b) => a.title.localeCompare(b.title));
@@ -82,24 +83,24 @@ export function loadContentList(type, { tag } = {}) {
   return entries;
 }
 
-// Load single content entry (Now largely synchronous for fetching)
-export function loadContentEntry(type, id) {
-  // 处理子文件夹路径
+// Load single content entry (Now asynchronous)
+export async function loadContentEntry(type, id) { // Make async
   const path = `/src/content/${type}/${id}.md`;
-  
-  if (contentModules[path]) {
+  const loadModule = contentModules[path]; // Get the async function
+
+  if (loadModule) {
     try {
-      const rawContent = contentModules[path]; // Access preloaded content directly
-      // No await needed here
+      const rawContent = await loadModule(); // Await the dynamic import
       const { attributes, body } = fm(rawContent);
       const metadata = extractMetadataFromPath(path);
-      
+
       return {
         ...attributes,
-        image: attributes.image, // Add image field
-        content: renderContent(body), // renderContent itself might have async parts if plugins were used, but base marked is sync
+        image: attributes.image,
+        // Return the raw markdown body, not the processed content
+        content: body,
         id,
-        category: metadata?.category // 添加分类信息
+        category: metadata?.category
       };
     } catch (error) {
       console.error(`Failed to load content entry for ${type}/${id}:`, error);
@@ -107,28 +108,110 @@ export function loadContentEntry(type, id) {
     }
   } else {
     console.error(`Content entry not found for path: ${path}`);
-    return null; // Entry not found in the glob results
+    return null; // Entry not found
   }
 }
 
-// Render Markdown content
-export function renderContent(content, showAllSpoilers = false) {
+// Render Markdown content - NOW PREPROCESSES FOR VUE COMPONENTS
+export function renderContent(content) {
   if (!content) {
-    return '';
+    return []; // Return empty array for no content
   }
-  // 配置 marked
+
+  const spoilers = [];
+  const images = [];
+  let processedContent = content;
+
+  // 1. Extract Spoilers (using :::spoiler source=\"...\" ... ::: syntax)
+  // Use {{SPOILER_N}} placeholder format
+  const spoilerPlaceholderPrefix = '{{SPOILER_';
+  const spoilerPlaceholderSuffix = '}}';
+  const spoilerRegex = /::spoiler source=\"([^\\n\"]+)\"\s*\n([\s\S]*?):::/g;
+  processedContent = processedContent.replace(spoilerRegex, (match, source, innerContent) => {
+    const placeholder = `${spoilerPlaceholderPrefix}${spoilers.length}${spoilerPlaceholderSuffix}`;
+    spoilers.push({ source, rawContent: innerContent.trim() });
+    return placeholder;
+  });
+
+  // 2. Extract Images
+  // Use {{IMAGE_N}} placeholder format
+  const imagePlaceholderPrefix = '{{IMAGE_';
+  const imagePlaceholderSuffix = '}}';
+  const imageRegex = /!\\\[(.*?)\\]\\((.*?)\\)/g;
+  processedContent = processedContent.replace(imageRegex, (match, alt, src) => {
+    // Basic check to avoid replacing images inside already extracted spoiler blocks
+    if (spoilers.some(s => s.rawContent.includes(match))) return match;
+    const placeholder = `${imagePlaceholderPrefix}${images.length}${imagePlaceholderSuffix}`;
+    images.push({ alt, src });
+    return placeholder;
+  });
+
+  // 3. Configure and run marked on the processed content
   marked.use({
     gfm: true,
     breaks: true,
     mangle: false,
     headerIds: false
   });
-  
-  // 自定义渲染器 (Keep the basic renderer)
   const renderer = new marked.Renderer();
-  
-  // Parse the content with the standard renderer
-  return marked(content, { renderer });
+  const htmlWithPlaceholders = marked(processedContent, { renderer });
+
+  // 4. Split HTML and Reconstruct Structure using new placeholders
+  const result = [];
+  // Update split regex for {{...}} format. Escape braces.
+  const splitRegex = /(\{\{SPOILER_\d+\}\}|\{\{IMAGE_\d+\}\})/g; 
+  const parts = htmlWithPlaceholders.split(splitRegex);
+
+  parts.forEach((part) => {
+    if (!part) return;
+
+    // Update matching logic for {{...}} format
+    const spoilerMatch = part.match(/^\{\{SPOILER_(\d+)\}\}$/);
+    const imageMatch = part.match(/^\{\{IMAGE_(\d+)\}\}$/);
+
+    if (spoilerMatch) {
+      const index = parseInt(spoilerMatch[1], 10);
+      const spoilerData = spoilers[index];
+      if (spoilerData) {
+        const innerHtml = marked(spoilerData.rawContent, { renderer });
+        result.push({ type: 'spoiler', source: spoilerData.source, content: innerHtml });
+      }
+    } else if (imageMatch) {
+      const index = parseInt(imageMatch[1], 10);
+      const imageData = images[index];
+      if (imageData) {
+        result.push({ type: 'image', src: imageData.src, alt: imageData.alt });
+      }
+    } else {
+      // This part does not contain a placeholder, treat as HTML
+      const trimmedPart = part.trim();
+      // Avoid adding empty/whitespace-only strings or simple empty tags left by split
+      if (trimmedPart && trimmedPart !== '<p></p>' && trimmedPart !== '<p>' && trimmedPart !== '</p>') {
+          result.push({ type: 'html', content: part }); // Push the original part
+      }
+    }
+  });
+
+  // Post-process the result array to fix incomplete tags from splitting
+  for (let i = 0; i < result.length; i++) {
+    const item = result[i];
+    if (item.type === 'html') {
+      // Remove trailing <p>: or similar at the end of HTML blocks
+      item.content = item.content.replace(/<p>\s*:?\s*$/i, '');
+      
+      // Remove orphaned </p> at the start of HTML blocks
+      item.content = item.content.replace(/^\s*<\/p>/i, '');
+      
+      // Remove the item entirely if it becomes empty after cleanup
+      if (!item.content.trim()) {
+        result.splice(i, 1);
+        i--; // Adjust index after removal
+      }
+    }
+  }
+
+  console.log('[renderContent] Final cleaned result:', JSON.stringify(result, null, 2));
+  return result;
 }
 
 // Example: Add function to get source links (can be expanded)

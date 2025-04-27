@@ -34,6 +34,56 @@ function extractMetadataFromPath(path) {
   return null;
 }
 
+// Cache for all entry metadata
+let allEntriesMetadataCache = null;
+let metadataPromise = null; // To handle concurrent requests
+
+// Function to get metadata for all entries and cache it
+export async function getAllEntriesMetadata() {
+  if (allEntriesMetadataCache) {
+    return allEntriesMetadataCache;
+  }
+  if (metadataPromise) {
+    return metadataPromise; // Return existing promise if loading is in progress
+  }
+
+  metadataPromise = (async () => {
+    const allEntries = [];
+    const allPaths = Object.keys(contentModules);
+
+    // Process all paths concurrently
+    await Promise.all(allPaths.map(async (path) => {
+      const loadModule = contentModules[path];
+      if (!loadModule) return;
+
+      try {
+        const rawContent = await loadModule();
+        const { attributes } = fm(rawContent);
+        const metadata = extractMetadataFromPath(path);
+
+        if (!metadata || !attributes.title) return; // Need metadata and title for lookup
+
+        allEntries.push({
+          id: metadata.id, // Full ID including category path
+          type: metadata.type,
+          title: attributes.title,
+          // Add other minimal needed fields if necessary
+        });
+      } catch (error) {
+        console.error(`Failed to load metadata for path ${path}:`, error);
+      }
+    }));
+
+    // Create a Map for potentially faster lookups by title if needed,
+    // but a simple array is often sufficient if related lists are small.
+    allEntriesMetadataCache = allEntries;
+    metadataPromise = null; // Clear promise once done
+    return allEntriesMetadataCache;
+  })();
+
+  return metadataPromise;
+}
+
 // Load content list (Now asynchronous)
 export async function loadContentList(type, { tag } = {}) { // Make async
   const entries = [];

@@ -5,6 +5,8 @@ tags: ["标签1", "标签2", "标签3"]
 related: ["相关人物1", "相关人物2"]
 description: "一句话描述这个角色。"
 image: "/images/no_image.png"
+createdAt: "2025-01-01T12:00:00Z"
+updatedAt: "2025-01-05T09:30:00Z"
 ---
 # 角色名称
 

@@ -27,7 +27,10 @@
         </div>
         
         <div class="relative">
-          <select class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 focus:ring-2 focus:ring-primary-500">
+          <select 
+            v-model="sortOption"
+            class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2 focus:ring-2 focus:ring-primary-500 appearance-none pr-8"
+          >
             <option value="newest">最新添加</option>
             <option value="oldest">最早添加</option>
             <option value="a-z">字母排序 A-Z</option>
@@ -180,6 +183,7 @@ const currentFolder = ref(route.query.folder || null); // 从 query 获取当前
 const searchQuery = ref('');
 const currentPage = ref(1);
 const itemsPerPage = ref(12);
+const sortOption = ref('newest'); // Default sort option
 
 const handleTagClick = (tag) => {
   // Prevent navigation when clicking tag inside the link
@@ -226,7 +230,25 @@ const filteredEntries = computed(() => {
     );
   }
 
-  return entries;
+  // 3. 应用排序
+  const sortedEntries = [...entries].sort((a, b) => {
+    switch (sortOption.value) {
+      case 'newest':
+        // Fallback: Z-A by title (replace with date logic later if available)
+        return b.title.localeCompare(a.title);
+      case 'oldest':
+        // Fallback: A-Z by title (replace with date logic later if available)
+        return a.title.localeCompare(b.title);
+      case 'a-z':
+        return a.title.localeCompare(b.title);
+      case 'z-a':
+        return b.title.localeCompare(a.title);
+      default:
+        return 0;
+    }
+  });
+
+  return sortedEntries;
 });
 
 // 计算总页数
@@ -346,6 +368,11 @@ watch(() => route.query.folder, (newFolder) => {
 // 监听搜索查询的变化
 watch(searchQuery, () => {
   currentPage.value = 1; // Reset pagination on search
+});
+
+// 监听排序选项的变化
+watch(sortOption, () => {
+  currentPage.value = 1; // Reset pagination on sort change
 });
 
 // 监听路由参数 (type) 和标签 query 的变化

@@ -70,7 +70,9 @@ export async function loadContentList(type, { tag } = {}) { // Make async
         description,
         tags: attributes.tags || [],
         type: attributes.type || metadata.type,
-        image: attributes.image // Add image field
+        image: attributes.image,
+        createdAt: attributes.createdAt || null,
+        updatedAt: attributes.updatedAt || null
       });
     } catch (error) {
         console.error(`Failed to load or parse content for path ${path}:`, error);
@@ -97,7 +99,8 @@ export async function loadContentEntry(type, id) { // Make async
       return {
         ...attributes,
         image: attributes.image,
-        // Return the raw markdown body, not the processed content
+        createdAt: attributes.createdAt || null,
+        updatedAt: attributes.updatedAt || null,
         content: body,
         id,
         category: metadata?.category

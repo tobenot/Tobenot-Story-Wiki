@@ -20,6 +20,7 @@
           <input 
             type="search" 
             placeholder="搜索..." 
+            v-model="searchQuery"
             class="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-primary-500"
           />
           <!-- 搜索图标 -->
@@ -58,12 +59,12 @@
       <span class="ml-3 text-slate-600 dark:text-slate-400">加载中...</span>
     </div>
     
-    <div v-else-if="filteredEntries.length === 0" class="text-center py-20">
+    <div v-else-if="paginatedEntries.length === 0" class="text-center py-20">
       <div class="mb-4 text-slate-400 dark:text-slate-500">
         <!-- 空状态图标 -->
       </div>
       <h3 class="text-xl font-medium text-slate-700 dark:text-slate-300 mb-2">
-        {{ currentFolder ? `文件夹 "${currentFolder}" 中` : '' }}暂无{{ categoryTitle }}内容
+        {{ currentFolder ? `文件夹 "${currentFolder}" 中` : '' }}{{ searchQuery ? '匹配搜索结果' : '' }}暂无{{ categoryTitle }}内容
       </h3>
       <p class="text-slate-600 dark:text-slate-400">敬请期待！</p>
     </div>
@@ -71,7 +72,7 @@
     <div v-else class="wiki-grid">
       <!-- 条目卡片 -->
       <router-link 
-        v-for="entry in filteredEntries" 
+        v-for="entry in paginatedEntries" 
         :key="entry.id" 
         :to="`/entry/${categoryType}/${entry.id}`"
         class="wiki-card group flex flex-col overflow-hidden"
@@ -122,16 +123,35 @@
     </div>
     
     <!-- 分页控件 -->
-    <div class="mt-10 flex justify-center">
+    <div v-if="totalPages > 1" class="mt-10 flex justify-center">
       <nav class="flex items-center space-x-2">
-        <button class="btn btn-secondary p-2" disabled>
+        <button 
+          class="btn btn-secondary p-2" 
+          :disabled="currentPage === 1" 
+          @click="prevPage"
+        >
           <!-- 上一页图标 -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
         </button>
-        <button class="btn btn-primary px-4">1</button>
-        <button class="btn btn-secondary px-4">2</button>
-        <button class="btn btn-secondary px-4">3</button>
-        <button class="btn btn-secondary p-2">
+
+        <button 
+          v-for="page in pagesToShow" 
+          :key="page"
+          class="btn px-4" 
+          :class="page === currentPage ? 'btn-primary' : 'btn-secondary'"
+          @click="goToPage(page)"
+          :disabled="page === '...'"
+        >
+          {{ page }}
+        </button>
+
+        <button 
+          class="btn btn-secondary p-2" 
+          :disabled="currentPage === totalPages" 
+          @click="nextPage"
+        >
           <!-- 下一页图标 -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
         </button>
       </nav>
     </div>
@@ -157,6 +177,9 @@ const loading = ref(true);
 const allEntries = ref([]); // Store all loaded entries
 const folders = ref([]);
 const currentFolder = ref(route.query.folder || null); // 从 query 获取当前文件夹
+const searchQuery = ref('');
+const currentPage = ref(1);
+const itemsPerPage = ref(12);
 
 const handleTagClick = (tag) => {
   // Prevent navigation when clicking tag inside the link
@@ -181,32 +204,117 @@ const categoryTitles = {
 // Get the display title based on category type
 const categoryTitle = computed(() => categoryTitles[categoryType.value] || '内容');
 
-// 根据当前文件夹过滤条目
+// 根据文件夹和搜索词过滤条目
 const filteredEntries = computed(() => {
-  if (!currentFolder.value) {
-    // 如果没有选择文件夹，显示所有根目录下的条目 (category 为 null)
-    return allEntries.value.filter(entry => !entry.category);
+  let entries = allEntries.value;
+
+  // 1. 按文件夹过滤
+  if (currentFolder.value) {
+    entries = entries.filter(entry => entry.category === currentFolder.value);
+  } else {
+    // 仅显示根目录条目 (category 为 null)
+    entries = entries.filter(entry => !entry.category);
   }
-  // 如果选择了文件夹，显示该文件夹下的条目
-  return allEntries.value.filter(entry => entry.category === currentFolder.value);
+  
+  // 2. 按搜索词过滤 (忽略大小写)
+  if (searchQuery.value) {
+    const lowerCaseQuery = searchQuery.value.toLowerCase();
+    entries = entries.filter(entry => 
+      entry.title.toLowerCase().includes(lowerCaseQuery) ||
+      (entry.description && entry.description.toLowerCase().includes(lowerCaseQuery)) ||
+      (entry.tags && entry.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery)))
+    );
+  }
+
+  return entries;
+});
+
+// 计算总页数
+const totalPages = computed(() => {
+  return Math.ceil(filteredEntries.value.length / itemsPerPage.value);
+});
+
+// 获取当前页要显示的条目
+const paginatedEntries = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return filteredEntries.value.slice(start, end);
+});
+
+// 获取要在分页控件中显示的页码数组（包括省略号）
+const pagesToShow = computed(() => {
+  const pages = [];
+  const total = totalPages.value;
+  const current = currentPage.value;
+  const range = 2; // 当前页码左右各显示多少个页码
+  const showEllipsis = total > (range * 2) + 3; // 是否需要显示省略号
+
+  if (total <= 1) return [];
+
+  pages.push(1); // 总是显示第一页
+
+  if (showEllipsis && current > range + 2) {
+    pages.push('...');
+  }
+
+  // 计算中间页码范围
+  const startPage = Math.max(2, current - range);
+  const endPage = Math.min(total - 1, current + range);
+
+  for (let i = startPage; i <= endPage; i++) {
+    pages.push(i);
+  }
+
+  if (showEllipsis && current < total - range - 1) {
+    pages.push('...');
+  }
+
+  if (total > 1) {
+    pages.push(total); // 总是显示最后一页
+  }
+  
+  // 去重（当页码少时，可能会重复添加1或total）
+  return [...new Set(pages)];
 });
 
 // 选择文件夹
 const selectFolder = (folder) => {
+  currentPage.value = 1; // Reset pagination
   currentFolder.value = folder;
   router.push({ query: { ...route.query, folder } }); // 更新 URL query
 };
 
 // 清除文件夹选择
 const clearFolder = () => {
+  currentPage.value = 1; // Reset pagination
   currentFolder.value = null;
   const { folder, ...restQuery } = route.query; // 移除 folder query
   router.push({ query: restQuery });
 };
 
+// 分页导航
+const nextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++;
+  }
+};
+
+const prevPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--;
+  }
+};
+
+const goToPage = (page) => {
+  if (page !== '...') {
+    currentPage.value = page;
+  }
+};
+
 // 加载内容列表
 const loadData = async () => {
   loading.value = true;
+  currentPage.value = 1; // Reset pagination on load
   try {
     const tag = route.query.tag;
     // Await the async function call
@@ -230,8 +338,14 @@ onMounted(loadData);
 // 监听路由 query 的变化，特别是 'folder'
 watch(() => route.query.folder, (newFolder) => {
   currentFolder.value = newFolder || null;
+  currentPage.value = 1; // Reset pagination
   // 如果需要，可以在这里重新加载数据或仅重新计算过滤后的列表
   // loadData(); // 如果需要在文件夹切换时重新请求数据
+});
+
+// 监听搜索查询的变化
+watch(searchQuery, () => {
+  currentPage.value = 1; // Reset pagination on search
 });
 
 // 监听路由参数 (type) 和标签 query 的变化

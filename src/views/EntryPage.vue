@@ -277,7 +277,6 @@ const structuredContent = computed(() => {
     return [];
   }
   const result = renderContent(entry.value.content);
-  console.log('[EntryPage] Structured Content:', JSON.stringify(result, null, 2)); // Log the structured data
   return result;
 });
 

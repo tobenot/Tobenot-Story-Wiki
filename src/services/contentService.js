@@ -123,7 +123,6 @@ export function renderContent(content) {
   let processedContent = content;
 
   // 1. Extract Spoilers (using :::spoiler source=\"...\" ... ::: syntax)
-  // Use {{SPOILER_N}} placeholder format
   const spoilerPlaceholderPrefix = '{{SPOILER_';
   const spoilerPlaceholderSuffix = '}}';
   const spoilerRegex = /::spoiler source=\"([^\\n\"]+)\"\s*\n([\s\S]*?):::/g;
@@ -134,12 +133,10 @@ export function renderContent(content) {
   });
 
   // 2. Extract Images
-  // Use {{IMAGE_N}} placeholder format
   const imagePlaceholderPrefix = '{{IMAGE_';
   const imagePlaceholderSuffix = '}}';
   const imageRegex = /!\\\[(.*?)\\]\\((.*?)\\)/g;
   processedContent = processedContent.replace(imageRegex, (match, alt, src) => {
-    // Basic check to avoid replacing images inside already extracted spoiler blocks
     if (spoilers.some(s => s.rawContent.includes(match))) return match;
     const placeholder = `${imagePlaceholderPrefix}${images.length}${imagePlaceholderSuffix}`;
     images.push({ alt, src });
@@ -158,14 +155,12 @@ export function renderContent(content) {
 
   // 4. Split HTML and Reconstruct Structure using new placeholders
   const result = [];
-  // Update split regex for {{...}} format. Escape braces.
-  const splitRegex = /(\{\{SPOILER_\d+\}\}|\{\{IMAGE_\d+\}\})/g; 
+  const splitRegex = /(\{\{SPOILER_\d+\}\}|\{\{IMAGE_\d+\}\})/g;
   const parts = htmlWithPlaceholders.split(splitRegex);
 
   parts.forEach((part) => {
     if (!part) return;
 
-    // Update matching logic for {{...}} format
     const spoilerMatch = part.match(/^\{\{SPOILER_(\d+)\}\}$/);
     const imageMatch = part.match(/^\{\{IMAGE_(\d+)\}\}$/);
 
@@ -183,11 +178,8 @@ export function renderContent(content) {
         result.push({ type: 'image', src: imageData.src, alt: imageData.alt });
       }
     } else {
-      // This part does not contain a placeholder, treat as HTML
-      const trimmedPart = part.trim();
-      // Avoid adding empty/whitespace-only strings or simple empty tags left by split
-      if (trimmedPart && trimmedPart !== '<p></p>' && trimmedPart !== '<p>' && trimmedPart !== '</p>') {
-          result.push({ type: 'html', content: part }); // Push the original part
+      if (part.trim()) {
+        result.push({ type: 'html', content: part });
       }
     }
   });
@@ -196,21 +188,15 @@ export function renderContent(content) {
   for (let i = 0; i < result.length; i++) {
     const item = result[i];
     if (item.type === 'html') {
-      // Remove trailing <p>: or similar at the end of HTML blocks
       item.content = item.content.replace(/<p>\s*:?\s*$/i, '');
-      
-      // Remove orphaned </p> at the start of HTML blocks
       item.content = item.content.replace(/^\s*<\/p>/i, '');
-      
-      // Remove the item entirely if it becomes empty after cleanup
       if (!item.content.trim()) {
         result.splice(i, 1);
-        i--; // Adjust index after removal
+        i--;
       }
     }
   }
 
-  console.log('[renderContent] Final cleaned result:', JSON.stringify(result, null, 2));
   return result;
 }
 

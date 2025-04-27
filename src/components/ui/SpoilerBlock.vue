@@ -52,9 +52,7 @@ const isRevealed = ref(false);
 const pendingSourceLink = 'https://github.com/tobenot/tobenot.github.io/issues';
 
 const toggleSpoiler = () => {
-  console.log('[SpoilerBlock] Before toggle, isRevealed:', isRevealed.value);
   isRevealed.value = !isRevealed.value;
-  console.log('[SpoilerBlock] After toggle, isRevealed:', isRevealed.value);
 };
 
 const sourceText = computed(() => `出自：${props.source}`);

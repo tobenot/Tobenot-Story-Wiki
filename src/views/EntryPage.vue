@@ -27,11 +27,11 @@
         <div class="md:col-span-3">
           <!-- 面包屑导航 -->
           <nav class="flex text-sm mb-6 items-center">
-            <router-link to="/" class="text-starlight-400 hover:text-starlight-100 transition-colors">首页</router-link>
+            <router-link to="/" class="text-starlight-600 hover:text-starlight-100 transition-colors">首页</router-link>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mx-2 text-cosmic-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
-            <router-link :to="`/category/${categoryType}`" class="text-starlight-400 hover:text-starlight-100 transition-colors">
+            <router-link :to="`/category/${categoryType}`" class="text-starlight-600 hover:text-starlight-100 transition-colors">
               {{ categoryTitle }}
             </router-link>
             <!-- 如果有分类，显示分类路径 -->
@@ -41,7 +41,7 @@
               </svg>
               <router-link
                 :to="`/category/${categoryType}?folder=${entry.category}`"
-                class="text-starlight-400 hover:text-starlight-100 transition-colors"
+                class="text-starlight-600 hover:text-starlight-100 transition-colors"
               >
                 {{ entry.category }}
               </router-link>
@@ -49,7 +49,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mx-2 text-cosmic-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
-            <span class="text-starlight-100 font-medium">{{ entry.title }}</span>
+            <span class="text-starlight-500 font-medium">{{ entry.title }}</span>
           </nav>
 
           <!-- 条目内容卡片 -->
@@ -68,7 +68,7 @@
             </div>
 
             <div class="p-5 md:p-8">
-              <h1 class="text-3xl md:text-4xl font-bold mb-4 text-starlight-100">{{ entry.title }}</h1>
+              <h1 class="text-3xl md:text-4xl font-bold mb-4 text-starlight-500">{{ entry.title }}</h1>
 
               <div class="flex flex-wrap gap-2 mb-6" v-if="entry.tags && entry.tags.length > 0">
                 <Tag
@@ -92,7 +92,7 @@
               </div>
 
               <!-- 星系装饰 -->
-              <div class="absolute opacity-10 top-1/2 right-8 w-32 h-32 border border-starlight-400/30 pointer-events-none"></div>
+              <div class="absolute opacity-30 top-1/2 right-8 w-32 h-32 border border-starlight-400 pointer-events-none"></div>
 
               <!-- 条目主体内容 -->
               <div ref="contentArea" class="prose prose-starlight dark:prose-invert max-w-none relative">
@@ -116,7 +116,7 @@
 
               <!-- 相关条目 -->
               <div class="mt-10 pt-6 border-t border-cosmic-600/40" v-if="resolvedRelatedItems.length > 0">
-                <h3 class="text-lg font-bold mb-5 text-starlight-100 flex items-center">
+                <h3 class="text-lg font-bold mb-5 text-starlight-500 flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-starlight-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
@@ -126,7 +126,7 @@
                   <li v-for="item in resolvedRelatedItems" :key="item.title" class="flex items-center">
                     <span class="mr-2 text-starlight-400">•</span>
                     <!-- Use router-link if path exists, otherwise display text -->
-                    <router-link v-if="item.path" :to="item.path" class="text-starlight-200 hover:text-starlight-100 transition-colors">
+                    <router-link v-if="item.path" :to="item.path" class="text-starlight-500 hover:text-starlight-100 transition-colors">
                       {{ item.title }}
                     </router-link>
                     <span v-else class="text-starlight-300">{{ item.title }}</span>
@@ -170,8 +170,8 @@
                 <div v-if="isShareMenuOpen" class="absolute right-0 bottom-full mb-2 bg-cosmic-800/90 backdrop-blur-md shadow-brutal border-brutal p-3 w-64 z-10 share-menu">
                   <div class="flex flex-col space-y-2">
                     <div class="flex justify-between items-center">
-                      <span class="text-sm font-semibold text-starlight-100">分享到</span>
-                      <button @click="isShareMenuOpen = false" class="text-starlight-400 hover:text-starlight-100 transition-colors">
+                      <span class="text-sm font-semibold text-starlight-300">分享到</span>
+                      <button @click="isShareMenuOpen = false" class="text-starlight-500 hover:text-starlight-100 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
@@ -220,7 +220,7 @@
         <!-- TOC Sidebar Area -->
         <div class="md:col-span-1 hidden md:block">
           <div class="sticky top-20 bg-cosmic-800/60 backdrop-blur-sm border-brutal shadow-brutal p-4 overflow-hidden">
-            <h4 class="text-starlight-100 font-semibold mb-4 pb-2 border-b border-cosmic-600/40 flex items-center">
+            <h4 class="text-starlight-500 font-semibold mb-4 pb-2 border-b border-cosmic-600/40 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
               </svg>

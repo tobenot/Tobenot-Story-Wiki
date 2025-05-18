@@ -1,0 +1,52 @@
+[
+  {
+    "id": "power-world-chronicles",
+    "title": "异能世界编年史",
+    "subtitle": "第一部：觉醒之刻",
+    "description": "一个关于超能力者在现代社会生存的故事，探讨能力与责任的边界。在一个看似平凡的都市中，潜藏着拥有各种异能的人们，他们的存在逐渐被揭示，引发了社会的动荡和变革。主角在意外中觉醒了自己的能力，并卷入了一系列事件中。",
+    "shortDescription": "超能力者在现代社会的生存故事，探讨能力与责任。",
+    "status": "ongoing", 
+    "genres": ["都市奇幻", "超能力", "剧情"],
+    "themes": ["成长", "社会冲突", "人性"],
+    "targetAudience": "青年及成人",
+    "coverImage": "/assets/images/novel_covers/power_world_chronicles_cover.png", 
+    "world": "托贝诺特宇宙 - 地球纪元",
+    "series": {
+      "name": "异能世界",
+      "bookNumber": 1
+    },
+    "externalReadLink": "#", 
+    "wikiLink": "/entry/novels/power-world-chronicles-overview", 
+    "relatedWikiEntries": [
+      { "title": "主要角色：林风", "link": "/entry/characters/lin-feng" },
+      { "title": "异能体系设定", "link": "/entry/concepts/power-system-earth" }
+    ],
+    "chapters": 12,
+    "expectedLength": "约20万字",
+    "currentProgress": "第二卷大纲修订中",
+    "publicationDate": null,
+    "authorNotes": "重点探索异能对个体和社会结构的影响。"
+  },
+  {
+    "id": "interstellar-migration",
+    "title": "星际移民纪事",
+    "subtitle": "",
+    "description": "在地球资源濒临枯竭的未来，人类启动了宏大的星际移民计划。故事跟随第一批星际殖民者的视角，记录他们在未知星系建立新家园的艰辛历程，以及面对外星环境、内部矛盾和宇宙深处谜团的挑战。",
+    "shortDescription": "人类首次大规模移民太阳系外行星的希望与挑战。",
+    "status": "planned",
+    "genres": ["硬科幻", "太空探索", "殖民"],
+    "themes": ["生存", "希望", "未知探索"],
+    "targetAudience": "科幻爱好者",
+    "coverImage": null,
+    "world": "托贝诺特宇宙 - 星际纪元",
+    "series": null,
+    "externalReadLink": null,
+    "wikiLink": "/entry/novels/interstellar-migration-concept",
+    "relatedWikiEntries": [],
+    "chapters": 0,
+    "expectedLength": "三部曲系列，单部约30万字",
+    "currentProgress": "世界观及核心技术设定阶段",
+    "publicationDate": null,
+    "authorNotes": "希望构建一个相对真实的星际殖民画卷。"
+  }
+] 

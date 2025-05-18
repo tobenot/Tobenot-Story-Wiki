@@ -60,7 +60,11 @@ const navItems = [
   { name: '人物', path: '/category/characters' },
   { name: '地点', path: '/category/locations' },
   { name: '事件', path: '/category/events' },
-  { name: '概念', path: '/category/concepts' }
+  { name: '概念', path: '/category/concepts' },
+  { name: '小说坑', path: '/novels' },
+  { name: '游戏坑', path: '/games' },
+  { name: '小说Wiki', path: '/category/novels' },
+  { name: '游戏Wiki', path: '/category/games' }
 ];
 
 // 检查用户偏好和系统设置

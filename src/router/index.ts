@@ -16,6 +16,16 @@ const routes = [
     name: 'Entry',
     component: () => import('../views/EntryPage.vue')
   },
+  {
+    path: '/novels',
+    name: 'Novels',
+    component: () => import('../views/NovelsPage.vue')
+  },
+  {
+    path: '/games',
+    name: 'Games',
+    component: () => import('../views/GamesPage.vue')
+  },
   // 添加一个通配符路由，捕获所有未匹配的路由
   {
     path: '/:pathMatch(.*)*',

@@ -1,0 +1,60 @@
+[
+  {
+    "id": "power-duelist-arena",
+    "title": "异能者决斗场",
+    "subtitle": "策略对决新纪元",
+    "description": "一款深度策略回合制游戏，玩家收集并培养拥有独特异能的角色，在多样化的战场上进行1v1或2v2对决。游戏强调战术布局、技能组合以及对对手行动的预判。",
+    "shortDescription": "收集异能角色，进行深度策略回合制对战。",
+    "status": "development", 
+    "genres": ["回合制策略", "卡牌收集", "竞技"],
+    "themes": ["超能力战斗", "战术思考"],
+    "coverImage": "/assets/images/game_covers/power_duelist_arena_banner.png",
+    "gallery": [
+      "/assets/images/game_covers/pda_screenshot1.png",
+      "/assets/images/game_covers/pda_screenshot2.png"
+    ],
+    "platform": ["PC", "Mobile"],
+    "engine": "Unity",
+    "teamSize": 5,
+    "developmentProgress": "核心战斗系统完成，角色扩充中 (60%)",
+    "releaseDate": "预计2025 Q2",
+    "projectLink": "#", 
+    "demoLink": "#internal-alpha",
+    "wikiLink": "/entry/games/power-duelist-arena-rules", 
+    "relatedWikiEntries": [
+      { "title": "角色：炎拳", "link": "/entry/characters/yanquan" },
+      { "title": "战斗机制：能量核心", "link": "/entry/concepts/energy-core-mechanic" }
+    ],
+    "inspiration": "炉石传说战场, Into the Breach",
+    "monetization": "买断制 + 外观道具",
+    "techStack": ["Unity DOTS", "Mirror Networking"],
+    "developerNotes": "当前重点是优化网络同步和平衡性调整。"
+  },
+  {
+    "id": "space-colony-sim",
+    "title": "星际殖民模拟器",
+    "subtitle": "最后的方舟",
+    "description": "一款硬核的太空殖民地生存与管理模拟游戏。玩家将带领最后一批幸存的人类，在遥远而危险的星球上从零开始建立殖民地。需要精心规划资源、发展科技、应对环境灾害和潜在的外星威胁。",
+    "shortDescription": "硬核太空殖民生存管理，带领人类重建文明。",
+    "status": "concept",
+    "genres": ["模拟经营", "生存", "建造", "科幻"],
+    "themes": ["末日余生", "资源管理", "基地建设", "探索与发现"],
+    "coverImage": null,
+    "gallery": [],
+    "platform": ["PC"],
+    "engine": "Unreal Engine 5", 
+    "teamSize": null,
+    "developmentProgress": "GDD初稿完成，核心玩法循环设计中",
+    "releaseDate": null,
+    "projectLink": null,
+    "demoLink": null,
+    "wikiLink": "/entry/games/space-colony-sim-ideas",
+    "relatedWikiEntries": [
+      { "title": "星球：Xylos", "link": "/entry/locations/xylos" }
+    ],
+    "inspiration": "RimWorld, Frostpunk, Surviving Mars",
+    "monetization": "买断制",
+    "techStack": ["UE5 Nanite/Lumen", "AI行为树"],
+    "developerNotes": "重点研究程序化星球生成和复杂的殖民者行为AI。"
+  }
+] 

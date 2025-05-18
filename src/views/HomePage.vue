@@ -24,6 +24,21 @@
           欢迎来到世界观 Wiki，在这里你可以探索各种作品中的设定。<br>目前Wiki正在建设中，许多条目有待补充，值得期待更新！<br>我期望这里变成百科全书，最终可以只通过Wiki（打开剧透模式后）<br>了解我所有作品内的所有设定和事件！<br>
           <span class="text-starlight-600 font-medium">祝你旅途愉快。</span>
         </p>
+        
+        <!-- 特殊创作入口 -->
+        <div class="mb-12 flex flex-col sm:flex-row justify-center gap-4">
+          <router-link to="/novels" class="special-entry novel-entry">
+            <span class="text-2xl mb-1">📚︎</span>
+            <span class="font-bold">小说坑</span>
+            <span class="text-sm">探索创作中的小说</span>
+          </router-link>
+          
+          <router-link to="/games" class="special-entry game-entry">
+            <span class="text-2xl mb-1">🎮︎</span>
+            <span class="font-bold">游戏坑</span>
+            <span class="text-sm">查看游戏项目</span>
+          </router-link>
+        </div>
 
         <!-- 全局搜索组件 -->
         <div class="mb-16 max-w-xl mx-auto relative z-10">
@@ -96,6 +111,18 @@ const categories = [
     path: '/category/concepts',
     description: '理解各种作品中的概念',
     symbolClass: 'concept-symbol'
+  },
+  {
+    title: '小说坑',
+    path: '/category/novels',
+    description: '探索托贝诺特的小说作品',
+    symbolClass: 'novel-symbol'
+  },
+  {
+    title: '游戏坑',
+    path: '/category/games',
+    description: '了解托贝诺特的游戏项目',
+    symbolClass: 'game-symbol'
   }
 ];
 </script>
@@ -156,6 +183,14 @@ const categories = [
 
 .concept-symbol {
   @apply bg-gradient-to-br from-starlight-500/70 to-starlight-700/70;
+}
+
+.novel-symbol {
+  @apply bg-gradient-to-br from-secondary-500/70 to-secondary-700/70;
+}
+
+.game-symbol {
+  @apply bg-gradient-to-br from-primary-500/70 to-primary-700/70;
 }
 
 .symbol-inner {
@@ -252,5 +287,29 @@ const categories = [
   .symbol-glow {
     @apply w-12 h-12;
   }
+}
+
+.special-entry {
+  @apply flex flex-col items-center justify-center p-4 bg-white backdrop-blur-sm border-2 border-slate-900 transition-all duration-300 text-center w-full sm:w-64 no-underline text-gray-800 shadow-brutal;
+}
+
+.special-entry:hover {
+  @apply shadow-brutal-lg transform -translate-y-1;
+}
+
+.novel-entry {
+  @apply hover:border-secondary-400;
+}
+
+.novel-entry:hover span {
+  @apply text-secondary-700;
+}
+
+.game-entry {
+  @apply hover:border-primary-400;
+}
+
+.game-entry:hover span {
+  @apply text-primary-700;
 }
 </style>

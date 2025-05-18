@@ -53,6 +53,7 @@
                 <span class="text-5xl text-primary-200">🎮</span>
               </div>
               <div class="absolute inset-0 bg-gradient-to-t from-primary-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-2 right-2 bg-primary-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">#{{game.number}}</div>
             </div>
             
             <div class="p-6 flex flex-col flex-grow">
@@ -144,6 +145,7 @@
                 <span class="text-5xl text-green-200">🚀</span>
               </div>
               <div class="absolute inset-0 bg-gradient-to-t from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">#{{game.number}}</div>
             </div>
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-800 group-hover:text-green-700 transition-colors">{{ game.title }}</h3>
@@ -220,6 +222,7 @@
                 <span class="text-5xl text-slate-300">🗄️</span>
               </div>
               <div class="absolute inset-0 bg-gradient-to-t from-slate-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-2 right-2 bg-slate-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">#{{game.number}}</div>
             </div>
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-700 group-hover:text-slate-800 transition-colors">{{ game.title }}</h3>
@@ -297,6 +300,7 @@
                 <span class="text-5xl text-gray-300">💡</span>
               </div>
               <div class="absolute inset-0 bg-gradient-to-t from-primary-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-2 right-2 bg-gray-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">#{{game.number}}</div>
             </div>
             
             <div class="p-6 flex flex-col flex-grow">

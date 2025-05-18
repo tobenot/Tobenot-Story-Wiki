@@ -13,3 +13,6 @@ Learn more about the recommended Project Setup and IDE Support in the [Vue Docs 
 
 将 require('@node-rs/jieba') 改为 require('nodejieba')
 保存文件后再次尝试构建索引
+
+# json编辑
+https://jsoneditoronline.org/#left=local.gijoyi

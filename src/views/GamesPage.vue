@@ -132,27 +132,27 @@
         </h2>
         <div v-if="releasedGames.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div v-for="game in releasedGames" :key="game.id" class="game-card group">
-            <div class="h-48 bg-gradient-to-br from-green-50 to-green-100 border-b-2 border-slate-900 relative overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-starlight-50 to-starlight-100 border-b-2 border-slate-900 relative overflow-hidden">
               <ImageLoader 
                 v-if="game.coverImage" 
                 :src="game.coverImage" 
                 :alt="game.title + ' cover'" 
                 imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                placeholderClass="w-full h-full flex items-center justify-center bg-green-50 text-green-200"
+                placeholderClass="w-full h-full flex items-center justify-center bg-starlight-50 text-starlight-200"
                 errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
               />
               <div v-else class="absolute inset-0 flex items-center justify-center">
-                <span class="text-5xl text-green-200">🚀</span>
+                <span class="text-5xl text-starlight-200">🚀</span>
               </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">#{{game.number}}</div>
+              <div class="absolute inset-0 bg-gradient-to-t from-starlight-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute top-2 right-2 bg-starlight-600 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-md">#{{game.number}}</div>
             </div>
             <div class="p-6 flex flex-col flex-grow">
-              <h3 class="text-xl font-bold text-gray-800 group-hover:text-green-700 transition-colors">{{ game.title }}</h3>
-              <p v-if="game.subtitle" class="text-sm text-green-600 mb-2">{{ game.subtitle }}</p>
+              <h3 class="text-xl font-bold text-gray-800 group-hover:text-starlight-700 transition-colors">{{ game.title }}</h3>
+              <p v-if="game.subtitle" class="text-sm text-starlight-600 mb-2">{{ game.subtitle }}</p>
               <p class="text-sm text-gray-600 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ game.description }}</p>
               <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
-                <span v-for="genre in game.genres" :key="genre" class="tag bg-green-50 text-green-700 border-green-200 text-xs">{{ genre }}</span>
+                <span v-for="genre in game.genres" :key="genre" class="tag bg-starlight-50 text-starlight-700 border-starlight-200 text-xs">{{ genre }}</span>
               </div>
               <div v-if="game.themes && game.themes.length" class="mb-3">
                 <p class="text-xs text-gray-500 font-medium">主题:</p>
@@ -177,11 +177,11 @@
                     <p class="mt-0.5">{{ game.developerNotes }}</p>
                 </div>
                 <div class="flex justify-between items-center">
-                  <a v-if="game.projectLink" :href="game.projectLink" target="_blank" class="text-green-600 font-medium flex items-center text-sm group-hover:text-green-700 transition-colors">
+                  <a v-if="game.projectLink" :href="game.projectLink" target="_blank" class="text-starlight-600 font-medium flex items-center text-sm group-hover:text-starlight-700 transition-colors">
                     前往商店/查看
                     <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </a>
-                  <router-link v-else-if="game.wikiLink" :to="game.wikiLink" class="text-green-600 font-medium flex items-center text-sm group-hover:text-green-700 transition-colors">
+                  <router-link v-else-if="game.wikiLink" :to="game.wikiLink" class="text-starlight-600 font-medium flex items-center text-sm group-hover:text-starlight-700 transition-colors">
                     查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </router-link>
                   <span v-else class="text-xs text-gray-400">暂无链接</span>
@@ -191,7 +191,7 @@
                     <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
                     <ul class="list-disc list-inside text-xs">
                         <li v-for="entry in game.relatedWikiEntries" :key="entry.link">
-                            <router-link :to="entry.link" class="text-green-600 hover:text-green-700 hover:underline">{{ entry.title }}</router-link>
+                            <router-link :to="entry.link" class="text-starlight-600 hover:text-starlight-700 hover:underline">{{ entry.title }}</router-link>
                         </li>
                     </ul>
                 </div>

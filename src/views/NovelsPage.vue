@@ -176,31 +176,31 @@
       
       <!-- 已完成的作品 -->
       <section id="completed" class="mb-24">
-        <h2 class="text-2xl font-bold mb-8 pb-2 border-b-2 border-green-200 inline-block text-gray-800">
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b-2 border-starlight-200 inline-block text-gray-800">
           已完成的作品
         </h2>
         <div v-if="completedNovels.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div v-for="novel in completedNovels" :key="novel.id" class="novel-card group">
-            <div class="h-48 bg-gradient-to-br from-green-50 to-green-100 border-b-2 border-slate-900 relative overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-starlight-50 to-starlight-100 border-b-2 border-slate-900 relative overflow-hidden">
               <ImageLoader 
                 v-if="novel.coverImage" 
                 :src="novel.coverImage" 
                 :alt="novel.title + ' cover'" 
                 imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                placeholderClass="w-full h-full flex items-center justify-center bg-green-50 text-green-200"
+                placeholderClass="w-full h-full flex items-center justify-center bg-starlight-50 text-starlight-200"
                 errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
               />
               <div v-else class="absolute inset-0 flex items-center justify-center">
-                <span class="text-5xl text-green-200">🎉</span>
+                <span class="text-5xl text-starlight-200">🎉</span>
               </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-starlight-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
             <div class="p-6 flex flex-col flex-grow">
-              <h3 class="text-xl font-bold text-gray-800 group-hover:text-green-700 transition-colors">{{ novel.title }}</h3>
-              <p v-if="novel.subtitle" class="text-sm text-green-600 mb-2">{{ novel.subtitle }}</p>
+              <h3 class="text-xl font-bold text-gray-800 group-hover:text-starlight-700 transition-colors">{{ novel.title }}</h3>
+              <p v-if="novel.subtitle" class="text-sm text-starlight-600 mb-2">{{ novel.subtitle }}</p>
               <p class="text-sm text-gray-600 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ novel.description }}</p>
               <div v-if="novel.genres && novel.genres.length" class="flex flex-wrap gap-2 mb-3">
-                <span v-for="genre in novel.genres" :key="genre" class="tag bg-green-50 text-green-700 border-green-200 text-xs">{{ genre }}</span>
+                <span v-for="genre in novel.genres" :key="genre" class="tag bg-starlight-50 text-starlight-700 border-starlight-200 text-xs">{{ genre }}</span>
               </div>
               <div v-if="novel.themes && novel.themes.length" class="mb-3">
                 <p class="text-xs text-gray-500 font-medium">主题:</p>
@@ -220,10 +220,10 @@
                     <p class="mt-0.5">{{ novel.authorNotes }}</p>
                 </div>
                 <div class="flex justify-between items-center">
-                  <a v-if="novel.externalReadLink" :href="novel.externalReadLink" target="_blank" class="text-green-600 font-medium flex items-center text-sm group-hover:text-green-700 transition-colors">
+                  <a v-if="novel.externalReadLink" :href="novel.externalReadLink" target="_blank" class="text-starlight-600 font-medium flex items-center text-sm group-hover:text-starlight-700 transition-colors">
                     前往阅读 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </a>
-                  <router-link v-else-if="novel.wikiLink" :to="novel.wikiLink" class="text-green-600 font-medium flex items-center text-sm group-hover:text-green-700 transition-colors">
+                  <router-link v-else-if="novel.wikiLink" :to="novel.wikiLink" class="text-starlight-600 font-medium flex items-center text-sm group-hover:text-starlight-700 transition-colors">
                     查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </router-link>
                    <span v-else class="text-xs text-gray-400">暂无链接</span>
@@ -233,7 +233,7 @@
                     <p class="text-xs font-medium text-gray-600 mb-0.5">相关Wiki:</p>
                     <ul class="list-disc list-inside text-xs">
                         <li v-for="entry in novel.relatedWikiEntries" :key="entry.link">
-                            <router-link :to="entry.link" class="text-green-600 hover:text-green-700 hover:underline">{{ entry.title }}</router-link>
+                            <router-link :to="entry.link" class="text-starlight-600 hover:text-starlight-700 hover:underline">{{ entry.title }}</router-link>
                         </li>
                     </ul>
                 </div>

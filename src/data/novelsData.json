@@ -1,67 +1,61 @@
 [
-  {
-    "id": "power-world-chronicles",
-    "title": "异能世界编年史",
-    "subtitle": "第一部：觉醒之刻",
-    "description": "一个关于超能力者在现代社会生存的故事，探讨能力与责任的边界。在一个看似平凡的都市中，潜藏着拥有各种异能的人们，他们的存在逐渐被揭示，引发了社会的动荡和变革。主角在意外中觉醒了自己的能力，并卷入了一系列事件中。",
-    "status": "ongoing", 
-    "genres": ["都市奇幻", "超能力", "剧情"],
-    "themes": ["成长", "社会冲突", "人性"],
-    "coverImage": "/assets/images/novel_covers/power_world_chronicles_cover.png", 
-    "world": "托贝诺特宇宙 - 地球纪元",
-    "externalReadLink": "#", 
-    "wikiLink": "/entry/novels/power-world-chronicles-overview", 
-    "relatedWikiEntries": [
-      { "title": "主要角色：林风", "link": "/entry/characters/lin-feng" },
-      { "title": "异能体系设定", "link": "/entry/concepts/power-system-earth" }
-    ],
-    "chapters": 12,
-    "expectedLength": "约20万字",
-    "currentProgress": "第二卷大纲修订中",
-    "conceptionDate": "2022-08-15",
-    "authorNotes": "重点探索异能对个体和社会结构的影响。主角的心路历程是关键。"
-  },
-  {
-    "id": "interstellar-migration",
-    "title": "星际移民纪事",
-    "subtitle": "",
-    "description": "在地球资源濒临枯竭的未来，人类启动了宏大的星际移民计划。故事跟随第一批星际殖民者的视角，记录他们在未知星系建立新家园的艰辛历程，以及面对外星环境、内部矛盾和宇宙深处谜团的挑战。",
-    "status": "planned",
-    "genres": ["硬科幻", "太空探索", "殖民"],
-    "themes": ["生存", "希望", "未知探索", "人性考验"],
-    "coverImage": null,
-    "world": "托贝诺特宇宙 - 星际纪元",
-    "externalReadLink": null,
-    "wikiLink": "/entry/novels/interstellar-migration-concept",
-    "relatedWikiEntries": [
-      { "title": "飞船：开拓者号", "link": "/entry/items/pioneer-ship"}
-    ],
-    "chapters": 0,
-    "expectedLength": "三部曲系列，单部约30万字",
-    "currentProgress": "世界观及核心技术设定阶段",
-    "conceptionDate": "2023-01-20",
-    "authorNotes": "希望构建一个相对真实的星际殖民画卷，技术细节和社会演变是重点。"
-  },
-  {
-    "id": "magic-academy-secrets-ref",
-    "title": "魔法学院的秘密社团 (重构)",
-    "subtitle": "禁忌的传承",
-    "description": "重构版本：在一所历史悠久的精英魔法学院中，一个由特立独行的学生组成的秘密社团，在追寻学院创始人隐藏的真相时，无意间触碰到了足以颠覆魔法界平衡的禁忌知识。",
-    "status": "planned",
-    "genres": ["学院派魔法", "悬疑解谜", "群像冒险"],
-    "themes": ["知识与代价", "传统与变革", "友谊与背叛"],
-    "coverImage": "/assets/images/novel_covers/magic_academy_ref.png",
-    "world": "艾瑞多尔魔法世界",
-    "externalReadLink": null,
-    "wikiLink": "/entry/novels/magic-academy-secrets-ref-plot",
-    "relatedWikiEntries": [
-        {"title": "主要角色：莉娜", "link": "/entry/characters/lina-sorceress"},
-        {"title": "魔法派系：奥术议会", "link": "/entry/concepts/arcane-council"}
-    ],
-    "chapters": 0,
-    "expectedLength": "约25万字",
-    "currentProgress": "主要角色背景及社团设定细化",
-    "conceptionDate": "2023-05-10",
-    "authorNotes": "探索魔法背后的规则与代价，社团成员间的互动与成长是核心。"
-  }
-] 
+    {
+      "id": "beyond-books-rules",
+      "title": "不止于纸上的故事：鸿律篇",
+      "subtitle": "Beyond Books: RULE",
+      "description": "你将跟随主角【苏敬峰】的第一视角，体验一场为爱与未来而战的奇幻旅程。你将读到他如何运用进入【作者世界】的独特【异能】，与挚爱的【王烛馨】在一次次惨烈且紧张刺激的战斗中，共同对抗接踵而至的危机——从神秘的【时光机】事件，到深不可测的【规律机构】，再到拥有奇异能力的各路强大敌人。见证【王烛馨】在绝境中借【七彩线】觉醒的惊人力量，感受两人在生死考验中不渝的爱情与牺牲。在来自未来的【穿越者】如母亲般的守护下，以及神秘的银发女孩【银】的指引中，故事将引领你通过铭刻着文字的【大理石】，穿梭于现实与展现为【无垠草地】的【光明境】等奇幻空间，并最终触及关乎宇宙秩序的【鸿律】。这不仅是一部充满奇谋险局的冒险史诗，更是一部关于成长、勇气以及爱情能创造奇迹的动人篇章。前两节已【AI动画化】，邀您一同见证这个不止于纸上的故事。而这一切的背后，更隐藏着涉及宇宙宿命、时间循环与【原初人类】奥秘的【宏大暗线】，等待有心的读者一同探索。",
+      "status": "completed",
+      "genres": [
+        "超能力智斗",
+        "都市奇幻",
+        "科幻",
+        "恋爱",
+        "每个字都是手打的，无AI成分"
+      ],
+      "themes": [
+        "爱与守护",
+        "牺牲与成长",
+        "命运与抗争",
+        "现实与虚构的边界",
+        "宇宙循环与宿命",
+        "时间穿梭与因果",
+        "人类本源与存续",
+        "个体意志与宏大叙事"
+      ],
+      "coverImage": "/images/novel_covers/bbr_title.webp",
+      "world": "地球宇宙（普朗克宇宙）",
+      "externalReadLink": "https://www.bilibili.com/video/BV1xPFNe1E8T/",
+      "wikiLink": null,
+      "relatedWikiEntries": [],
+      "chapters": 5,
+      "expectedLength": "20000字",
+      "currentProgress": null,
+      "conceptionDate": "2023-02-01",
+      "authorNotes": "原文处于封存状态，将在同名公众号逐章发布。AI动画化已经暂停，已有的两集可在下方链接观看。"
+    },
+    {
+      "id": "playground-tower-space-elevator",
+      "title": "操场·高楼·太空电梯",
+      "subtitle": "Playground, Tower, Space Elevator",
+      "description": "置身于【2112年】的近未来，站在全球最高建筑的云顶操场，见证一个时代的壮丽落幕。由于神秘的【异能枯竭事件】，曾依靠【灵能】驱动的【太空电梯】——那道连接天地的“光柱”，即将执行其最后一次运载任务。\n你将跟随乐观活泼的维持员【惠】、经验丰富的发射员【蝎子】，与她们一同送别那位特殊的【客人】，并与充满好奇心的年轻记者【寻叶】一起记录这历史一刻。在这部短篇中，你将体验到：\n* 最后一次【太空电梯】升空旅程的独特感受，从地面直冲云霄，体验失重，俯瞰脚下如宣纸般平坦的大地与弧形的地平线。\n* 角色间温暖的日常互动与生死一瞬中紧握的双手，感受【惠】与【蝎子】的深厚友情，以及【惠】与【客人】之间难以言说的默契与情感。\n* 【灵能】在仪式般的告别中使用，见识【灵能糖】的神奇效用，以及能力者们在限制下的生活点滴。\n* 从惊心动魄的超高速返回引发的“意外”，到对【神舟货运】、【天问探索】等未来星辰大海征途的无限向往。\n这不仅是一个关于科技更迭的科幻故事，更是一曲关于告别旧日、珍视当下情感，并勇敢展望未来的温情诗篇。",
+      "status": "completed",
+      "genres": ["超短篇", "科幻", "每个字都是手打的，无AI成分"],
+      "themes": [
+        "科幻",
+        "超能力",
+        "告别与传承",
+        "科技与未来",
+        "情感与羁绊"
+      ],
+      "coverImage": "/images/novel_covers/playground.webp",
+      "world": "地球宇宙（普朗克宇宙）",
+      "externalReadLink": "https://www.bilibili.com/read/cv11529157/",
+      "wikiLink": null,
+      "relatedWikiEntries": [],
+      "chapters": null,
+      "expectedLength": "5000字",
+      "currentProgress": null,
+      "conceptionDate": "2021-06-01",
+      "authorNotes": "已发布于同名B站专栏。可在下方链接阅读。"
+    }
+]

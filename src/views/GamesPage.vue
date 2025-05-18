@@ -26,6 +26,8 @@
         <div class="flex justify-center gap-4 flex-wrap">
           <a href="#development" class="btn btn-secondary">进行中/原型项目</a>
           <a href="#concept" class="btn btn-secondary">构思中的点子</a>
+          <a href="#released" class="btn btn-secondary">已发布游戏</a>
+          <a href="#archived" class="btn btn-secondary">已归档项目</a>
           <router-link to="/category/games" class="btn btn-primary">查看游戏Wiki条目</router-link>
         </div>
       </div>
@@ -39,7 +41,14 @@
         <div v-if="developmentGames.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div v-for="game in developmentGames" :key="game.id" class="game-card group">
             <div class="h-48 bg-gradient-to-br from-primary-50 to-primary-100 border-b-2 border-slate-900 relative overflow-hidden">
-              <img v-if="game.coverImage" :src="game.coverImage" :alt="game.title + ' cover'" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" @error="onImageError" />
+              <ImageLoader 
+                v-if="game.coverImage" 
+                :src="game.coverImage" 
+                :alt="game.title + ' cover'" 
+                imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                placeholderClass="w-full h-full flex items-center justify-center bg-primary-50 text-primary-200"
+                errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
+              />
               <div v-else class="absolute inset-0 flex items-center justify-center">
                 <span class="text-5xl text-primary-200">🎮</span>
               </div>
@@ -49,7 +58,7 @@
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-700 transition-colors">{{ game.title }}</h3>
               <p v-if="game.subtitle" class="text-sm text-primary-600 mb-2">{{ game.subtitle }}</p>
-              <p class="text-sm text-gray-600 mb-3 line-clamp-4 flex-grow">{{ game.description }}</p>
+              <p class="text-sm text-gray-600 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ game.description }}</p>
               
               <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
                 <span v-for="genre in game.genres" :key="genre" class="tag bg-primary-50 text-primary-700 border-primary-200 text-xs">{{ genre }}</span>
@@ -124,7 +133,14 @@
         <div v-if="conceptGames.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div v-for="game in conceptGames" :key="game.id" class="game-card group bg-opacity-80">
             <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 border-b-2 border-slate-900 relative overflow-hidden">
-              <img v-if="game.coverImage" :src="game.coverImage" :alt="game.title + ' cover'" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" @error="onImageError" />
+              <ImageLoader 
+                v-if="game.coverImage" 
+                :src="game.coverImage" 
+                :alt="game.title + ' cover'" 
+                imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                placeholderClass="w-full h-full flex items-center justify-center bg-gray-50 text-gray-200"
+                errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
+              />
               <div v-else class="absolute inset-0 flex items-center justify-center">
                 <span class="text-5xl text-gray-300">💡</span>
               </div>
@@ -134,7 +150,7 @@
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-700 transition-colors">{{ game.title }}</h3>
               <p v-if="game.subtitle" class="text-sm text-primary-600 mb-2">{{ game.subtitle }}</p>
-              <p class="text-sm text-gray-600 mb-3 line-clamp-4 flex-grow">{{ game.description }}</p>
+              <p class="text-sm text-gray-600 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ game.description }}</p>
               
               <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
                 <span v-for="genre in game.genres" :key="genre" class="tag bg-gray-50 text-gray-700 border-gray-200 text-xs">{{ genre }}</span>
@@ -183,6 +199,158 @@
         <p v-else class="text-gray-600">暂无构思中的游戏点子。</p>
       </section>
       
+      <!-- 已发布的游戏 -->
+      <section id="released" class="mb-24">
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b-2 border-primary-200 inline-block text-gray-800">
+          已发布游戏
+        </h2>
+        <div v-if="releasedGames.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div v-for="game in releasedGames" :key="game.id" class="game-card group">
+            <div class="h-48 bg-gradient-to-br from-green-50 to-green-100 border-b-2 border-slate-900 relative overflow-hidden">
+              <ImageLoader 
+                v-if="game.coverImage" 
+                :src="game.coverImage" 
+                :alt="game.title + ' cover'" 
+                imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                placeholderClass="w-full h-full flex items-center justify-center bg-green-50 text-green-200"
+                errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
+              />
+              <div v-else class="absolute inset-0 flex items-center justify-center">
+                <span class="text-5xl text-green-200">🚀</span>
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+              <h3 class="text-xl font-bold text-gray-800 group-hover:text-green-700 transition-colors">{{ game.title }}</h3>
+              <p v-if="game.subtitle" class="text-sm text-green-600 mb-2">{{ game.subtitle }}</p>
+              <p class="text-sm text-gray-600 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ game.description }}</p>
+              <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
+                <span v-for="genre in game.genres" :key="genre" class="tag bg-green-50 text-green-700 border-green-200 text-xs">{{ genre }}</span>
+              </div>
+              <div v-if="game.themes && game.themes.length" class="mb-3">
+                <p class="text-xs text-gray-500 font-medium">主题:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="theme in game.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
+                </div>
+              </div>
+              <div class="pt-2 mt-auto border-t border-gray-100">
+                <div class="text-xs text-gray-500 mb-2">
+                  <span v-if="game.engine">引擎: <span class="font-medium text-gray-700">{{ game.engine }}</span></span>
+                  <span v-if="game.engine && game.platform && game.platform.length"> &bull; </span>
+                  <span v-if="game.platform && game.platform.length">平台: <span class="font-medium text-gray-700">{{ game.platform.join(', ') }}</span></span>
+                </div>
+                 <div v-if="game.techStack && game.techStack.length" class="mb-2">
+                  <p class="text-xs text-gray-500 font-medium">技术栈:</p>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="tech in game.techStack" :key="tech" class="tag bg-slate-100 text-slate-700 border-slate-300 text-xs">{{ tech }}</span>
+                  </div>
+                </div>
+                <div v-if="game.developerNotes" class="mb-3 text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200">
+                    <p class="font-medium text-gray-700">开发者注记:</p>
+                    <p class="mt-0.5">{{ game.developerNotes }}</p>
+                </div>
+                <div class="flex justify-between items-center">
+                  <a v-if="game.projectLink" :href="game.projectLink" target="_blank" class="text-green-600 font-medium flex items-center text-sm group-hover:text-green-700 transition-colors">
+                    前往商店/查看
+                    <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                  </a>
+                  <router-link v-else-if="game.wikiLink" :to="game.wikiLink" class="text-green-600 font-medium flex items-center text-sm group-hover:text-green-700 transition-colors">
+                    查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                  </router-link>
+                  <span v-else class="text-xs text-gray-400">暂无链接</span>
+                  <span v-if="game.releaseDate" class="text-xs text-gray-500">发布于: {{game.releaseDate}}</span>
+                </div>
+                 <div v-if="game.relatedWikiEntries && game.relatedWikiEntries.length" class="mt-2 pt-2 border-t border-gray-100">
+                    <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
+                    <ul class="list-disc list-inside text-xs">
+                        <li v-for="entry in game.relatedWikiEntries" :key="entry.link">
+                            <router-link :to="entry.link" class="text-green-600 hover:text-green-700 hover:underline">{{ entry.title }}</router-link>
+                        </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p v-else class="text-gray-600">暂无已发布的游戏项目。</p>
+      </section>
+
+      <!-- 已归档的项目 -->
+      <section id="archived" class="mb-24">
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b-2 border-gray-300 inline-block text-gray-800">
+          已归档项目
+        </h2>
+        <div v-if="archivedGames.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div v-for="game in archivedGames" :key="game.id" class="game-card group bg-opacity-70">
+            <div class="h-48 bg-gradient-to-br from-slate-100 to-slate-200 border-b-2 border-slate-900 relative overflow-hidden">
+              <ImageLoader 
+                v-if="game.coverImage" 
+                :src="game.coverImage" 
+                :alt="game.title + ' cover'" 
+                imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                placeholderClass="w-full h-full flex items-center justify-center bg-slate-100 text-slate-300"
+                errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
+              />
+              <div v-else class="absolute inset-0 flex items-center justify-center">
+                <span class="text-5xl text-slate-300">🗄️</span>
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div class="p-6 flex flex-col flex-grow">
+              <h3 class="text-xl font-bold text-gray-700 group-hover:text-slate-800 transition-colors">{{ game.title }}</h3>
+              <p v-if="game.subtitle" class="text-sm text-slate-500 mb-2">{{ game.subtitle }}</p>
+              <p class="text-sm text-gray-500 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ game.description }}</p>
+              <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
+                <span v-for="genre in game.genres" :key="genre" class="tag bg-slate-100 text-slate-600 border-slate-300 text-xs">{{ genre }}</span>
+              </div>
+              <div v-if="game.themes && game.themes.length" class="mb-3">
+                <p class="text-xs text-gray-500 font-medium">主题:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="theme in game.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
+                </div>
+              </div>
+              <div class="pt-2 mt-auto border-t border-gray-100">
+                <div class="text-xs text-gray-500 mb-2">
+                  <span v-if="game.engine">引擎: <span class="font-medium text-gray-600">{{ game.engine }}</span></span>
+                   <span v-if="game.engine && game.platform && game.platform.length"> &bull; </span>
+                  <span v-if="game.platform && game.platform.length">平台: <span class="font-medium text-gray-600">{{ game.platform.join(', ') }}</span></span>
+                </div>
+                <div v-if="game.techStack && game.techStack.length" class="mb-2">
+                  <p class="text-xs text-gray-500 font-medium">技术栈:</p>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="tech in game.techStack" :key="tech" class="tag bg-slate-100 text-slate-700 border-slate-300 text-xs">{{ tech }}</span>
+                  </div>
+                </div>
+                 <div v-if="game.developerNotes" class="mb-3 text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200">
+                    <p class="font-medium text-gray-700">开发者注记:</p>
+                    <p class="mt-0.5">{{ game.developerNotes }}</p>
+                </div>
+                <div class="flex justify-between items-center">
+                  <a v-if="game.projectLink" :href="game.projectLink" target="_blank" class="text-slate-600 font-medium flex items-center text-sm group-hover:text-slate-700 transition-colors">
+                    查看归档
+                    <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                  </a>
+                   <router-link v-else-if="game.wikiLink" :to="game.wikiLink" class="text-slate-600 font-medium flex items-center text-sm group-hover:text-slate-700 transition-colors">
+                    查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                  </router-link>
+                  <span v-else class="text-xs text-gray-400">暂无链接</span>
+                  <span v-if="game.releaseDate" class="text-xs text-gray-400">归档于: {{game.releaseDate}}</span>
+                </div>
+                 <div v-if="game.relatedWikiEntries && game.relatedWikiEntries.length" class="mt-2 pt-2 border-t border-gray-100">
+                    <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
+                    <ul class="list-disc list-inside text-xs">
+                        <li v-for="entry in game.relatedWikiEntries" :key="entry.link">
+                            <router-link :to="entry.link" class="text-slate-600 hover:text-slate-700 hover:underline">{{ entry.title }}</router-link>
+                        </li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p v-else class="text-gray-600">暂无已归档的游戏项目。</p>
+      </section>
+      
       <!-- 游戏与世界观 -->
       <section class="mb-16 p-8 border-2 border-slate-900 bg-white/80 backdrop-blur-sm shadow-brutal">
         <h2 class="text-2xl font-bold mb-4 text-gray-800">游戏与世界观的关系</h2>
@@ -207,11 +375,14 @@ import { computed } from 'vue';
 import Header from '../components/layout/Header.vue';
 import Footer from '../components/layout/Footer.vue';
 import gamesData from '../data/gamesData.json';
+import ImageLoader from '../components/ui/ImageLoader.vue';
 
 const pageSubtitle = computed(() => {
   const devCount = developmentGames.value.length;
   const conceptCount = conceptGames.value.length;
-  return `目前展示 ${devCount} 款进行中/原型项目， ${conceptCount} 个构思中的点子。`;
+  const releasedCount = releasedGames.value.length;
+  const archivedCount = archivedGames.value.length;
+  return `目前展示 ${devCount} 款进行中/原型项目，${conceptCount} 个构思中的点子，${releasedCount} 款已发布游戏，${archivedCount} 个已归档项目。`;
 });
 
 const developmentGames = computed(() => 
@@ -222,9 +393,13 @@ const conceptGames = computed(() =>
   gamesData.filter(game => game.status === 'concept')
 );
 
-const onImageError = (event) => {
-  event.target.style.display = 'none'; 
-};
+const releasedGames = computed(() => 
+  gamesData.filter(game => game.status === 'released')
+);
+
+const archivedGames = computed(() => 
+  gamesData.filter(game => game.status === 'archived')
+);
 
 </script>
 
@@ -253,5 +428,30 @@ const onImageError = (event) => {
 }
 .h-48 { /* Ensure consistent height for card image area */
   height: 12rem;
+}
+
+/* 自定义描述区域滚动条 */
+.description-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.description-scroll::-webkit-scrollbar-track {
+  background: rgba(243, 244, 246, 0.1);
+  border-radius: 2px;
+}
+
+.description-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(156, 163, 175, 0.5);
+  border-radius: 2px;
+}
+
+.description-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(107, 114, 128, 0.7);
+}
+
+/* Firefox 滚动条 */
+.description-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) rgba(243, 244, 246, 0.1);
 }
 </style> 

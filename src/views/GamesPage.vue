@@ -107,7 +107,7 @@
                     查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </router-link>
                   <span v-else class="text-xs text-gray-400">暂无链接</span>
-                  <span v-if="game.releaseDate" class="text-xs text-gray-500">预计: {{game.releaseDate}}</span>
+                  <span v-if="game.releaseDate" class="text-xs text-gray-500">发布: {{game.releaseDate}}</span>
                 </div>
                  <div v-if="game.relatedWikiEntries && game.relatedWikiEntries.length" class="mt-2 pt-2 border-t border-gray-100">
                     <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
@@ -122,81 +122,6 @@
           </div>
         </div>
         <p v-else class="text-gray-600">暂无进行中或原型阶段的游戏项目。</p>
-      </section>
-      
-      <!-- 构思中的点子 -->
-      <section id="concept" class="mb-16">
-        <h2 class="text-2xl font-bold mb-8 pb-2 border-b-2 border-primary-200 inline-block text-gray-800">
-          构思中的点子
-        </h2>
-        
-        <div v-if="conceptGames.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="game in conceptGames" :key="game.id" class="game-card group bg-opacity-80">
-            <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 border-b-2 border-slate-900 relative overflow-hidden">
-              <ImageLoader 
-                v-if="game.coverImage" 
-                :src="game.coverImage" 
-                :alt="game.title + ' cover'" 
-                imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                placeholderClass="w-full h-full flex items-center justify-center bg-gray-50 text-gray-200"
-                errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
-              />
-              <div v-else class="absolute inset-0 flex items-center justify-center">
-                <span class="text-5xl text-gray-300">💡</span>
-              </div>
-              <div class="absolute inset-0 bg-gradient-to-t from-primary-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-            
-            <div class="p-6 flex flex-col flex-grow">
-              <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-700 transition-colors">{{ game.title }}</h3>
-              <p v-if="game.subtitle" class="text-sm text-primary-600 mb-2">{{ game.subtitle }}</p>
-              <p class="text-sm text-gray-600 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ game.description }}</p>
-              
-              <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
-                <span v-for="genre in game.genres" :key="genre" class="tag bg-gray-50 text-gray-700 border-gray-200 text-xs">{{ genre }}</span>
-              </div>
-              <div v-if="game.themes && game.themes.length" class="mb-3">
-                <p class="text-xs text-gray-500 font-medium">主题:</p>
-                <div class="flex flex-wrap gap-1 mt-1">
-                    <span v-for="theme in game.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
-                </div>
-              </div>
-              <div v-if="game.inspiration" class="mt-auto pt-3 border-t border-gray-100 text-xs">
-                <p class="text-gray-700 font-medium mb-0.5">灵感来源:</p>
-                <p class="text-gray-600">{{ game.inspiration }}</p>
-              </div>
-               <div v-if="game.techStack && game.techStack.length" class="mb-2 mt-2 pt-2 border-t border-gray-100">
-                  <p class="text-xs text-gray-500 font-medium">预想技术栈:</p>
-                  <div class="flex flex-wrap gap-1 mt-1">
-                    <span v-for="tech in game.techStack" :key="tech" class="tag bg-slate-100 text-slate-700 border-slate-300 text-xs">{{ tech }}</span>
-                  </div>
-                </div>
-                <div v-if="game.developerNotes" class="mb-3 text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200 mt-2">
-                    <p class="font-medium text-gray-700">开发者注记:</p>
-                    <p class="mt-0.5">{{ game.developerNotes }}</p>
-                </div>
-              <div class="flex justify-between items-center pt-2 mt-auto" :class="{ 'border-t border-gray-100': !game.inspiration && !game.techStack && !game.developerNotes }">
-                <div class="text-xs text-gray-500">
-                  <span v-if="game.developmentProgressText && game.status === 'concept'">状态: {{ game.developmentProgressText }}</span>
-                  <span v-else>状态: 构思中</span>
-                </div>
-                <router-link v-if="game.wikiLink" :to="game.wikiLink" class="text-primary-600 font-medium flex items-center text-sm group-hover:text-primary-700 transition-colors">
-                  查看构思 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                </router-link>
-                <span v-else class="text-xs text-gray-400">暂无链接</span>
-              </div>
-                <div v-if="game.relatedWikiEntries && game.relatedWikiEntries.length" class="mt-2 pt-2 border-t border-gray-100">
-                    <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
-                    <ul class="list-disc list-inside text-xs">
-                        <li v-for="entry in game.relatedWikiEntries" :key="entry.link">
-                            <router-link :to="entry.link" class="text-primary-600 hover:text-primary-700 hover:underline">{{ entry.title }}</router-link>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-          </div>
-        </div>
-        <p v-else class="text-gray-600">暂无构思中的游戏点子。</p>
       </section>
       
       <!-- 已发布的游戏 -->
@@ -349,6 +274,81 @@
           </div>
         </div>
         <p v-else class="text-gray-600">暂无已归档的游戏项目。</p>
+      </section>
+
+      <!-- 构思中的点子 -->
+      <section id="concept" class="mb-16">
+        <h2 class="text-2xl font-bold mb-8 pb-2 border-b-2 border-primary-200 inline-block text-gray-800">
+          构思中的点子
+        </h2>
+        
+        <div v-if="conceptGames.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div v-for="game in conceptGames" :key="game.id" class="game-card group bg-opacity-80">
+            <div class="h-48 bg-gradient-to-br from-gray-50 to-gray-100 border-b-2 border-slate-900 relative overflow-hidden">
+              <ImageLoader 
+                v-if="game.coverImage" 
+                :src="game.coverImage" 
+                :alt="game.title + ' cover'" 
+                imageClass="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                placeholderClass="w-full h-full flex items-center justify-center bg-gray-50 text-gray-200"
+                errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
+              />
+              <div v-else class="absolute inset-0 flex items-center justify-center">
+                <span class="text-5xl text-gray-300">💡</span>
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-primary-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            
+            <div class="p-6 flex flex-col flex-grow">
+              <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-700 transition-colors">{{ game.title }}</h3>
+              <p v-if="game.subtitle" class="text-sm text-primary-600 mb-2">{{ game.subtitle }}</p>
+              <p class="text-sm text-gray-600 mb-3 flex-grow max-h-36 overflow-y-auto pr-1 whitespace-pre-line description-scroll">{{ game.description }}</p>
+              
+              <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
+                <span v-for="genre in game.genres" :key="genre" class="tag bg-gray-50 text-gray-700 border-gray-200 text-xs">{{ genre }}</span>
+              </div>
+              <div v-if="game.themes && game.themes.length" class="mb-3">
+                <p class="text-xs text-gray-500 font-medium">主题:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="theme in game.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
+                </div>
+              </div>
+              <div v-if="game.inspiration" class="mt-auto pt-3 border-t border-gray-100 text-xs">
+                <p class="text-gray-700 font-medium mb-0.5">灵感来源:</p>
+                <p class="text-gray-600">{{ game.inspiration }}</p>
+              </div>
+               <div v-if="game.techStack && game.techStack.length" class="mb-2 mt-2 pt-2 border-t border-gray-100">
+                  <p class="text-xs text-gray-500 font-medium">预想技术栈:</p>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="tech in game.techStack" :key="tech" class="tag bg-slate-100 text-slate-700 border-slate-300 text-xs">{{ tech }}</span>
+                  </div>
+                </div>
+                <div v-if="game.developerNotes" class="mb-3 text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200 mt-2">
+                    <p class="font-medium text-gray-700">开发者注记:</p>
+                    <p class="mt-0.5">{{ game.developerNotes }}</p>
+                </div>
+              <div class="flex justify-between items-center pt-2 mt-auto" :class="{ 'border-t border-gray-100': !game.inspiration && !game.techStack && !game.developerNotes }">
+                <div class="text-xs text-gray-500">
+                  <span v-if="game.developmentProgressText && game.status === 'concept'">状态: {{ game.developmentProgressText }}</span>
+                  <span v-else>状态: 构思中</span>
+                </div>
+                <router-link v-if="game.wikiLink" :to="game.wikiLink" class="text-primary-600 font-medium flex items-center text-sm group-hover:text-primary-700 transition-colors">
+                  查看构思 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                </router-link>
+                <span v-else class="text-xs text-gray-400">暂无链接</span>
+              </div>
+                <div v-if="game.relatedWikiEntries && game.relatedWikiEntries.length" class="mt-2 pt-2 border-t border-gray-100">
+                    <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
+                    <ul class="list-disc list-inside text-xs">
+                        <li v-for="entry in game.relatedWikiEntries" :key="entry.link">
+                            <router-link :to="entry.link" class="text-primary-600 hover:text-primary-700 hover:underline">{{ entry.title }}</router-link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+        <p v-else class="text-gray-600">暂无构思中的游戏点子。</p>
       </section>
       
       <!-- 游戏与世界观 -->

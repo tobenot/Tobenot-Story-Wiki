@@ -4,19 +4,14 @@
     "title": "异能者决斗场",
     "subtitle": "策略对决新纪元",
     "description": "一款深度策略回合制游戏，玩家收集并培养拥有独特异能的角色，在多样化的战场上进行1v1或2v2对决。游戏强调战术布局、技能组合以及对对手行动的预判。",
-    "shortDescription": "收集异能角色，进行深度策略回合制对战。",
     "status": "development", 
     "genres": ["回合制策略", "卡牌收集", "竞技"],
     "themes": ["超能力战斗", "战术思考"],
     "coverImage": "/assets/images/game_covers/power_duelist_arena_banner.png",
-    "gallery": [
-      "/assets/images/game_covers/pda_screenshot1.png",
-      "/assets/images/game_covers/pda_screenshot2.png"
-    ],
     "platform": ["PC", "Mobile"],
     "engine": "Unity",
-    "teamSize": 5,
-    "developmentProgress": "核心战斗系统完成，角色扩充中 (60%)",
+    "developmentProgress": 60, 
+    "developmentProgressText": "核心战斗系统完成，角色扩充中",
     "releaseDate": "预计2025 Q2",
     "projectLink": "#", 
     "demoLink": "#internal-alpha",
@@ -26,7 +21,6 @@
       { "title": "战斗机制：能量核心", "link": "/entry/concepts/energy-core-mechanic" }
     ],
     "inspiration": "炉石传说战场, Into the Breach",
-    "monetization": "买断制 + 外观道具",
     "techStack": ["Unity DOTS", "Mirror Networking"],
     "developerNotes": "当前重点是优化网络同步和平衡性调整。"
   },
@@ -35,26 +29,48 @@
     "title": "星际殖民模拟器",
     "subtitle": "最后的方舟",
     "description": "一款硬核的太空殖民地生存与管理模拟游戏。玩家将带领最后一批幸存的人类，在遥远而危险的星球上从零开始建立殖民地。需要精心规划资源、发展科技、应对环境灾害和潜在的外星威胁。",
-    "shortDescription": "硬核太空殖民生存管理，带领人类重建文明。",
     "status": "concept",
     "genres": ["模拟经营", "生存", "建造", "科幻"],
     "themes": ["末日余生", "资源管理", "基地建设", "探索与发现"],
     "coverImage": null,
-    "gallery": [],
     "platform": ["PC"],
     "engine": "Unreal Engine 5", 
-    "teamSize": null,
-    "developmentProgress": "GDD初稿完成，核心玩法循环设计中",
+    "developmentProgress": 0,
+    "developmentProgressText": "GDD初稿完成，核心玩法循环设计中",
     "releaseDate": null,
     "projectLink": null,
     "demoLink": null,
     "wikiLink": "/entry/games/space-colony-sim-ideas",
     "relatedWikiEntries": [
-      { "title": "星球：Xylos", "link": "/entry/locations/xylos" }
+      { "title": "星球：Xylos", "link": "/entry/locations/xylos" },
+      { "title": "核心技术：动态环境模拟", "link": "/entry/concepts/dynamic-environment-sim"}
     ],
     "inspiration": "RimWorld, Frostpunk, Surviving Mars",
-    "monetization": "买断制",
     "techStack": ["UE5 Nanite/Lumen", "AI行为树"],
     "developerNotes": "重点研究程序化星球生成和复杂的殖民者行为AI。"
+  },
+  {
+    "id": "chronoscape-explorer-ref",
+    "title": "时空旅者探秘 (重构)",
+    "subtitle": "破碎的时间线",
+    "description": "重构版本：一款以叙事为主的冒险解谜游戏，玩家扮演一名能够穿梭不同历史时期的时空旅者，通过影响过去的关键节点，试图修复一条被蓄意破坏的时间主线。",
+    "status": "concept",
+    "genres": ["冒险解谜", "叙事驱动", "时间旅行"],
+    "themes": ["因果循环", "历史修正", "道德困境"],
+    "coverImage": "/assets/images/game_covers/chronoscape_ref.png",
+    "platform": ["PC", "Switch"],
+    "engine": "Godot Engine 4", 
+    "developmentProgress": 0,
+    "developmentProgressText": "剧情大纲及核心谜题设计阶段",
+    "releaseDate": null,
+    "projectLink": null,
+    "demoLink": null,
+    "wikiLink": "/entry/games/chronoscape-explorer-ref-story",
+    "relatedWikiEntries": [
+      { "title": "设定：时空悖论规则", "link": "/entry/concepts/temporal-paradox-rules" }
+    ],
+    "inspiration": "Outer Wilds, Life is Strange, 斯坦因之门",
+    "techStack": ["Godot GDScript", "视觉小说集成"],
+    "developerNotes": "强调多结局和玩家选择对剧情的深远影响。"
   }
 ] 

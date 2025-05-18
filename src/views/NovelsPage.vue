@@ -48,17 +48,29 @@
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-800 group-hover:text-secondary-700 transition-colors">{{ novel.title }}</h3>
               <p v-if="novel.subtitle" class="text-sm text-secondary-600 mb-2">{{ novel.subtitle }}</p>
-              <p class="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">{{ novel.shortDescription || novel.description }}</p>
+              <p class="text-sm text-gray-600 mb-3 line-clamp-4 flex-grow">{{ novel.description }}</p>
               
               <div v-if="novel.genres && novel.genres.length" class="flex flex-wrap gap-2 mb-3">
                 <span v-for="genre in novel.genres" :key="genre" class="tag bg-secondary-50 text-secondary-700 border-secondary-200 text-xs">{{ genre }}</span>
               </div>
+              <div v-if="novel.themes && novel.themes.length" class="mb-3">
+                <p class="text-xs text-gray-500 font-medium">主题:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="theme in novel.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
+                </div>
+              </div>
+              <div v-if="novel.world" class="text-xs text-gray-500 mb-2">世界观: <span class="font-medium text-gray-700">{{novel.world}}</span></div>
 
-              <div class="mt-auto pt-3 border-t border-gray-100">
-                <div class="text-xs text-gray-500 mb-2">
+              <div class="mt-auto pt-3 border-t border-gray-100 space-y-2">
+                <div class="text-xs text-gray-500">
                   <span v-if="novel.status === 'ongoing' && novel.chapters">状态: 更新中 · {{ novel.chapters }}章</span>
                   <span v-else-if="novel.currentProgress">状态: {{ novel.currentProgress }}</span>
                   <span v-else>状态: {{ novel.status }}</span>
+                  <span v-if="novel.expectedLength" class="ml-2 text-gray-400">(预计: {{novel.expectedLength}})</span>
+                </div>
+                 <div v-if="novel.authorNotes" class="text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200">
+                    <p class="font-medium text-gray-700">作者注记:</p>
+                    <p class="mt-0.5">{{ novel.authorNotes }}</p>
                 </div>
                 <div class="flex justify-between items-center">
                   <a v-if="novel.externalReadLink" :href="novel.externalReadLink" target="_blank" class="text-secondary-600 font-medium flex items-center text-sm group-hover:text-secondary-700 transition-colors">
@@ -68,10 +80,16 @@
                     查看构思 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </router-link>
                    <span v-else class="text-xs text-gray-400">暂无链接</span>
+                   <span v-if="novel.conceptionDate" class="text-xs text-gray-400">构思于: {{novel.conceptionDate}}</span>
                 </div>
-                <router-link v-if="novel.wikiLink && novel.externalReadLink" :to="novel.wikiLink" class="text-xs text-gray-500 hover:text-secondary-500 mt-1 inline-block">
-                    相关Wiki条目
-                </router-link>
+                <div v-if="novel.relatedWikiEntries && novel.relatedWikiEntries.length" class="pt-1">
+                    <p class="text-xs font-medium text-gray-600 mb-0.5">相关Wiki:</p>
+                    <ul class="list-disc list-inside text-xs">
+                        <li v-for="entry in novel.relatedWikiEntries" :key="entry.link">
+                            <router-link :to="entry.link" class="text-secondary-600 hover:text-secondary-700 hover:underline">{{ entry.title }}</router-link>
+                        </li>
+                    </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -97,19 +115,42 @@
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-800 group-hover:text-secondary-700 transition-colors">{{ novel.title }}</h3>
               <p v-if="novel.subtitle" class="text-sm text-secondary-600 mb-2">{{ novel.subtitle }}</p>
-              <p class="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">{{ novel.shortDescription || novel.description }}</p>
+              <p class="text-sm text-gray-600 mb-3 line-clamp-4 flex-grow">{{ novel.description }}</p>
               <div v-if="novel.genres && novel.genres.length" class="flex flex-wrap gap-2 mb-3">
                 <span v-for="genre in novel.genres" :key="genre" class="tag bg-gray-50 text-gray-700 border-gray-200 text-xs">{{ genre }}</span>
               </div>
-              <div class="mt-auto pt-3 border-t border-gray-100">
-                <div class="text-xs text-gray-500 mb-2">
+              <div v-if="novel.themes && novel.themes.length" class="mb-3">
+                <p class="text-xs text-gray-500 font-medium">主题:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="theme in novel.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
+                </div>
+              </div>
+              <div v-if="novel.world" class="text-xs text-gray-500 mb-2">世界观: <span class="font-medium text-gray-700">{{novel.world}}</span></div>
+              <div class="mt-auto pt-3 border-t border-gray-100 space-y-2">
+                 <div class="text-xs text-gray-500">
                   <span v-if="novel.currentProgress">状态: {{ novel.currentProgress }}</span>
                   <span v-else>状态: {{ novel.status === 'planned' ? '计划中' : novel.status }}</span>
+                   <span v-if="novel.expectedLength" class="ml-2 text-gray-400">(预计: {{novel.expectedLength}})</span>
                 </div>
-                <router-link v-if="novel.wikiLink" :to="novel.wikiLink" class="text-secondary-600 font-medium flex items-center text-sm group-hover:text-secondary-700 transition-colors">
-                  查看构思 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                </router-link>
-                <span v-else class="text-xs text-gray-400">暂无链接</span>
+                <div v-if="novel.authorNotes" class="text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200">
+                    <p class="font-medium text-gray-700">作者注记:</p>
+                    <p class="mt-0.5">{{ novel.authorNotes }}</p>
+                </div>
+                <div class="flex justify-between items-center">
+                  <router-link v-if="novel.wikiLink" :to="novel.wikiLink" class="text-secondary-600 font-medium flex items-center text-sm group-hover:text-secondary-700 transition-colors">
+                    查看构思 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                  </router-link>
+                  <span v-else class="text-xs text-gray-400">暂无链接</span>
+                  <span v-if="novel.conceptionDate" class="text-xs text-gray-400">构思于: {{novel.conceptionDate}}</span>
+                </div>
+                <div v-if="novel.relatedWikiEntries && novel.relatedWikiEntries.length" class="pt-1">
+                    <p class="text-xs font-medium text-gray-600 mb-0.5">相关Wiki:</p>
+                    <ul class="list-disc list-inside text-xs">
+                        <li v-for="entry in novel.relatedWikiEntries" :key="entry.link">
+                            <router-link :to="entry.link" class="text-secondary-600 hover:text-secondary-700 hover:underline">{{ entry.title }}</router-link>
+                        </li>
+                    </ul>
+                </div>
               </div>
             </div>
           </div>

@@ -4,17 +4,11 @@
     "title": "异能世界编年史",
     "subtitle": "第一部：觉醒之刻",
     "description": "一个关于超能力者在现代社会生存的故事，探讨能力与责任的边界。在一个看似平凡的都市中，潜藏着拥有各种异能的人们，他们的存在逐渐被揭示，引发了社会的动荡和变革。主角在意外中觉醒了自己的能力，并卷入了一系列事件中。",
-    "shortDescription": "超能力者在现代社会的生存故事，探讨能力与责任。",
     "status": "ongoing", 
     "genres": ["都市奇幻", "超能力", "剧情"],
     "themes": ["成长", "社会冲突", "人性"],
-    "targetAudience": "青年及成人",
     "coverImage": "/assets/images/novel_covers/power_world_chronicles_cover.png", 
     "world": "托贝诺特宇宙 - 地球纪元",
-    "series": {
-      "name": "异能世界",
-      "bookNumber": 1
-    },
     "externalReadLink": "#", 
     "wikiLink": "/entry/novels/power-world-chronicles-overview", 
     "relatedWikiEntries": [
@@ -24,29 +18,50 @@
     "chapters": 12,
     "expectedLength": "约20万字",
     "currentProgress": "第二卷大纲修订中",
-    "publicationDate": null,
-    "authorNotes": "重点探索异能对个体和社会结构的影响。"
+    "conceptionDate": "2022-08-15",
+    "authorNotes": "重点探索异能对个体和社会结构的影响。主角的心路历程是关键。"
   },
   {
     "id": "interstellar-migration",
     "title": "星际移民纪事",
     "subtitle": "",
     "description": "在地球资源濒临枯竭的未来，人类启动了宏大的星际移民计划。故事跟随第一批星际殖民者的视角，记录他们在未知星系建立新家园的艰辛历程，以及面对外星环境、内部矛盾和宇宙深处谜团的挑战。",
-    "shortDescription": "人类首次大规模移民太阳系外行星的希望与挑战。",
     "status": "planned",
     "genres": ["硬科幻", "太空探索", "殖民"],
-    "themes": ["生存", "希望", "未知探索"],
-    "targetAudience": "科幻爱好者",
+    "themes": ["生存", "希望", "未知探索", "人性考验"],
     "coverImage": null,
     "world": "托贝诺特宇宙 - 星际纪元",
-    "series": null,
     "externalReadLink": null,
     "wikiLink": "/entry/novels/interstellar-migration-concept",
-    "relatedWikiEntries": [],
+    "relatedWikiEntries": [
+      { "title": "飞船：开拓者号", "link": "/entry/items/pioneer-ship"}
+    ],
     "chapters": 0,
     "expectedLength": "三部曲系列，单部约30万字",
     "currentProgress": "世界观及核心技术设定阶段",
-    "publicationDate": null,
-    "authorNotes": "希望构建一个相对真实的星际殖民画卷。"
+    "conceptionDate": "2023-01-20",
+    "authorNotes": "希望构建一个相对真实的星际殖民画卷，技术细节和社会演变是重点。"
+  },
+  {
+    "id": "magic-academy-secrets-ref",
+    "title": "魔法学院的秘密社团 (重构)",
+    "subtitle": "禁忌的传承",
+    "description": "重构版本：在一所历史悠久的精英魔法学院中，一个由特立独行的学生组成的秘密社团，在追寻学院创始人隐藏的真相时，无意间触碰到了足以颠覆魔法界平衡的禁忌知识。",
+    "status": "planned",
+    "genres": ["学院派魔法", "悬疑解谜", "群像冒险"],
+    "themes": ["知识与代价", "传统与变革", "友谊与背叛"],
+    "coverImage": "/assets/images/novel_covers/magic_academy_ref.png",
+    "world": "艾瑞多尔魔法世界",
+    "externalReadLink": null,
+    "wikiLink": "/entry/novels/magic-academy-secrets-ref-plot",
+    "relatedWikiEntries": [
+        {"title": "主要角色：莉娜", "link": "/entry/characters/lina-sorceress"},
+        {"title": "魔法派系：奥术议会", "link": "/entry/concepts/arcane-council"}
+    ],
+    "chapters": 0,
+    "expectedLength": "约25万字",
+    "currentProgress": "主要角色背景及社团设定细化",
+    "conceptionDate": "2023-05-10",
+    "authorNotes": "探索魔法背后的规则与代价，社团成员间的互动与成长是核心。"
   }
 ] 

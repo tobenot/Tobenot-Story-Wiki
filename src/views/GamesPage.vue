@@ -49,27 +49,43 @@
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-700 transition-colors">{{ game.title }}</h3>
               <p v-if="game.subtitle" class="text-sm text-primary-600 mb-2">{{ game.subtitle }}</p>
-              <p class="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">{{ game.shortDescription || game.description }}</p>
+              <p class="text-sm text-gray-600 mb-3 line-clamp-4 flex-grow">{{ game.description }}</p>
               
               <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
                 <span v-for="genre in game.genres" :key="genre" class="tag bg-primary-50 text-primary-700 border-primary-200 text-xs">{{ genre }}</span>
               </div>
-              
-              <div v-if="game.developmentProgress" class="mt-auto pt-3 space-y-1 mb-2 border-t border-gray-100">
-                <div class="flex justify-between text-sm">
-                  <span class="text-gray-600">进度: {{ game.status === 'prototype' ? '原型' : '开发' }}</span>
-                  <span class="text-primary-600 font-medium">{{ game.developmentProgress }}</span>
+              <div v-if="game.themes && game.themes.length" class="mb-3">
+                <p class="text-xs text-gray-500 font-medium">主题:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="theme in game.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
                 </div>
-                <div v-if="typeof game.developmentProgress === 'string' && game.developmentProgress.includes('%')" class="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-primary-500 h-1.5" :style="{ width: game.developmentProgress }"></div>
+              </div>
+
+              <div v-if="game.developmentProgressText || typeof game.developmentProgress === 'number'" class="mt-auto pt-3 space-y-1 mb-2 border-t border-gray-100">
+                <div class="flex justify-between text-sm items-center">
+                  <span class="text-gray-600">进度: {{ game.status === 'prototype' ? '原型' : '开发' }}</span>
+                  <span class="text-primary-600 font-medium">{{ game.developmentProgressText || game.developmentProgress + '%' }}</span>
+                </div>
+                <div v-if="typeof game.developmentProgress === 'number' && game.developmentProgress > 0" class="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                  <div class="bg-gradient-to-r from-primary-400 to-primary-600 h-2 rounded-full" :style="{ width: game.developmentProgress + '%' }"></div>
                 </div>
               </div>
               
-              <div class="pt-2 mt-auto" :class="{ 'border-t border-gray-100': !game.developmentProgress }">
+              <div class="pt-2 mt-auto" :class="{ 'border-t border-gray-100': !(game.developmentProgressText || typeof game.developmentProgress === 'number') }">
                 <div class="text-xs text-gray-500 mb-2">
-                  <span v-if="game.engine">引擎: {{ game.engine }}</span>
+                  <span v-if="game.engine">引擎: <span class="font-medium text-gray-700">{{ game.engine }}</span></span>
                   <span v-if="game.engine && game.platform && game.platform.length"> &bull; </span>
-                  <span v-if="game.platform && game.platform.length">平台: {{ game.platform.join(', ') }}</span>
+                  <span v-if="game.platform && game.platform.length">平台: <span class="font-medium text-gray-700">{{ game.platform.join(', ') }}</span></span>
+                </div>
+                 <div v-if="game.techStack && game.techStack.length" class="mb-2">
+                  <p class="text-xs text-gray-500 font-medium">技术栈:</p>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="tech in game.techStack" :key="tech" class="tag bg-slate-100 text-slate-700 border-slate-300 text-xs">{{ tech }}</span>
+                  </div>
+                </div>
+                <div v-if="game.developerNotes" class="mb-3 text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200">
+                    <p class="font-medium text-gray-700">开发者注记:</p>
+                    <p class="mt-0.5">{{ game.developerNotes }}</p>
                 </div>
                 <div class="flex justify-between items-center">
                   <a v-if="game.projectLink" :href="game.projectLink" target="_blank" class="text-primary-600 font-medium flex items-center text-sm group-hover:text-primary-700 transition-colors">
@@ -82,10 +98,16 @@
                     查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
                   </router-link>
                   <span v-else class="text-xs text-gray-400">暂无链接</span>
+                  <span v-if="game.releaseDate" class="text-xs text-gray-500">预计: {{game.releaseDate}}</span>
                 </div>
-                 <router-link v-if="game.wikiLink && game.projectLink" :to="game.wikiLink" class="text-xs text-gray-500 hover:text-primary-500 mt-1 inline-block">
-                    相关Wiki条目
-                </router-link>
+                 <div v-if="game.relatedWikiEntries && game.relatedWikiEntries.length" class="mt-2 pt-2 border-t border-gray-100">
+                    <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
+                    <ul class="list-disc list-inside text-xs">
+                        <li v-for="entry in game.relatedWikiEntries" :key="entry.link">
+                            <router-link :to="entry.link" class="text-primary-600 hover:text-primary-700 hover:underline">{{ entry.title }}</router-link>
+                        </li>
+                    </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -112,20 +134,34 @@
             <div class="p-6 flex flex-col flex-grow">
               <h3 class="text-xl font-bold text-gray-800 group-hover:text-primary-700 transition-colors">{{ game.title }}</h3>
               <p v-if="game.subtitle" class="text-sm text-primary-600 mb-2">{{ game.subtitle }}</p>
-              <p class="text-sm text-gray-600 mb-4 line-clamp-3 flex-grow">{{ game.shortDescription || game.description }}</p>
+              <p class="text-sm text-gray-600 mb-3 line-clamp-4 flex-grow">{{ game.description }}</p>
               
               <div v-if="game.genres && game.genres.length" class="flex flex-wrap gap-2 mb-3">
                 <span v-for="genre in game.genres" :key="genre" class="tag bg-gray-50 text-gray-700 border-gray-200 text-xs">{{ genre }}</span>
               </div>
-              
+              <div v-if="game.themes && game.themes.length" class="mb-3">
+                <p class="text-xs text-gray-500 font-medium">主题:</p>
+                <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="theme in game.themes" :key="theme" class="tag bg-gray-100 text-gray-700 border-gray-300 text-xs">{{ theme }}</span>
+                </div>
+              </div>
               <div v-if="game.inspiration" class="mt-auto pt-3 border-t border-gray-100 text-xs">
                 <p class="text-gray-700 font-medium mb-0.5">灵感来源:</p>
                 <p class="text-gray-600">{{ game.inspiration }}</p>
               </div>
-              
-              <div class="flex justify-between items-center pt-2 mt-2" :class="{ 'border-t border-gray-100': !game.inspiration }">
+               <div v-if="game.techStack && game.techStack.length" class="mb-2 mt-2 pt-2 border-t border-gray-100">
+                  <p class="text-xs text-gray-500 font-medium">预想技术栈:</p>
+                  <div class="flex flex-wrap gap-1 mt-1">
+                    <span v-for="tech in game.techStack" :key="tech" class="tag bg-slate-100 text-slate-700 border-slate-300 text-xs">{{ tech }}</span>
+                  </div>
+                </div>
+                <div v-if="game.developerNotes" class="mb-3 text-xs text-gray-600 bg-gray-50 p-2 border border-gray-200 mt-2">
+                    <p class="font-medium text-gray-700">开发者注记:</p>
+                    <p class="mt-0.5">{{ game.developerNotes }}</p>
+                </div>
+              <div class="flex justify-between items-center pt-2 mt-auto" :class="{ 'border-t border-gray-100': !game.inspiration && !game.techStack && !game.developerNotes }">
                 <div class="text-xs text-gray-500">
-                  <span v-if="game.developmentProgress && game.status === 'concept'">状态: {{ game.developmentProgress }}</span>
+                  <span v-if="game.developmentProgressText && game.status === 'concept'">状态: {{ game.developmentProgressText }}</span>
                   <span v-else>状态: 构思中</span>
                 </div>
                 <router-link v-if="game.wikiLink" :to="game.wikiLink" class="text-primary-600 font-medium flex items-center text-sm group-hover:text-primary-700 transition-colors">
@@ -133,6 +169,14 @@
                 </router-link>
                 <span v-else class="text-xs text-gray-400">暂无链接</span>
               </div>
+                <div v-if="game.relatedWikiEntries && game.relatedWikiEntries.length" class="mt-2 pt-2 border-t border-gray-100">
+                    <p class="text-xs font-medium text-gray-600 mb-1">相关Wiki:</p>
+                    <ul class="list-disc list-inside text-xs">
+                        <li v-for="entry in game.relatedWikiEntries" :key="entry.link">
+                            <router-link :to="entry.link" class="text-primary-600 hover:text-primary-700 hover:underline">{{ entry.title }}</router-link>
+                        </li>
+                    </ul>
+                </div>
             </div>
           </div>
         </div>
@@ -180,8 +224,6 @@ const conceptGames = computed(() =>
 
 const onImageError = (event) => {
   event.target.style.display = 'none'; 
-  // Placeholder logic could be more robust, e.g., by adding a class to the parent
-  // and using CSS to show ::before content or a sibling placeholder element.
 };
 
 </script>

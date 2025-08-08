@@ -26,7 +26,34 @@ const routes = [
     name: 'Games',
     component: () => import('../views/GamesPage.vue')
   },
-  // 添加一个通配符路由，捕获所有未匹配的路由
+  // New: Works routes
+  {
+    path: '/works',
+    name: 'WorksIndex',
+    component: () => import('../views/WorksPage.vue')
+  },
+  {
+    path: '/works/:workId',
+    name: 'WorkDetail',
+    component: () => import('../views/WorkDetailPage.vue')
+  },
+  {
+    path: '/works/:workId/parts/:partId',
+    name: 'PartDetail',
+    component: () => import('../views/PartDetailPage.vue')
+  },
+  // New: Themes routes
+  {
+    path: '/themes',
+    name: 'ThemesIndex',
+    component: () => import('../views/ThemesPage.vue')
+  },
+  {
+    path: '/theme/:themeId',
+    name: 'ThemeDetail',
+    component: () => import('../views/ThemeDetailPage.vue')
+  },
+  // Catch-all
   {
     path: '/:pathMatch(.*)*',
     redirect: '/'

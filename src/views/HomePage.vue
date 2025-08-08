@@ -123,18 +123,6 @@ const categories = [
     symbolClass: 'concept-symbol'
   },
   {
-    title: '小说坑',
-    path: '/category/novels',
-    description: '探索托贝诺特的小说作品',
-    symbolClass: 'novel-symbol'
-  },
-  {
-    title: '游戏坑',
-    path: '/category/games',
-    description: '了解托贝诺特的游戏项目',
-    symbolClass: 'game-symbol'
-  },
-  {
     title: '作品',
     path: '/works',
     description: '按作品/篇章组织浏览',

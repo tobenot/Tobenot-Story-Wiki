@@ -28,7 +28,6 @@
           <a href="#concept" class="btn btn-secondary">构思中的点子</a>
           <a href="#released" class="btn btn-secondary">已发布游戏</a>
           <a href="#archived" class="btn btn-secondary">已归档项目</a>
-          <router-link to="/category/games" class="btn btn-primary">查看游戏Wiki条目</router-link>
         </div>
       </div>
 

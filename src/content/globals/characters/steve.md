@@ -1,11 +1,12 @@
 ---
 title: "史蒂文"
-type: "人物"
-tags: ["银月篇", "银月寺", "主持", "不止于纸上的故事：银月篇"]
-related: ["银月寺", "罗伯特", "折射"]
-description: "银月寺的主持。"
+type: "characters"
+canonicalId: "character.steve"
+summary: "银月寺的主持。"
+tags: ["银月篇", "银月寺", "主持"]
 image: "/images/no_image.png"
 ---
+
 # 史蒂文
 
 史蒂文是银月寺的主持。
@@ -37,4 +38,4 @@ image: "/images/no_image.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于史蒂文的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于史蒂文的故事

@@ -1,11 +1,12 @@
 ---
 title: "图尔斯"
-type: "人物"
+type: "characters"
+canonicalId: "character.tours"
+summary: "贝利斯雇佣兵，罗伯特的初中同学，异能为【芯铁消逝】。"
 tags: ["银月篇", "贝利斯", "雇佣兵", "异能者", "不止于纸上的故事：银月篇"]
-related: ["贝利斯", "芯铁消逝", "罗伯特"]
-description: "贝利斯雇佣兵，罗伯特的初中同学，异能为【芯铁消逝】。"
 image: "/images/characters/silvermoon/tours.png"
 ---
+
 # 图尔斯
 
 图尔斯是贝利斯集团的雇佣兵军官。
@@ -41,4 +42,4 @@ image: "/images/characters/silvermoon/tours.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于图尔斯的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于图尔斯的故事

@@ -1,11 +1,12 @@
 ---
 title: "杰瑞斯"
-type: "人物"
+type: "characters"
+canonicalId: "character.jerry"
+summary: "罪恶猎手高官"
 tags: ["银月篇", "罪恶猎手", "异能者", "不止于纸上的故事：银月篇"]
-related: ["罪恶猎手", "潜龙无影", "银月寺"]
-description: "罪恶猎手高官"
 image: "/images/characters/silvermoon/jerry.png"
 ---
+
 # 杰瑞斯
 
 杰瑞斯是罪恶猎手的高级官员。
@@ -36,4 +37,4 @@ image: "/images/characters/silvermoon/jerry.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于杰瑞斯的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于杰瑞斯的故事

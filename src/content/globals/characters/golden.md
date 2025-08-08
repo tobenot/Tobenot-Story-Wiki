@@ -1,11 +1,12 @@
 ---
 title: "金"
-type: "人物"
+type: "characters"
+canonicalId: "character.golden"
+summary: "成为人类，成为圣人。"
 tags: ["横雨军", "心界", "心界人类", "船长"]
-related: ["横雨军", "心界", "萝北"]
-description: "成为人类，成为圣人。"
 image: "/images/characters/heartworld/golden.jpg"
 ---
+
 # 金
 
 金（Golden）是心界的第四任主控/主角。是目前心界中持续时间最长的主控。

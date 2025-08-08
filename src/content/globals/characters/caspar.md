@@ -1,11 +1,12 @@
 ---
 title: "卡斯帕"
-type: "人物"
+type: "characters"
+canonicalId: "character.caspar"
+summary: "银月大学的棍术老师。"
 tags: ["银月篇", "银月大学", "教师", "不止于纸上的故事：银月篇"]
-related: ["银月寺", "银月大学", "艾琳"]
-description: "银月大学的棍术老师。"
 image: "/images/characters/silvermoon/caspar.png"
 ---
+
 # 卡斯帕
 
 卡斯帕是银月大学的棍术教师，同时也是一位工程师。
@@ -44,4 +45,4 @@ image: "/images/characters/silvermoon/caspar.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于卡斯帕的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于卡斯帕的故事

@@ -1,11 +1,12 @@
 ---
 title: "田中连"
-type: "人物"
+type: "characters"
+canonicalId: "character.tanaka-ren"
+summary: "贝利斯集团的新任领导。"
 tags: ["银月篇", "贝利斯", "领导", "异能者", "不止于纸上的故事：银月篇"]
-related: ["贝利斯", "折射", "图尔斯", "破晓行动"]
-description: "贝利斯集团的新任领导。"
 image: "/images/characters/silvermoon/tanaka_ren.png"
 ---
+
 # 田中连
 
 田中连是贝利斯集团的新任领导，上任后积极奔赴各地索取保管能量之体。
@@ -41,4 +42,4 @@ image: "/images/characters/silvermoon/tanaka_ren.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于田中连的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于田中连的故事

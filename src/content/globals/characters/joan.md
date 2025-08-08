@@ -1,11 +1,12 @@
 ---
 title: "琼"
-type: "人物"
+type: "characters"
+canonicalId: "character.joan"
+summary: "使用生成冰的能力。"
 tags: ["银月篇", "望穿秋水", "异能者", "不止于纸上的故事：银月篇"]
-related: ["望穿秋水", "冰雪风暴", "星辰"]
-description: "使用生成冰的能力。"
 image: "/images/characters/silvermoon/joan.png"
 ---
+
 # 琼
 
 琼居住在望穿秋水附近。

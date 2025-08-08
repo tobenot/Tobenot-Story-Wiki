@@ -1,11 +1,12 @@
 ---
 title: "艾琳"
-type: "人物"
+type: "characters"
+canonicalId: "character.airin"
+summary: "银月寺内的银月大学的新生，当然也是异能者。"
 tags: ["银月篇", "银月大学", "异能者", "学生", "不止于纸上的故事：银月篇"]
-related: ["银月寺", "鲸歌海铭", "银月大学"]
-description: "银月寺内的银月大学的新生，当然也是异能者。"
 image: "/images/characters/silvermoon/airin.png"
 ---
+
 # 艾琳
 
 艾琳是银月大学的新生。
@@ -41,4 +42,4 @@ image: "/images/characters/silvermoon/airin.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于艾琳的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于艾琳的故事

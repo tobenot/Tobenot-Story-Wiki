@@ -1,11 +1,12 @@
 ---
 title: "斯图尔特"
-type: "人物"
+type: "characters"
+canonicalId: "character.stuart"
+summary: "贝利斯雇佣兵，异能是【内能构建】。他背上嵌入了钢铁羽翼。"
 tags: ["银月篇", "贝利斯", "雇佣兵", "异能者", "不止于纸上的故事：银月篇"]
-related: ["贝利斯", "内能构建", "图尔斯", "克莱门特"]
-description: "贝利斯雇佣兵，异能是【内能构建】。他背上嵌入了钢铁羽翼。"
 image: "/images/characters/silvermoon/stuart.png"
 ---
+
 # 斯图尔特
 
 斯图尔特是贝利斯集团的雇佣兵。
@@ -37,4 +38,4 @@ image: "/images/characters/silvermoon/stuart.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于斯图尔特的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于斯图尔特的故事

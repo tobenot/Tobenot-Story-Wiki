@@ -1,11 +1,12 @@
 ---
 title: "珂茵"
-type: "人物"
+type: "characters"
+canonicalId: "character.corn"
+summary: "银月寺的保安，具有用光弓射出光箭并瞬移到光箭位置的异能。"
 tags: ["银月篇", "银月寺", "保安", "异能者", "不止于纸上的故事：银月篇"]
-related: ["银月寺", "罗伯特", "辛妮亚"]
-description: "银月寺的保安，具有用光弓射出光箭并瞬移到光箭位置的异能。"
 image: "/images/characters/silvermoon/corn.png"
 ---
+
 # 珂茵
 
 珂茵是银月寺的保安。

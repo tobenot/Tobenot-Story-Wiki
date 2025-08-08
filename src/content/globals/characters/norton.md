@@ -1,11 +1,12 @@
 ---
 title: "诺顿"
-type: "人物"
-tags: ["银月篇", "银月寺", "保安", "不止于纸上的故事：银月篇"]
-related: ["银月寺", "罗伯特", "灵能盾"]
-description: "银月寺的保安，未觉醒异能，但也有灵能盾，棍术也很厉害。"
+type: "characters"
+canonicalId: "character.norton"
+summary: "银月寺的保安，未觉醒异能，但也有灵能盾，棍术也很厉害。"
+tags: ["银月篇", "银月寺", "保安"]
 image: "/images/characters/silvermoon/norton.png"
 ---
+
 # 诺顿
 
 诺顿是银月寺的保安。
@@ -41,4 +42,4 @@ image: "/images/characters/silvermoon/norton.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于诺顿的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于诺顿的故事

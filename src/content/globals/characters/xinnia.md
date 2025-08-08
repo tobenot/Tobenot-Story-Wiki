@@ -1,11 +1,12 @@
 ---
 title: "辛妮亚"
-type: "人物"
+type: "characters"
+canonicalId: "character.xinnia"
+summary: "银月寺的新任保安，珂茵的闺蜜，具有使周围不能传播声音的异能。"
 tags: ["银月篇", "银月寺", "保安", "异能者", "不止于纸上的故事：银月篇"]
-related: ["银月寺", "珂茵", "音域净空"]
-description: "银月寺的新任保安，珂茵的闺蜜，具有使周围不能传播声音的异能。"
 image: "/images/characters/silvermoon/xinnia.png"
 ---
+
 # 辛妮亚
 
 辛妮亚是银月寺的新任保安。
@@ -37,4 +38,4 @@ image: "/images/characters/silvermoon/xinnia.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于辛妮亚的故事 
+[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于辛妮亚的故事

@@ -27,7 +27,6 @@
           <a href="#planned" class="btn btn-secondary">计划中的作品</a>
           <a href="#completed" class="btn btn-secondary">已完成的作品</a>
           <a href="#archived" class="btn btn-secondary">已归档的作品</a>
-          <router-link to="/category/novels" class="btn btn-primary">查看小说Wiki条目</router-link>
         </div>
       </div>
 

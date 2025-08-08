@@ -38,6 +38,16 @@
             <span class="font-bold">游戏坑</span>
             <span class="text-sm">查看游戏项目</span>
           </router-link>
+          <router-link to="/works" class="special-entry game-entry">
+            <span class="text-2xl mb-1">📖</span>
+            <span class="font-bold">作品</span>
+            <span class="text-sm">按作品/篇章浏览</span>
+          </router-link>
+          <router-link to="/themes" class="special-entry novel-entry">
+            <span class="text-2xl mb-1">🧩</span>
+            <span class="font-bold">主题</span>
+            <span class="text-sm">专题聚合面板</span>
+          </router-link>
         </div>
 
         <!-- 全局搜索组件 -->
@@ -123,6 +133,18 @@ const categories = [
     path: '/category/games',
     description: '了解托贝诺特的游戏项目',
     symbolClass: 'game-symbol'
+  },
+  {
+    title: '作品',
+    path: '/works',
+    description: '按作品/篇章组织浏览',
+    symbolClass: 'novel-symbol'
+  },
+  {
+    title: '主题',
+    path: '/themes',
+    description: '按主题聚合浏览',
+    symbolClass: 'concept-symbol'
   }
 ];
 </script>

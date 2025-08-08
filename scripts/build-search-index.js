@@ -34,6 +34,32 @@ async function markdownToPlainText(markdownContent) {
   }
 }
 
+function deriveTypeAndFullId(fileRelativePath) {
+  // Normalize separators
+  const pathParts = fileRelativePath.split(path.sep);
+  // Handle structures:
+  // 1) legacy: <type>/<slug>.md => type=parts[0], fullId=parts.slice(1).join('/') without .md
+  // 2) globals: globals/<type>/<slug>.md => type=parts[1], fullId=`globals/${parts.slice(1).slice(1).join('/')}`
+  // 3) works part entry: works/<workId>/parts/<partId>/<type>/<slug>.md => type=parts[4], fullId=`works/${workId}/parts/${partId}/${slug}`
+  if (pathParts[0] === 'globals' && pathParts.length >= 3) {
+    const type = pathParts[1];
+    const fullId = ['globals', ...pathParts.slice(2)].join('/').replace(/\.md$/, '');
+    return { type, fullId };
+  }
+  if (pathParts[0] === 'works' && pathParts.length >= 6) {
+    const type = pathParts[4];
+    const slug = pathParts[5].replace(/\.md$/, '');
+    const workId = pathParts[1];
+    const partId = pathParts[3];
+    const fullId = `works/${workId}/parts/${partId}/${slug}`;
+    return { type, fullId };
+  }
+  // fallback legacy
+  const type = pathParts[0];
+  const fullId = pathParts.slice(1).join('/').replace(/\.md$/, '');
+  return { type, fullId };
+}
+
 async function buildIndex() {
   console.log('Starting search index build...');
   const documents = [];
@@ -48,12 +74,7 @@ async function buildIndex() {
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const { data: frontmatter, content: markdownContent } = matter(fileContent);
 
-    // Determine type and full relative ID from file path
-    // file might be 'characters/silvermoon/caspar.md'
-    const pathParts = file.split(path.sep);
-    const type = pathParts[0];
-    // Construct the full ID including subfolders, removing the type and .md extension
-    const fullId = pathParts.slice(1).join('/').replace(/\.md$/, ''); // Should result in 'silvermoon/caspar'
+    const { type, fullId } = deriveTypeAndFullId(file);
 
     if (!frontmatter.title) {
       console.warn(`Skipping ${file}: Missing title in frontmatter.`);
@@ -61,27 +82,24 @@ async function buildIndex() {
     }
 
     // Use a unique ID combining type and the full relative ID
-    const uniqueRef = `${type}/${fullId}`; // Example: 'characters/silvermoon/caspar'
+    const uniqueRef = `${type}/${fullId}`;
 
     // Convert markdown content to plain text
     const plainTextContent = await markdownToPlainText(markdownContent);
 
     const doc = {
-      id: uniqueRef, // Use the new unique reference for Lunr
+      id: uniqueRef,
       title: frontmatter.title,
       tags: frontmatter.tags ? frontmatter.tags.join(' ') : '',
       content: plainTextContent,
-      // We don't strictly need 'type' field here anymore if ref contains it,
-      // but keeping it doesn't hurt and might be useful.
       type: type
     };
 
     documents.push(doc);
-    // Use the same uniqueRef as the key for the map
     documentMap[uniqueRef] = {
       title: frontmatter.title,
       type: type,
-      fullId: fullId, // Store the full ID separately if needed, though ref has it
+      fullId: fullId,
       description: frontmatter.description || '',
       image: frontmatter.image || null
     };
@@ -96,10 +114,7 @@ async function buildIndex() {
     this.field('title', { boost: 10 });
     this.field('tags', { boost: 5 });
     this.field('content');
-    // Add 'type' to metadata so we can retrieve it from search results if needed,
-    // but it's not directly searchable unless added as a field.
-    // We already store it in the documentMap, which is more efficient.
-    this.metadataWhitelist = ['position']; // Default, keep it
+    this.metadataWhitelist = ['position'];
 
     documents.forEach(function (doc) {
       this.add(doc);

@@ -1,30 +1,20 @@
 <template>
   <div>
     <Header />
-    <main class="wiki-container py-16 md:py-24 relative">
-      <!-- 装饰性图案 - 使用 starlight 金色调 -->
-      <div class="absolute top-20 left-10 w-96 h-96 bg-gradient-radial from-starlight-500/10 via-transparent to-transparent filter blur-3xl opacity-20 animate-pulse-slow"></div>
-      <div class="absolute bottom-40 right-10 w-80 h-80 bg-gradient-radial from-starlight-400/10 via-transparent to-transparent filter blur-3xl opacity-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
-      
-      <!-- 中央魔法阵 -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vh] h-[70vh] pointer-events-none">
-        <div class="absolute inset-0 magical-circle opacity-20 animate-spin-slow"></div>
+    
+    <!-- 标题（恢复原始样式） -->
+    <section class="text-center relative z-10">
+      <div class="inline-block py-10 px-4">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-10 font-bold bg-gradient-to-r from-starlight-500 via-starlight-400 to-starlight-500 text-transparent bg-clip-text mx-auto max-w-full leading-normal tracking-wide">
+          托贝诺特 世界观
+        </h1>
+        <div class="h-0.5 w-3/4 sm:w-2/3 lg:w-1/2 mx-auto bg-gradient-to-r from-transparent via-starlight-400 to-transparent"></div>
+        <div class="h-0.5 w-1/2 sm:w-1/3 lg:w-1/4 mx-auto mt-1 bg-gradient-to-r from-transparent via-starlight-300 to-transparent"></div>
       </div>
-      
-      <section class="text-center relative z-10">
-        <div class="inline-block py-10 px-4">
-          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-10 font-bold bg-gradient-to-r from-starlight-500 via-starlight-400 to-starlight-500 text-transparent bg-clip-text mx-auto max-w-full leading-normal tracking-wide">
-            托贝诺特 世界观
-          </h1>
-          <div class="h-0.5 w-3/4 sm:w-2/3 lg:w-1/2 mx-auto bg-gradient-to-r from-transparent via-starlight-400 to-transparent"></div>
-          <div class="h-0.5 w-1/2 sm:w-1/3 lg:w-1/4 mx-auto mt-1 bg-gradient-to-r from-transparent via-starlight-300 to-transparent"></div>
-        </div>
-        
-        <p class="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto mt-12 mb-16 leading-relaxed tracking-wide relative z-10">
-          欢迎来到世界观 Wiki，在这里你可以探索各种作品中的设定。<br>目前Wiki正在建设中，许多条目有待补充，值得期待更新！<br>我期望这里变成百科全书，最终可以只通过Wiki（打开剧透模式后）<br>了解我所有作品内的所有设定和事件！<br>
-          <span class="text-starlight-600 font-medium">祝你旅途愉快。</span>
-        </p>
-        
+    </section>
+
+    <main class="wiki-container py-16 md:py-24">
+      <section class="relative">
         <!-- 特殊创作入口 -->
         <div class="mb-12 flex flex-col sm:flex-row justify-center gap-4">
           <router-link to="/novels" class="special-entry novel-entry">
@@ -38,47 +28,47 @@
             <span class="font-bold">游戏坑</span>
             <span class="text-sm">查看游戏项目</span>
           </router-link>
-          <router-link to="/works" class="special-entry game-entry">
-            <span class="text-2xl mb-1">📖</span>
-            <span class="font-bold">作品</span>
-            <span class="text-sm">按作品/篇章浏览</span>
-          </router-link>
-          <router-link to="/themes" class="special-entry novel-entry">
-            <span class="text-2xl mb-1">🧩</span>
-            <span class="font-bold">主题</span>
-            <span class="text-sm">专题聚合面板</span>
-          </router-link>
         </div>
 
         <!-- 全局搜索组件 -->
-        <div class="mb-16 max-w-xl mx-auto relative z-10">
+        <div class="mb-16 max-w-xl mx-auto">
           <GlobalSearch />
         </div>
-        
-        <div class="wiki-grid mt-20">
-          <router-link v-for="(category, index) in categories" :key="index" 
-            :to="category.path" 
-            class="category-card"
-            :class="'category-' + index"
-          >
-            <div class="category-symbol" :class="category.symbolClass">
-              <div class="symbol-inner"></div>
-              <div class="symbol-glow"></div>
+
+        <!-- 作品分类（默认）突出展示 -->
+        <div class="mb-20">
+          <router-link to="/works" class="works-highlight no-underline block mx-auto">
+            <div class="flex items-center gap-6">
+              <div class="category-symbol novel-symbol">
+                <div class="symbol-inner"></div>
+                <div class="symbol-glow"></div>
+              </div>
+              <div class="flex-1">
+                <h2 class="text-3xl font-extrabold text-starlight-700 mb-2">作品分类</h2>
+                <p class="text-gray-700 text-lg">默认浏览方式：按作品/篇章结构进入</p>
+              </div>
+              <span class="ml-auto text-sm font-bold px-3 py-2 rounded border-2 border-starlight-700 text-starlight-700 bg-starlight-50">默认</span>
             </div>
-            <h2 class="text-xl font-bold mb-2 mt-4 text-starlight-600">{{ category.title }}</h2>
-            <p class="text-gray-600">{{ category.description }}</p>
           </router-link>
         </div>
-        
-        <div class="mt-20 max-w-2xl mx-auto px-6 py-8 bg-gray-50 backdrop-blur-sm border-2 border-slate-900 shadow-brutal">
-          <p class="text-center text-gray-700 italic leading-relaxed">
-            "在很远的古代，他们称我们为变异者。<br>
-            后来，他们称我们为异人。<br>
-            再后来，他们称我们为异能者。<br>
-            很远的之后，短暂流行着'能力者'的称呼。<br>
-            现在我们都是人类了。"<br>
-            <span class="text-starlight-600 text-sm mt-2 block">——《论地球联合》，22xx年</span>
-          </p>
+
+        <!-- 其他分类 -->
+        <div class="mb-16">
+          <h3 class="text-2xl font-bold text-center text-gray-800 mb-12">其他分类</h3>
+          <div class="wiki-grid">
+            <router-link v-for="(category, index) in otherCategories" :key="index" 
+              :to="category.path" 
+              class="category-card"
+              :class="'category-' + index"
+            >
+              <div class="category-symbol" :class="category.symbolClass">
+                <div class="symbol-inner"></div>
+                <div class="symbol-glow"></div>
+              </div>
+              <h2 class="text-xl font-bold mb-2 mt-4 text-starlight-600">{{ category.title }}</h2>
+              <p class="text-gray-600">{{ category.description }}</p>
+            </router-link>
+          </div>
         </div>
       </section>
     </main>
@@ -90,6 +80,7 @@
 import Header from '../components/layout/Header.vue';
 import Footer from '../components/layout/Footer.vue';
 import GlobalSearch from '../components/GlobalSearch.vue';
+import { computed } from 'vue';
 
 const categories = [
   {
@@ -135,6 +126,8 @@ const categories = [
     symbolClass: 'concept-symbol'
   }
 ];
+
+const otherCategories = computed(() => categories.filter(c => c.path !== '/works'));
 </script>
 
 <style scoped>
@@ -225,13 +218,6 @@ const categories = [
   animation: glow-pulse 2s infinite alternate;
 }
 
-.magical-circle {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 800 800'%3E%3Cdefs%3E%3Cstyle%3E .cls-1 %7B fill: none; stroke: %23AA894A; stroke-width: 1; opacity: 0.4; %7D %3C/style%3E%3C/defs%3E%3Ccircle class='cls-1' cx='400' cy='400' r='390'/%3E%3Ccircle class='cls-1' cx='400' cy='400' r='320'/%3E%3Ccircle class='cls-1' cx='400' cy='400' r='250'/%3E%3Cpath class='cls-1' d='M400,10V790 M10,400H790 M120,120L680,680 M680,120L120,680'/%3E%3Ccircle class='cls-1' cx='400' cy='400' r='100'/%3E%3Cpath class='cls-1' d='M450,400a50,50 0 1,0 -100,0a50,50 0 1,0 100,0'/%3E%3Ccircle class='cls-1' cx='400' cy='100' r='10'/%3E%3Ccircle class='cls-1' cx='400' cy='700' r='10'/%3E%3Ccircle class='cls-1' cx='100' cy='400' r='10'/%3E%3Ccircle class='cls-1' cx='700' cy='400' r='10'/%3E%3Ccircle class='cls-1' cx='170' cy='170' r='10'/%3E%3Ccircle class='cls-1' cx='630' cy='630' r='10'/%3E%3Ccircle class='cls-1' cx='630' cy='170' r='10'/%3E%3Ccircle class='cls-1' cx='170' cy='630' r='10'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 @keyframes pulse {
   0% {
     transform: scale(0.8);
@@ -254,32 +240,6 @@ const categories = [
   }
 }
 
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 120s linear infinite;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
 @media (max-width: 768px) {
   .wiki-grid {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -299,6 +259,7 @@ const categories = [
   }
 }
 
+/* 特殊入口样式 */
 .special-entry {
   @apply flex flex-col items-center justify-center p-4 bg-white backdrop-blur-sm border-2 border-slate-900 transition-all duration-300 text-center w-full sm:w-64 no-underline text-gray-800 shadow-brutal;
 }
@@ -321,5 +282,13 @@ const categories = [
 
 .game-entry:hover span {
   @apply text-primary-700;
+}
+
+/* 作品分类突出样式 */
+.works-highlight {
+  @apply max-w-4xl w-full bg-white backdrop-blur-sm border-2 border-starlight-700 p-8 shadow-brutal transition-all;
+}
+.works-highlight:hover {
+  @apply shadow-brutal-lg -translate-y-0.5;
 }
 </style>

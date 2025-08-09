@@ -86,3 +86,22 @@ https://jsoneditoronline.org/#left=local.gijoyi
 - 仅此篇章的实体可先只存在于篇章内；后续复用时再抽取到 `globals` 并填 `canonicalId`
 
 以上为核心结构与使用说明。如需批量迁移与校验脚本（检查重复 `canonicalId`、断链等），可继续补充。
+
+## 心界录配置示例（Works/Parts + Globals 引用）
+
+- **作品**：`src/content/works/heartworld/index.md`
+  - `workId: "heartworld"`, `title: "心界录"`
+- **篇章**：
+  - `src/content/works/heartworld/parts/holy-land-lavender/index.md`
+    - `partId: "holy-land-lavender"`, `title: "圣地篇·薰衣草"`, `order: 1`
+  - `src/content/works/heartworld/parts/sails/index.md`
+    - `partId: "sails"`, `title: "风帆篇"`, `order: 2`
+- **篇章内引用条目（示例）**：
+  - `src/content/works/heartworld/parts/holy-land-lavender/characters/golden.md`
+    - `type: "characters"`, `canonicalId: "character.golden"`, `role`, `localNotes`
+  - `src/content/works/heartworld/parts/sails/characters/golden.md`
+  - `src/content/works/heartworld/parts/sails/characters/luobei.md`
+
+页面：
+- 作品详情：`/works/heartworld`
+- 篇章详情：`/works/heartworld/parts/holy-land-lavender`、`/works/heartworld/parts/sails`

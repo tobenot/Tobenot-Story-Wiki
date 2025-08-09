@@ -52,6 +52,38 @@
             <span class="text-starlight-500 font-medium">{{ entry.title }}</span>
           </nav>
 
+          <!-- 顶部父级与变体/分支提示 -->
+          <div class="mb-4 space-y-2">
+            <div v-if="parents.length" class="p-3 border-brutal bg-cosmic-800/60 backdrop-blur-sm text-starlight-200">
+              <div class="text-sm mb-2">所属：</div>
+              <div class="flex flex-wrap gap-2">
+                <router-link
+                  v-for="p in parents"
+                  :key="p.to"
+                  :to="p.to"
+                  class="px-2 py-1 border-brutal hover:bg-cosmic-700/60 transition-colors text-starlight-100"
+                >
+                  {{ p.label }}
+                </router-link>
+              </div>
+            </div>
+
+            <div v-if="variants.length > 1" class="p-3 border-brutal bg-cosmic-800/60 backdrop-blur-sm text-starlight-200">
+              <div class="text-sm mb-2">该条目在不同上下文有多种版本：</div>
+              <div class="flex flex-wrap gap-2">
+                <router-link
+                  v-for="v in variants"
+                  :key="v.routeId"
+                  :to="v.to"
+                  class="px-2 py-1 border-brutal hover:bg-cosmic-700/60 transition-colors"
+                  :class="v.routeId === entry.id ? 'bg-starlight-600 text-white' : 'text-starlight-100'"
+                >
+                  {{ v.label }}
+                </router-link>
+              </div>
+            </div>
+          </div>
+
           <!-- 条目内容卡片 -->
           <article class="wiki-card mb-8 overflow-visible border-brutal shadow-brutal">
             <!-- 装饰线 -->
@@ -249,6 +281,7 @@ import SpoilerBlock from '../components/ui/SpoilerBlock.vue';
 import MarkdownImage from '../components/ui/MarkdownImage.vue';
 import TableOfContents from '../components/TableOfContents.vue';
 import { slugify } from 'transliteration';
+import { getEntryVariants, getEntryParents } from '../services/contentService';
 
 const route = useRoute();
 const router = useRouter();
@@ -260,6 +293,8 @@ const showCopySuccess = ref(false);
 const allMetadata = ref([]);
 const contentArea = ref(null);
 const tocHeadings = ref([]);
+const variants = ref([]);
+const parents = ref([]);
 
 // 处理标签点击
 const handleTagClick = (tag) => {
@@ -375,6 +410,8 @@ const loadData = async () => {
     const data = await entryPromise;
 
     entry.value = data;
+    variants.value = await getEntryVariants(categoryType.value, entryId.value);
+    parents.value = await getEntryParents(categoryType.value, entryId.value);
 
     if (!data) {
        console.error(`Entry data is null for ${categoryType.value}/${entryId.value}`);

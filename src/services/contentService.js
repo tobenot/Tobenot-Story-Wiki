@@ -427,6 +427,103 @@ export async function getTheme(themeId) {
 }
 
 // -----------------------------
+// Variants for an entry (disambiguation-style)
+// -----------------------------
+export async function getEntryVariants(type, id) {
+  const index = await buildContentIndex();
+  const typeMap = index.typeIndex.get(type) || new Map();
+
+  let key = null;
+  for (const rec of typeMap.values()) {
+    if (rec.routeId === id) {
+      key = rec.key;
+      break;
+    }
+  }
+  if (!key) {
+    key = `${type}:${id}`;
+  }
+
+  const variants = [];
+
+  for (const rec of typeMap.values()) {
+    if (rec.key !== key) continue;
+    if (rec.sourceScope === 'global') {
+      variants.push({
+        routeId: rec.routeId,
+        scope: 'global',
+      });
+    }
+  }
+
+  index.partIndex.forEach((part, keyPart) => {
+    const [workId, partId] = keyPart.split('/');
+    const arr = part.entriesByType.get(type);
+    if (!arr) return;
+    arr.forEach(e => {
+      if (e.key !== key) return;
+      variants.push({
+        routeId: e.routeId,
+        scope: 'part',
+        workId,
+        partId,
+      });
+    });
+  });
+
+  const unique = new Map();
+  variants.forEach(v => {
+    unique.set(v.routeId, v);
+  });
+
+  const materialized = Array.from(unique.values()).map(v => {
+    let label = '';
+    if (v.scope === 'global') {
+      label = '全局权威';
+    } else {
+      const work = index.workIndex.get(v.workId);
+      const part = index.partIndex.get(`${v.workId}/${v.partId}`);
+      const workTitle = work?.attributes?.title || v.workId;
+      const partTitle = part?.attributes?.title || v.partId;
+      label = `${workTitle} · ${partTitle}`;
+    }
+    return {
+      routeId: v.routeId,
+      to: `/entry/${type}/${v.routeId}`,
+      label,
+      isGlobal: v.scope === 'global',
+      workId: v.workId || null,
+      partId: v.partId || null,
+    };
+  });
+
+  materialized.sort((a, b) => {
+    if (a.isGlobal && !b.isGlobal) return -1;
+    if (!a.isGlobal && b.isGlobal) return 1;
+    return a.label.localeCompare(b.label, 'zh-CN');
+  });
+
+  return materialized;
+}
+
+export async function getEntryParents(type, id) {
+  if (!id || !id.startsWith('works/')) return [];
+  const m = id.match(/^works\/([^\/]+)\/parts\/([^\/]+)\//);
+  if (!m) return [];
+  const workId = m[1];
+  const partId = m[2];
+  const index = await buildContentIndex();
+  const work = index.workIndex.get(workId);
+  const part = index.partIndex.get(`${workId}/${partId}`);
+  const workTitle = (work && work.attributes && work.attributes.title) ? work.attributes.title : workId;
+  const partTitle = (part && part.attributes && part.attributes.title) ? part.attributes.title : partId;
+  return [
+    { to: `/works/${workId}`, label: workTitle, level: 'work' },
+    { to: `/works/${workId}/parts/${partId}`, label: partTitle, level: 'part' }
+  ];
+}
+
+// -----------------------------
 // Markdown rendering with spoilers and images
 // -----------------------------
 export function renderContent(content) {

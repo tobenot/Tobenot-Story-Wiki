@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     vue()
   ],
-  base: '/Tobenot-Story-Wiki/', // 仓库名，用于 GitHub Pages 部署
+  base: '/',
   resolve: {
     alias: {
       '@': './src',

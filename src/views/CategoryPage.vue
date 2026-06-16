@@ -398,7 +398,20 @@ const loadData = async () => {
     allEntries.value = result;
     
     // 提取所有唯一的文件夹名称
-    const uniqueFolders = new Set(result.map(entry => entry.category).filter(Boolean));
+    const uniqueFolders = new Set();
+    result.forEach(entry => {
+      if (entry.category) uniqueFolders.add(entry.category);
+      if (entry.appearances) {
+        entry.appearances.forEach(app => {
+          if (app !== 'global') {
+            const parts = app.split('/');
+            if (parts.length === 2) {
+              uniqueFolders.add(`works/${parts[0]}/parts/${parts[1]}`);
+            }
+          }
+        });
+      }
+    });
     const categoriesArray = Array.from(uniqueFolders);
     const resolvedCategories = await Promise.all(
       categoriesArray.map(async (cat) => ({

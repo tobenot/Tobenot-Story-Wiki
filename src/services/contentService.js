@@ -454,12 +454,31 @@ export async function getEntryVariants(type, id) {
   const typeMap = index.typeIndex.get(type) || new Map();
 
   let key = null;
+  
+  // 1. Check typeMap first
   for (const rec of typeMap.values()) {
     if (rec.routeId === id) {
       key = rec.key;
       break;
     }
   }
+
+  // 2. If not found in typeMap (e.g., it's a part entry that got merged under a global key), check partIndex
+  if (!key) {
+    for (const part of index.partIndex.values()) {
+      const arr = part.entriesByType.get(type);
+      if (arr) {
+        for (const e of arr) {
+          if (e.routeId === id) {
+            key = e.key;
+            break;
+          }
+        }
+      }
+      if (key) break;
+    }
+  }
+
   if (!key) {
     key = `${type}:${id}`;
   }
@@ -548,20 +567,53 @@ export async function getCategoryDisplayName(category) {
 }
 
 export async function getEntryParents(type, id) {
-  if (!id || !id.startsWith('works/')) return [];
-  const m = id.match(/^works\/([^\/]+)\/parts\/([^\/]+)\//);
-  if (!m) return [];
-  const workId = m[1];
-  const partId = m[2];
   const index = await buildContentIndex();
-  const work = index.workIndex.get(workId);
-  const part = index.partIndex.get(`${workId}/${partId}`);
-  const workTitle = (work && work.attributes && work.attributes.title) ? work.attributes.title : workId;
-  const partTitle = (part && part.attributes && part.attributes.title) ? part.attributes.title : partId;
-  return [
-    { to: `/works/${workId}`, label: workTitle, level: 'work' },
-    { to: `/works/${workId}/parts/${partId}`, label: partTitle, level: 'part' }
-  ];
+  const parents = [];
+  
+  if (!id) return parents;
+
+  // 如果是直接的篇章条目，返回其自身的层级
+  const m = id.match(/^works\/([^\/]+)\/parts\/([^\/]+)\//);
+  if (m) {
+    const workId = m[1];
+    const partId = m[2];
+    const work = index.workIndex.get(workId);
+    const part = index.partIndex.get(`${workId}/${partId}`);
+    const workTitle = (work && work.attributes && work.attributes.title) ? work.attributes.title : workId;
+    const partTitle = (part && part.attributes && part.attributes.title) ? part.attributes.title : partId;
+    parents.push({ to: `/works/${workId}`, label: workTitle, level: 'work' });
+    parents.push({ to: `/works/${workId}/parts/${partId}`, label: partTitle, level: 'part' });
+    return parents;
+  }
+
+  // 如果是全局条目，查找它在哪些篇章中出现过 (appearances)
+  const map = index.typeIndex.get(type);
+  if (map) {
+    let record = null;
+    for (const val of map.values()) {
+      if (val.routeId === id) {
+        record = val;
+        break;
+      }
+    }
+
+    if (record && record.appearances) {
+      for (const app of record.appearances) {
+        if (app !== 'global') {
+          const [workId, partId] = app.split('/');
+          if (workId && partId) {
+            const work = index.workIndex.get(workId);
+            const part = index.partIndex.get(`${workId}/${partId}`);
+            const workTitle = (work && work.attributes && work.attributes.title) ? work.attributes.title : workId;
+            const partTitle = (part && part.attributes && part.attributes.title) ? part.attributes.title : partId;
+            parents.push({ to: `/works/${workId}/parts/${partId}`, label: `${workTitle} · ${partTitle}`, level: 'part' });
+          }
+        }
+      }
+    }
+  }
+  
+  return parents;
 }
 
 // -----------------------------

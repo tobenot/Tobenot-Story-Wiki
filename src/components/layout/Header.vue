@@ -79,11 +79,13 @@ const isDark = ref(false);
 
 // 导航项目数组
 const navItems = [
+  { name: '作品', path: '/works' },
   { name: '人物', path: '/category/characters' },
   { name: '地点', path: '/category/locations' },
   { name: '事件', path: '/category/events' },
+  { name: '物品', path: '/category/items' },
   { name: '概念', path: '/category/concepts' },
-  { name: '作品集', href: 'https://e.tobenot.top/', external: true }
+  { name: '主题', path: '/themes' }
 ];
 
 // 检查用户偏好和系统设置

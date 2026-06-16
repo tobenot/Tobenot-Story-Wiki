@@ -43,7 +43,7 @@
                 :to="`/category/${categoryType}?folder=${entry.category}`"
                 class="text-starlight-600 hover:text-starlight-100 transition-colors"
               >
-                {{ entry.category }}
+                {{ categoryDisplayName }}
               </router-link>
             </template>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mx-2 text-cosmic-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -281,7 +281,7 @@ import SpoilerBlock from '../components/ui/SpoilerBlock.vue';
 import MarkdownImage from '../components/ui/MarkdownImage.vue';
 import TableOfContents from '../components/TableOfContents.vue';
 import { slugify } from 'transliteration';
-import { getEntryVariants, getEntryParents } from '../services/contentService';
+import { getEntryVariants, getEntryParents, getCategoryDisplayName } from '../services/contentService';
 
 const route = useRoute();
 const router = useRouter();
@@ -295,6 +295,7 @@ const contentArea = ref(null);
 const tocHeadings = ref([]);
 const variants = ref([]);
 const parents = ref([]);
+const categoryDisplayName = ref('');
 
 // 处理标签点击
 const handleTagClick = (tag) => {
@@ -313,6 +314,8 @@ const categoryTitle = computed(() => {
     case 'characters': return '人物';
     case 'locations': return '地点';
     case 'events': return '事件';
+    case 'items': return '物品';
+    case 'concepts': return '概念';
     default: return '未知分类';
   }
 });
@@ -400,6 +403,7 @@ const loadData = async () => {
   loading.value = true;
   entry.value = null;
   isShareMenuOpen.value = false;
+  categoryDisplayName.value = '';
   try {
     // Load metadata first (or concurrently) - it's cached after the first time
     const metaPromise = getAllEntriesMetadata(); // Start fetching metadata
@@ -410,6 +414,10 @@ const loadData = async () => {
     const data = await entryPromise;
 
     entry.value = data;
+    if (data && data.category) {
+      categoryDisplayName.value = await getCategoryDisplayName(data.category);
+    }
+    
     variants.value = await getEntryVariants(categoryType.value, entryId.value);
     parents.value = await getEntryParents(categoryType.value, entryId.value);
 

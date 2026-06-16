@@ -506,6 +506,27 @@ export async function getEntryVariants(type, id) {
   return materialized;
 }
 
+export async function getCategoryDisplayName(category) {
+  if (!category) return '未知分类';
+  if (category === 'globals') return '全局设定';
+  
+  if (category.startsWith('works/')) {
+    const m = category.match(/^works\/([^\/]+)\/parts\/([^\/]+)$/);
+    if (m) {
+      const workId = m[1];
+      const partId = m[2];
+      const index = await buildContentIndex();
+      const work = index.workIndex.get(workId);
+      const part = index.partIndex.get(`${workId}/${partId}`);
+      const workTitle = (work && work.attributes && work.attributes.title) ? work.attributes.title : workId;
+      const partTitle = (part && part.attributes && part.attributes.title) ? part.attributes.title : partId;
+      return `${workTitle} · ${partTitle}`;
+    }
+  }
+  
+  return category;
+}
+
 export async function getEntryParents(type, id) {
   if (!id || !id.startsWith('works/')) return [];
   const m = id.match(/^works\/([^\/]+)\/parts\/([^\/]+)\//);

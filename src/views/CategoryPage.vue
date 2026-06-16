@@ -3,17 +3,6 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-12">
       <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-0 bg-gradient-to-r from-starlight-500 to-starlight-600 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
       
-      <!-- 当前文件夹指示 -->
-      <div v-if="currentFolder" class="mb-4 md:mb-0 ml-4 text-gray-700">
-        <span>当前文件夹: {{ currentFolder }}</span>
-        <button 
-          @click="clearFolder" 
-          class="ml-2 text-starlight-600 hover:text-starlight-700 transition-colors"
-        >
-          返回全部
-        </button>
-      </div>
-      
       <!-- 搜索和筛选部分 -->
       <div class="flex flex-col sm:flex-row gap-3">
         <div class="relative">
@@ -33,6 +22,26 @@
         
         <div class="relative">
           <select 
+            v-model="currentFolder"
+            class="w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 appearance-none pr-8 text-gray-700"
+            @change="selectFolder($event.target.value)"
+          >
+            <option value="__all__">全部所属</option>
+            <option value="__root__">无所属 (根目录)</option>
+            <option v-for="cat in availableCategories" :key="cat.id" :value="cat.id">
+              {{ cat.name }}
+            </option>
+          </select>
+          <!-- 下拉图标 -->
+          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-starlight-500 pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </div>
+
+        <div class="relative">
+          <select 
             v-model="sortOption"
             class="w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 appearance-none pr-8 text-gray-700"
           >
@@ -47,27 +56,6 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 文件夹列表 -->
-    <div v-if="folders.length > 0 && !currentFolder" class="mb-12">
-      <h2 class="text-xl font-bold mb-5 text-gray-700 flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-starlight-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-        </svg>
-        文件夹
-      </h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        <div 
-          v-for="folder in folders" 
-          :key="folder"
-          @click="selectFolder(folder)"
-          class="cursor-pointer p-4 bg-white/80 backdrop-blur-sm border-2 border-slate-900 hover:border-starlight-400 hover:shadow-brutal flex items-center transition-all duration-300 group"
-        >
-          <span class="text-lg text-starlight-500 mr-2 group-hover:text-starlight-600 transition-colors">📁</span>
-          <span class="text-gray-700 group-hover:text-gray-800 transition-colors">{{ folder }}</span>
         </div>
       </div>
     </div>
@@ -200,7 +188,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { loadContentList } from '../services/contentService';
+import { loadContentList, getCategoryDisplayName } from '../services/contentService';
 import Tag from '../components/ui/Tag.vue';
 import ImageLoader from '../components/ui/ImageLoader.vue';
 
@@ -208,8 +196,8 @@ const route = useRoute();
 const router = useRouter();
 const loading = ref(true);
 const allEntries = ref([]); // Store all loaded entries
-const folders = ref([]);
-const currentFolder = ref(route.query.folder || null); // 从 query 获取当前文件夹
+const availableCategories = ref([]); // { id, name }
+const currentFolder = ref(route.query.folder || '__all__'); // 从 query 获取当前文件夹
 const searchQuery = ref('');
 const currentPage = ref(1);
 const itemsPerPage = ref(12);
@@ -243,11 +231,11 @@ const filteredEntries = computed(() => {
   let entries = allEntries.value;
 
   // 1. 按文件夹过滤
-  if (currentFolder.value) {
-    entries = entries.filter(entry => entry.category === currentFolder.value);
-  } else {
+  if (currentFolder.value === '__root__') {
     // 仅显示根目录条目 (category 为 null)
     entries = entries.filter(entry => !entry.category);
+  } else if (currentFolder.value !== '__all__') {
+    entries = entries.filter(entry => entry.category === currentFolder.value);
   }
   
   // 2. 按搜索词过滤 (忽略大小写)
@@ -333,15 +321,12 @@ const pagesToShow = computed(() => {
 const selectFolder = (folder) => {
   currentPage.value = 1; // Reset pagination
   currentFolder.value = folder;
-  router.push({ query: { ...route.query, folder } }); // 更新 URL query
-};
-
-// 清除文件夹选择
-const clearFolder = () => {
-  currentPage.value = 1; // Reset pagination
-  currentFolder.value = null;
-  const { folder, ...restQuery } = route.query; // 移除 folder query
-  router.push({ query: restQuery });
+  if (folder === '__all__') {
+    const { folder: _f, ...restQuery } = route.query;
+    router.push({ query: restQuery });
+  } else {
+    router.push({ query: { ...route.query, folder } }); // 更新 URL query
+  }
 };
 
 // 分页导航
@@ -375,7 +360,14 @@ const loadData = async () => {
     
     // 提取所有唯一的文件夹名称
     const uniqueFolders = new Set(result.map(entry => entry.category).filter(Boolean));
-    folders.value = Array.from(uniqueFolders);
+    const categoriesArray = Array.from(uniqueFolders);
+    const resolvedCategories = await Promise.all(
+      categoriesArray.map(async (cat) => ({
+        id: cat,
+        name: await getCategoryDisplayName(cat)
+      }))
+    );
+    availableCategories.value = resolvedCategories;
     
   } catch (error) {
     console.error('Failed to load entries:', error);
@@ -389,10 +381,8 @@ onMounted(loadData);
 
 // 监听路由 query 的变化，特别是 'folder'
 watch(() => route.query.folder, (newFolder) => {
-  currentFolder.value = newFolder || null;
+  currentFolder.value = newFolder || '__all__';
   currentPage.value = 1; // Reset pagination
-  // 如果需要，可以在这里重新加载数据或仅重新计算过滤后的列表
-  // loadData(); // 如果需要在文件夹切换时重新请求数据
 });
 
 // 监听搜索查询的变化

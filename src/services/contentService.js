@@ -281,6 +281,7 @@ export async function loadContentList(type, { tag } = {}) {
     id: e.routeId, // compatible with /entry/:type/:id
     baseId: e.routeId.split('/').pop(),
     category: e.category || null,
+    appearances: e.appearances || [],
     title: e.title,
     description: e.description,
     tags: e.tags || [],

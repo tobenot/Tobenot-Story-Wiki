@@ -72,9 +72,16 @@
         </svg>
       </div>
       <h3 class="text-xl font-medium text-gray-700 mb-2">
-        {{ currentFolder ? `文件夹 "${currentFolder}" 中` : '' }}{{ searchQuery ? '匹配搜索结果' : '' }}暂无{{ categoryTitle }}内容
+        {{ emptyStateMessage }}
       </h3>
-      <p class="text-gray-500">敬请期待！</p>
+      <p class="text-gray-500 mb-6">敬请期待！</p>
+      <button
+        v-if="currentFolder !== '__all__'"
+        @click="selectFolder('__all__')"
+        class="btn btn-secondary"
+      >
+        查看全部{{ categoryTitle }}
+      </button>
     </div>
     
     <div v-else class="wiki-grid">
@@ -197,7 +204,8 @@ const router = useRouter();
 const loading = ref(true);
 const allEntries = ref([]); // Store all loaded entries
 const availableCategories = ref([]); // { id, name }
-const currentFolder = ref(route.query.folder || '__all__'); // 从 query 获取当前文件夹
+const currentFolder = ref(route.query.folder || '__all__');
+const currentFilterLabel = ref('');
 const searchQuery = ref('');
 const currentPage = ref(1);
 const itemsPerPage = ref(12);
@@ -226,17 +234,47 @@ const categoryTitles = {
 // Get the display title based on category type
 const categoryTitle = computed(() => categoryTitles[categoryType.value] || '内容');
 
-// 根据文件夹和搜索词过滤条目
+function folderToAppearance(folder) {
+  const m = folder.match(/^works\/([^\/]+)\/parts\/([^\/]+)$/);
+  return m ? `${m[1]}/${m[2]}` : null;
+}
+
+function entryMatchesFolder(entry, folder) {
+  if (folder === '__all__') return true;
+  if (folder === '__root__') return !entry.category;
+  if (entry.category === folder) return true;
+  const appearance = folderToAppearance(folder);
+  if (appearance && entry.appearances?.includes(appearance)) return true;
+  return false;
+}
+
+const emptyStateMessage = computed(() => {
+  const parts = [];
+  if (currentFilterLabel.value) {
+    parts.push(`「${currentFilterLabel.value}」中`);
+  }
+  if (searchQuery.value) {
+    parts.push('匹配搜索结果');
+  }
+  parts.push(`暂无${categoryTitle.value}内容`);
+  return parts.join('');
+});
+
+async function updateFilterLabel(folder) {
+  if (folder === '__all__') {
+    currentFilterLabel.value = '';
+  } else if (folder === '__root__') {
+    currentFilterLabel.value = '根目录';
+  } else {
+    currentFilterLabel.value = await getCategoryDisplayName(folder);
+  }
+}
+
+// 根据所属和搜索词过滤条目
 const filteredEntries = computed(() => {
   let entries = allEntries.value;
 
-  // 1. 按文件夹过滤
-  if (currentFolder.value === '__root__') {
-    // 仅显示根目录条目 (category 为 null)
-    entries = entries.filter(entry => !entry.category);
-  } else if (currentFolder.value !== '__all__') {
-    entries = entries.filter(entry => entry.category === currentFolder.value);
-  }
+  entries = entries.filter(entry => entryMatchesFolder(entry, currentFolder.value));
   
   // 2. 按搜索词过滤 (忽略大小写)
   if (searchQuery.value) {
@@ -317,15 +355,16 @@ const pagesToShow = computed(() => {
   return [...new Set(pages)];
 });
 
-// 选择文件夹
-const selectFolder = (folder) => {
-  currentPage.value = 1; // Reset pagination
+// 选择所属筛选
+const selectFolder = async (folder) => {
+  currentPage.value = 1;
   currentFolder.value = folder;
+  await updateFilterLabel(folder);
   if (folder === '__all__') {
     const { folder: _f, ...restQuery } = route.query;
     router.push({ query: restQuery });
   } else {
-    router.push({ query: { ...route.query, folder } }); // 更新 URL query
+    router.push({ query: { ...route.query, folder } });
   }
 };
 
@@ -368,6 +407,7 @@ const loadData = async () => {
       }))
     );
     availableCategories.value = resolvedCategories;
+    await updateFilterLabel(currentFolder.value);
     
   } catch (error) {
     console.error('Failed to load entries:', error);
@@ -380,9 +420,10 @@ const loadData = async () => {
 onMounted(loadData);
 
 // 监听路由 query 的变化，特别是 'folder'
-watch(() => route.query.folder, (newFolder) => {
+watch(() => route.query.folder, async (newFolder) => {
   currentFolder.value = newFolder || '__all__';
-  currentPage.value = 1; // Reset pagination
+  currentPage.value = 1;
+  await updateFilterLabel(currentFolder.value);
 });
 
 // 监听搜索查询的变化

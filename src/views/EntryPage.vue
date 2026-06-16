@@ -37,7 +37,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
               <router-link
-                :to="`/category/${categoryType}?folder=${entry.category}`"
+                :to="categoryBreadcrumbLink"
                 class="text-starlight-600 hover:text-starlight-100 transition-colors"
               >
                 {{ categoryDisplayName }}
@@ -310,6 +310,14 @@ const categoryTitle = computed(() => {
     case 'concepts': return '概念';
     default: return '未知分类';
   }
+});
+
+const categoryBreadcrumbLink = computed(() => {
+  const category = entry.value?.category;
+  if (!category) return `/category/${categoryType.value}`;
+  const m = category.match(/^works\/([^\/]+)\/parts\/([^\/]+)$/);
+  if (m) return `/works/${m[1]}/parts/${m[2]}`;
+  return `/category/${categoryType.value}?folder=${category}`;
 });
 
 // 页面标题

@@ -149,8 +149,16 @@ async function buildContentIndex() {
           partIndex.set(key, part);
           // also ensure the parent work has this part in list
           const work = workIndex.get(descriptor.workId) || { attributes: {}, parts: [] };
-          if (!work.parts.find(p => p.partId === descriptor.partId)) {
-            work.parts.push({ partId: descriptor.partId, title: attributes?.title || descriptor.partId, order: attributes?.order || 0 });
+          const existingIndex = work.parts.findIndex(p => p.partId === descriptor.partId);
+          const partInfo = {
+            partId: descriptor.partId,
+            title: attributes?.title || descriptor.partId,
+            order: attributes?.order ?? 0,
+          };
+          if (existingIndex === -1) {
+            work.parts.push(partInfo);
+          } else {
+            work.parts[existingIndex] = { ...work.parts[existingIndex], ...partInfo };
           }
           workIndex.set(descriptor.workId, work);
           return;
@@ -215,8 +223,19 @@ async function buildContentIndex() {
       }
     }));
 
-    // Normalize work parts ordering by attributes.order
-    workIndex.forEach((work) => {
+    // 用篇章 index.md 的元信息覆盖 work.parts（partEntry 可能先于 partIndex 被索引）
+    workIndex.forEach((work, workId) => {
+      work.parts = work.parts.map((p) => {
+        const partData = partIndex.get(`${workId}/${p.partId}`);
+        if (partData?.attributes) {
+          return {
+            partId: p.partId,
+            title: partData.attributes.title || p.title || p.partId,
+            order: partData.attributes.order ?? p.order ?? 0,
+          };
+        }
+        return p;
+      });
       work.parts.sort((a, b) => (a.order || 0) - (b.order || 0));
     });
 

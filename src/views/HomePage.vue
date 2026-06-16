@@ -1,7 +1,5 @@
 <template>
   <div>
-    <Header />
-    
     <!-- 标题（恢复原始样式） -->
     <section class="text-center relative z-10">
       <div class="inline-block py-10 px-4">
@@ -57,13 +55,10 @@
         </div>
       </section>
     </main>
-    <Footer />
   </div>
 </template>
 
 <script setup>
-import Header from '../components/layout/Header.vue';
-import Footer from '../components/layout/Footer.vue';
 import GlobalSearch from '../components/GlobalSearch.vue';
 import { computed } from 'vue';
 

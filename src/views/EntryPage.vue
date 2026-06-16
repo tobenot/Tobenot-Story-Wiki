@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- 导航栏 -->
-    <Header />
-
     <main class="wiki-container">
       <div v-if="loading" class="flex justify-center items-center py-20">
         <svg class="animate-spin h-8 w-8 text-primary-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -263,9 +260,6 @@
         </div>
       </div>
     </main>
-
-    <!-- 页脚 -->
-    <Footer />
   </div>
 </template>
 
@@ -273,8 +267,6 @@
 import { ref, computed, onMounted, watch, nextTick, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { loadContentEntry, renderContent, getAllEntriesMetadata } from '../services/contentService';
-import Header from '../components/layout/Header.vue';
-import Footer from '../components/layout/Footer.vue';
 import Tag from '../components/ui/Tag.vue';
 import ImageLoader from '../components/ui/ImageLoader.vue';
 import SpoilerBlock from '../components/ui/SpoilerBlock.vue';

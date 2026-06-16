@@ -1,6 +1,6 @@
 <!-- src/App.vue -->
 <template>
-  <div class="min-h-screen bg-white bg-fixed relative overflow-hidden">
+  <div class="min-h-screen bg-white bg-fixed relative overflow-x-hidden">
     <!-- 浅灰色背景层 -->
     <div class="absolute inset-0 bg-gray-50/70"></div>
     <div class="absolute inset-0 bg-gray-100/30"></div>
@@ -26,14 +26,18 @@
     </div>
     
     <!-- 主要内容区域 -->
-    <div class="relative z-10 min-h-screen text-gray-800 dark:text-gray-200">
-      <router-view />
+    <div class="relative z-10 min-h-screen text-gray-800 dark:text-gray-200 flex flex-col">
+      <Header />
+      <router-view class="flex-1" />
+      <Footer />
     </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue';
+import Header from './components/layout/Header.vue';
+import Footer from './components/layout/Footer.vue';
 
 // 检查系统主题偏好和已保存的设置
 onMounted(() => {

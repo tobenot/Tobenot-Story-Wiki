@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body,
+  #app {
+    min-height: 100vh;
+  }
+
   :root {
     font-family: 'Noto Sans SC', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;

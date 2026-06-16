@@ -1,6 +1,6 @@
 <!-- src/App.vue -->
 <template>
-  <div class="min-h-screen bg-white bg-fixed relative overflow-x-hidden">
+  <div class="min-h-screen bg-white bg-fixed relative overflow-x-hidden flex flex-col">
     <!-- 浅灰色背景层 -->
     <div class="absolute inset-0 bg-gray-50/70"></div>
     <div class="absolute inset-0 bg-gray-100/30"></div>
@@ -26,9 +26,11 @@
     </div>
     
     <!-- 主要内容区域 -->
-    <div class="relative z-10 min-h-screen text-gray-800 dark:text-gray-200 flex flex-col">
+    <div class="relative z-10 flex flex-col flex-1 text-gray-800 dark:text-gray-200">
       <Header />
-      <router-view class="flex-1" />
+      <main class="flex-1">
+        <router-view />
+      </main>
       <Footer />
     </div>
   </div>

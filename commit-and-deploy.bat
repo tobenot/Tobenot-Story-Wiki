@@ -23,6 +23,6 @@ npm run deploy
 echo.
 echo ===== 完成! =====
 echo 您的更改已提交并部署到 GitHub Pages
-echo 网站将在稍后可通过 https://tobenot.github.io/Tobenot-Story-Wiki/ 访问
+echo 网站将在稍后可通过 https://wiki.tobenot.top/ 访问
 
 pause

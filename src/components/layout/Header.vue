@@ -10,15 +10,26 @@
       
       <div class="flex items-center space-x-4">
         <nav class="hidden md:flex space-x-6">
-          <router-link 
-            v-for="(item, index) in navItems" 
-            :key="index" 
-            :to="item.path" 
-            class="text-starlight-300 relative py-1 overflow-hidden group"
-          >
-            <span class="relative z-10 group-hover:text-starlight-50 transition-colors duration-300">{{ item.name }}</span>
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-secondary-400 to-secondary-600 group-hover:w-full transition-all duration-300"></span>
-          </router-link>
+          <template v-for="(item, index) in navItems" :key="index">
+            <a
+              v-if="item.external"
+              :href="item.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-starlight-300 relative py-1 overflow-hidden group"
+            >
+              <span class="relative z-10 group-hover:text-starlight-50 transition-colors duration-300">{{ item.name }}</span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-secondary-400 to-secondary-600 group-hover:w-full transition-all duration-300"></span>
+            </a>
+            <router-link
+              v-else
+              :to="item.path"
+              class="text-starlight-300 relative py-1 overflow-hidden group"
+            >
+              <span class="relative z-10 group-hover:text-starlight-50 transition-colors duration-300">{{ item.name }}</span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-secondary-400 to-secondary-600 group-hover:w-full transition-all duration-300"></span>
+            </router-link>
+          </template>
         </nav>
         
         <ThemeSwitcher />
@@ -35,15 +46,26 @@
     <!-- 移动端导航菜单 -->
     <div v-if="mobileMenuOpen" class="md:hidden">
       <nav class="px-4 py-4 space-y-3 bg-cosmic-800/90 backdrop-blur-md border-t border-cosmic-600/40">
-        <router-link 
-          v-for="(item, index) in navItems" 
-          :key="index" 
-          :to="item.path" 
-          class="block py-2 text-starlight-300 hover:text-starlight-100"
-          @click="mobileMenuOpen = false"
-        >
-          {{ item.name }}
-        </router-link>
+        <template v-for="(item, index) in navItems" :key="index">
+          <a
+            v-if="item.external"
+            :href="item.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block py-2 text-starlight-300 hover:text-starlight-100"
+            @click="mobileMenuOpen = false"
+          >
+            {{ item.name }}
+          </a>
+          <router-link
+            v-else
+            :to="item.path"
+            class="block py-2 text-starlight-300 hover:text-starlight-100"
+            @click="mobileMenuOpen = false"
+          >
+            {{ item.name }}
+          </router-link>
+        </template>
       </nav>
     </div>
   </header>
@@ -60,7 +82,8 @@ const navItems = [
   { name: '人物', path: '/category/characters' },
   { name: '地点', path: '/category/locations' },
   { name: '事件', path: '/category/events' },
-  { name: '概念', path: '/category/concepts' }
+  { name: '概念', path: '/category/concepts' },
+  { name: '作品集', href: 'https://e.tobenot.top/', external: true }
 ];
 
 // 检查用户偏好和系统设置

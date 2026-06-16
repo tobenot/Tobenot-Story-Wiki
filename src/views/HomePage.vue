@@ -15,21 +15,6 @@
 
     <main class="wiki-container py-16 md:py-24">
       <section class="relative">
-        <!-- 特殊创作入口 -->
-        <div class="mb-12 flex flex-col sm:flex-row justify-center gap-4">
-          <router-link to="/novels" class="special-entry novel-entry">
-            <span class="text-2xl mb-1">📚︎</span>
-            <span class="font-bold">小说坑</span>
-            <span class="text-sm">探索创作中的小说</span>
-          </router-link>
-          
-          <router-link to="/games" class="special-entry game-entry">
-            <span class="text-2xl mb-1">🎮︎</span>
-            <span class="font-bold">游戏坑</span>
-            <span class="text-sm">查看游戏项目</span>
-          </router-link>
-        </div>
-
         <!-- 全局搜索组件 -->
         <div class="mb-16 max-w-xl mx-auto">
           <GlobalSearch />
@@ -192,10 +177,6 @@ const otherCategories = computed(() => categories.filter(c => c.path !== '/works
   @apply bg-gradient-to-br from-secondary-500/70 to-secondary-700/70;
 }
 
-.game-symbol {
-  @apply bg-gradient-to-br from-primary-500/70 to-primary-700/70;
-}
-
 .symbol-inner {
   @apply w-12 h-12 absolute;
   background: rgba(255, 255, 255, 0.8);
@@ -257,31 +238,6 @@ const otherCategories = computed(() => categories.filter(c => c.path !== '/works
   .symbol-glow {
     @apply w-12 h-12;
   }
-}
-
-/* 特殊入口样式 */
-.special-entry {
-  @apply flex flex-col items-center justify-center p-4 bg-white backdrop-blur-sm border-2 border-slate-900 transition-all duration-300 text-center w-full sm:w-64 no-underline text-gray-800 shadow-brutal;
-}
-
-.special-entry:hover {
-  @apply shadow-brutal-lg transform -translate-y-1;
-}
-
-.novel-entry {
-  @apply hover:border-secondary-400;
-}
-
-.novel-entry:hover span {
-  @apply text-secondary-700;
-}
-
-.game-entry {
-  @apply hover:border-primary-400;
-}
-
-.game-entry:hover span {
-  @apply text-primary-700;
 }
 
 /* 作品分类突出样式 */

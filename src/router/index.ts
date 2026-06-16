@@ -16,16 +16,6 @@ const routes = [
     name: 'Entry',
     component: () => import('../views/EntryPage.vue')
   },
-  {
-    path: '/novels',
-    name: 'Novels',
-    component: () => import('../views/NovelsPage.vue')
-  },
-  {
-    path: '/games',
-    name: 'Games',
-    component: () => import('../views/GamesPage.vue')
-  },
   // New: Works routes
   {
     path: '/works',

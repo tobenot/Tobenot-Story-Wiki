@@ -30,7 +30,15 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center px-4 py-2 font-medium transition-colors border-2 border-slate-900 dark:border-slate-600;
+    @apply inline-flex items-center justify-center px-4 py-2 font-medium border-2 border-slate-900 dark:border-slate-600 shadow-brutal transition-all duration-150;
+  }
+  .btn:hover {
+    @apply -translate-y-0.5 shadow-brutal-lg;
+  }
+  /* 粗野主义按压：阴影塌缩 + 向右下位移，像被按进纸面 */
+  .btn:active {
+    transform: translate(6px, 6px);
+    box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.9);
   }
 
   .btn-primary {

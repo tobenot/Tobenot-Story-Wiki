@@ -149,6 +149,12 @@ const otherCategories = computed(() => categories.filter(c => c.path !== '/works
   transform: perspective(1000px) rotateX(5deg) translateY(-5px);
 }
 
+/* 粗野主义按压 */
+.category-card:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.9);
+}
+
 .category-0 { animation-delay: 0s; }
 .category-1 { animation-delay: 0.1s; }
 .category-2 { animation-delay: 0.2s; }
@@ -224,6 +230,10 @@ const otherCategories = computed(() => categories.filter(c => c.path !== '/works
 .works-highlight:hover {
   @apply shadow-brutal-lg -translate-y-0.5;
   background: theme('colors.starlight.700');
+}
+.works-highlight:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.9);
 }
 .works-highlight .category-symbol {
   @apply w-20 h-20;

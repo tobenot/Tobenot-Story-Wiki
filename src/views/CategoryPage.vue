@@ -20,43 +20,16 @@
           </span>
         </div>
         
-        <div class="relative">
-          <select
-            v-model="currentFolder"
-            class="brutal-control w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-500 appearance-none pr-8 text-gray-700 cursor-pointer"
-            @change="selectFolder($event.target.value)"
-          >
-            <option value="__all__">全部所属</option>
-            <option value="__root__">无所属 (根目录)</option>
-            <option v-for="cat in availableCategories" :key="cat.id" :value="cat.id">
-              {{ cat.name }}
-            </option>
-          </select>
-          <!-- 下拉图标 -->
-          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-starlight-500 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </span>
-        </div>
+        <BrutalSelect
+          v-model="currentFolder"
+          :options="folderOptions"
+          @change="selectFolder($event)"
+        />
 
-        <div class="relative">
-          <select
-            v-model="sortOption"
-            class="brutal-control w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-500 appearance-none pr-8 text-gray-700 cursor-pointer"
-          >
-            <option value="newest">最新添加</option>
-            <option value="oldest">最早添加</option>
-            <option value="a-z">字母排序 A-Z</option>
-            <option value="z-a">字母排序 Z-A</option>
-          </select>
-          <!-- 下拉图标 -->
-          <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-starlight-500 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </span>
-        </div>
+        <BrutalSelect
+          v-model="sortOption"
+          :options="sortOptions"
+        />
       </div>
     </div>
 
@@ -104,15 +77,13 @@
         class="wiki-card group flex flex-col overflow-hidden"
       >
         <div v-if="entry.image" class="aspect-video overflow-hidden bg-gray-100 relative">
-          <ImageLoader 
-            :src="entry.image" 
-            :alt="`${entry.title} preview image`" 
+          <ImageLoader
+            :src="entry.image"
+            :alt="`${entry.title} preview image`"
             imageClass="w-full h-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-105"
             placeholderClass="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400"
             errorClass="w-full h-full flex items-center justify-center bg-red-50 text-red-400"
           />
-          <!-- 渐变遮罩 -->
-          <div class="absolute inset-0 bg-gradient-to-t from-white/90 via-gray-50/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         <div v-else class="aspect-video flex items-center justify-center bg-gray-50 text-gray-400 relative overflow-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -143,12 +114,9 @@
             {{ entry.description }}
           </p>
           
-          <div class="mt-auto pt-4 border-t border-gray-200 flex justify-between items-center">
-            <span class="text-xs text-gray-500">
-              <!-- 可以添加创建/更新日期 -->
-            </span>
-            <span class="text-starlight-600 text-sm font-medium flex items-center group-hover:text-starlight-700 transition-colors">
-              查看详情 <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+          <div class="mt-auto pt-4 border-t border-gray-200 flex justify-end items-center">
+            <span class="inline-flex items-center gap-1.5 text-sm font-bold text-starlight-700 border-2 border-slate-900 bg-white px-3 py-1 shadow-[3px_3px_0_0_rgba(15,23,42,0.9)] transition-all duration-150 group-hover:-translate-y-0.5 group-hover:shadow-[4px_4px_0_0_rgba(15,23,42,0.9)] group-active:translate-x-[3px] group-active:translate-y-[3px] group-active:shadow-none">
+              查看详情 <span class="transition-transform group-hover:translate-x-0.5 group-active:translate-x-1.5">→</span>
             </span>
           </div>
         </div>
@@ -209,6 +177,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { loadContentList, getCategoryDisplayName } from '../services/contentService';
 import Tag from '../components/ui/Tag.vue';
 import ImageLoader from '../components/ui/ImageLoader.vue';
+import BrutalSelect from '../components/ui/BrutalSelect.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -221,6 +190,20 @@ const searchQuery = ref('');
 const currentPage = ref(1);
 const itemsPerPage = ref(12);
 const sortOption = ref('newest'); // Default sort option
+
+// 下拉选项（供 BrutalSelect 使用）
+const folderOptions = computed(() => [
+  { value: '__all__', label: '全部所属' },
+  { value: '__root__', label: '无所属 (根目录)' },
+  ...availableCategories.value.map(cat => ({ value: cat.id, label: cat.name })),
+]);
+
+const sortOptions = [
+  { value: 'newest', label: '最新添加' },
+  { value: 'oldest', label: '最早添加' },
+  { value: 'a-z', label: '字母排序 A-Z' },
+  { value: 'z-a', label: '字母排序 Z-A' },
+];
 
 const handleTagClick = (tag) => {
   // Prevent navigation when clicking tag inside the link
@@ -497,6 +480,13 @@ watch([categoryType, () => route.query.tag], loadData);
   transform: translateY(-3px);
 }
 
+/* 粗野主义按压：阴影塌缩 + 向右下位移，像被按进纸面 */
+.wiki-card:active {
+  @apply border-slate-900;
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.9);
+}
+
 /* 搜索框与下拉框：与卡片统一的粗野主义控件 */
 .brutal-control {
   @apply shadow-brutal transition-all duration-200;
@@ -508,10 +498,9 @@ watch([categoryType, () => route.query.tag], loadData);
   @apply shadow-brutal-lg;
   outline: none;
 }
-
-/* 去掉浏览器对 select 原生的默认蓝色聚焦/选项背景，选项走站点色 */
-.brutal-control option {
-  @apply bg-white text-slate-800;
+.brutal-control:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 0 rgba(15, 23, 42, 0.9);
 }
 
 .aspect-video {
@@ -524,6 +513,11 @@ watch([categoryType, () => route.query.tag], loadData);
 
 .btn-page:hover:not(:disabled) {
   @apply bg-gray-50 text-gray-800 border-gray-300;
+}
+
+.btn-page:active:not(:disabled) {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.9);
 }
 
 .btn-page-active {

@@ -1,9 +1,9 @@
 <template>
-  <span 
+  <span
     :class="[
-      'inline-flex items-center px-2.5 py-0.5 text-xs font-medium transition-colors border border-slate-900',
+      'inline-flex items-center px-2.5 py-0.5 text-xs font-medium transition-all border border-slate-900',
       colorClasses,
-      clickable ? 'cursor-pointer hover:bg-opacity-80' : ''
+      clickable ? 'cursor-pointer shadow-[2px_2px_0_0_rgba(15,23,42,0.9)] hover:-translate-y-0.5 hover:shadow-[3px_3px_0_0_rgba(15,23,42,0.9)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none' : ''
     ]"
     @click="handleClick"
   >

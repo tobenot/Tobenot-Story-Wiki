@@ -16,18 +16,19 @@
       />
     </button>
 
-    <!-- 弹出菜单 -->
-    <transition
-      enter-active-class="transition ease-out duration-150"
-      enter-from-class="transform opacity-0 scale-95 translate-y-1"
-      enter-to-class="transform opacity-100 scale-100 translate-y-0"
-      leave-active-class="transition ease-in duration-100"
-      leave-from-class="transform opacity-100 scale-100"
-      leave-to-class="transform opacity-0 scale-95"
-    >
+    <!-- 遮罩（仅手机端底部抽屉时） -->
+    <transition name="fade">
+      <div v-if="isOpen && isMobile" class="share-backdrop" @click="close"></div>
+    </transition>
+
+    <!-- 弹出菜单：桌面端为右上角下拉卡片，手机端为底部抽屉 -->
+    <transition :name="isMobile ? 'sheet' : 'pop'">
       <div
         v-if="isOpen"
-        class="absolute right-0 bottom-full mb-2 w-72 z-50 bg-white border-2 border-slate-900 shadow-brutal-lg p-3 share-menu"
+        :class="isMobile
+          ? 'fixed inset-x-0 bottom-0 z-50 bg-white border-2 border-slate-900 border-b-0 shadow-brutal-lg p-4 pb-6 share-menu share-sheet'
+          : 'absolute right-0 bottom-full mb-2 w-72 z-50 bg-white border-2 border-slate-900 shadow-brutal-lg p-3 share-menu'"
+        "
         role="menu"
       >
         <!-- 微信二维码子面板 -->
@@ -71,6 +72,11 @@
           </div>
 
           <div class="h-px w-full bg-slate-200 mb-2"></div>
+
+          <!-- 微信内浏览器引导：微信会拦截 navigator.share，提示用右上角菜单 -->
+          <div v-if="isWeChat" class="mb-2 p-2.5 border-2 border-green-700 bg-green-50 text-green-900 text-xs leading-relaxed font-medium">
+            在微信内打开时，请点击右上角 <span class="font-bold">···</span> → 选择「发送给朋友 / 分享到朋友圈」。
+          </div>
 
           <!-- 系统分享（仅支持 navigator.share 时显示，置顶） -->
           <button
@@ -164,8 +170,13 @@ const copied = ref(false);
 const copyMsg = ref('');
 const copyOk = ref(true);
 const qrError = ref(false);
+const isMobile = ref(false);
 
 const canNativeShare = computed(() => typeof navigator !== 'undefined' && typeof navigator.share === 'function');
+// 微信内置浏览器：会拦截 navigator.share，需引导用户用右上角菜单
+const isWeChat = computed(() => typeof navigator !== 'undefined' && /MicroMessenger/i.test(navigator.userAgent));
+// 手机端（触屏 + 窄屏）且非微信内 → 优先直接唤起原生分享面板
+const preferNativeShare = computed(() => isMobile.value && canNativeShare.value && !isWeChat.value);
 
 const shareTitle = computed(() => props.title || document.title);
 const shareDesc = computed(() => props.description || '');
@@ -180,9 +191,17 @@ const resolvedImage = computed(() => {
 
 const qrUrl = computed(() => `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=0&data=${encodeURIComponent(currentUrl())}`);
 
+function vibrate(ms = 8) {
+  try { navigator.vibrate && navigator.vibrate(ms); } catch (e) { /* ignore */ }
+}
+
 function toggle() {
-  // 始终展开自定义菜单：桌面端能用到「微信二维码 / 复制链接 / 各渠道」，
-  // 手机端则可点菜单顶部的「系统分享」一键唤起原生面板（含微信等已装应用）。
+  // 手机端（非微信内）原生分享可用时：一步直接弹系统面板（含微信/复制/短信等）。
+  // 取消即回页面，不打扰；失败再回退到自定义菜单。
+  if (preferNativeShare.value && !isOpen.value) {
+    nativeShare();
+    return;
+  }
   isOpen.value = !isOpen.value;
   if (!isOpen.value) wechatOpen.value = false;
 }
@@ -271,6 +290,7 @@ async function copyLink() {
     copied.value = true;
     copyOk.value = true;
     copyMsg.value = '链接已复制到剪贴板';
+    vibrate(12);
   } catch (e) {
     copyOk.value = false;
     copyMsg.value = '复制失败，请手动复制地址栏链接';
@@ -292,6 +312,8 @@ function onKeydown(e) {
 }
 
 onMounted(() => {
+  // 触屏 + 窄屏视为手机端（排除触屏笔记本的大屏情况）
+  isMobile.value = window.matchMedia('(pointer: coarse) and (max-width: 768px)').matches;
   document.addEventListener('click', onDocClick);
   document.addEventListener('keydown', onKeydown);
 });
@@ -333,9 +355,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.625rem 0.75rem;
+  min-height: 2.75rem; /* 44px 触控目标 */
   width: 100%;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #1e293b; /* slate-800 */
   text-align: left;
@@ -357,6 +380,41 @@ onUnmounted(() => {
 .share-row:active {
   transform: translate(2px, 2px);
   box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.9);
+}
+
+/* 手机端底部抽屉 */
+.share-sheet {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.share-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 49;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(1px);
+}
+
+/* 桌面端：下拉卡片 scale/opacity */
+.pop-enter-active,
+.pop-leave-active {
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.pop-enter-from,
+.pop-leave-to {
+  opacity: 0;
+  transform: scale(0.95) translateY(4px);
+}
+/* 手机端：底部抽屉上滑 */
+.sheet-enter-active,
+.sheet-leave-active {
+  transition: transform 0.22s ease;
+}
+.sheet-enter-from,
+.sheet-leave-to {
+  transform: translateY(100%);
 }
 
 .fade-enter-active,

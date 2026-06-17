@@ -6,11 +6,11 @@
       <!-- 搜索和筛选部分 -->
       <div class="flex flex-col sm:flex-row gap-3">
         <div class="relative">
-          <input 
-            type="search" 
-            placeholder="搜索..." 
+          <input
+            type="search"
+            placeholder="搜索..."
             v-model="searchQuery"
-            class="w-full pl-10 pr-4 py-2.5 border-2 border-slate-900 bg-white/90 backdrop-blur-sm focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 text-gray-700 placeholder-gray-500"
+            class="brutal-control w-full pl-10 pr-4 py-2.5 border-2 border-slate-900 bg-white/90 backdrop-blur-sm focus:border-starlight-500 text-gray-700 placeholder-gray-500"
           />
           <!-- 搜索图标 -->
           <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-starlight-500">
@@ -21,9 +21,9 @@
         </div>
         
         <div class="relative">
-          <select 
+          <select
             v-model="currentFolder"
-            class="w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 appearance-none pr-8 text-gray-700"
+            class="brutal-control w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-500 appearance-none pr-8 text-gray-700 cursor-pointer"
             @change="selectFolder($event.target.value)"
           >
             <option value="__all__">全部所属</option>
@@ -41,9 +41,9 @@
         </div>
 
         <div class="relative">
-          <select 
+          <select
             v-model="sortOption"
-            class="w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-400 focus:ring-1 focus:ring-starlight-400/30 appearance-none pr-8 text-gray-700"
+            class="brutal-control w-full border-2 border-slate-900 bg-white/90 backdrop-blur-sm px-4 py-2.5 focus:border-starlight-500 appearance-none pr-8 text-gray-700 cursor-pointer"
           >
             <option value="newest">最新添加</option>
             <option value="oldest">最早添加</option>
@@ -495,6 +495,23 @@ watch([categoryType, () => route.query.tag], loadData);
 .wiki-card:hover {
   @apply border-starlight-400 shadow-brutal-lg;
   transform: translateY(-3px);
+}
+
+/* 搜索框与下拉框：与卡片统一的粗野主义控件 */
+.brutal-control {
+  @apply shadow-brutal transition-all duration-200;
+}
+.brutal-control:hover {
+  @apply shadow-brutal-lg -translate-y-0.5;
+}
+.brutal-control:focus {
+  @apply shadow-brutal-lg;
+  outline: none;
+}
+
+/* 去掉浏览器对 select 原生的默认蓝色聚焦/选项背景，选项走站点色 */
+.brutal-control option {
+  @apply bg-white text-slate-800;
 }
 
 .aspect-video {

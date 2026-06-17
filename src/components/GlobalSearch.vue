@@ -54,7 +54,14 @@
           >
             <div class="flex items-center">
               <div class="flex-shrink-0 mr-3">
-                <span class="category-icon inline-flex items-center justify-center w-8 h-8 border-2 border-slate-900 text-white" :class="getCategoryColorClass(item.type)">
+                <!-- 有真实缩略图时显示图片，否则回退到粗野主义类型图标 -->
+                <img
+                  v-if="hasThumbnail(item.image)"
+                  :src="item.image"
+                  :alt="item.title"
+                  class="w-8 h-8 object-cover border-2 border-slate-900"
+                />
+                <span v-else class="category-icon inline-flex items-center justify-center w-8 h-8 border-2 border-slate-900 text-white" :class="getCategoryColorClass(item.type)">
                   <span v-html="getCategoryIcon(item.type)"></span>
                 </span>
               </div>
@@ -154,6 +161,13 @@ const getCategoryColorClass = (type) => {
   };
 
   return classMap[type] || 'bg-slate-700';
+};
+
+// 是否有可用的缩略图：无 image 字段、或指向占位图 no_image 时回退到类型图标
+const PLACEHOLDER_IMAGE = '/images/no_image.png';
+const hasThumbnail = (image) => {
+  if (!image) return false;
+  return image !== PLACEHOLDER_IMAGE && !image.endsWith('/no_image.png');
 };
 
 // 处理输入

@@ -378,6 +378,9 @@ export async function getAllEntriesMetadata() {
           id: descriptor.routeId,
           type: descriptor.type,
           title: attributes.title,
+          description: attributes.summary || attributes.description || '',
+          tags: attributes.tags || [],
+          image: attributes.image || '',
         });
       } catch (err) {
         console.error(`Failed to load metadata for path ${path}:`, err);

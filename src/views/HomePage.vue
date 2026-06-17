@@ -8,6 +8,9 @@
         </h1>
         <div class="h-0.5 w-3/4 sm:w-2/3 lg:w-1/2 mx-auto bg-gradient-to-r from-transparent via-starlight-600 to-transparent"></div>
         <div class="h-0.5 w-1/2 sm:w-1/3 lg:w-1/4 mx-auto mt-1 bg-gradient-to-r from-transparent via-starlight-700 to-transparent"></div>
+        <div class="mt-8 flex justify-center">
+          <ShareButton title="托贝诺特 世界观 Wiki" description="人物、地点、事件、物品与概念的世界构建百科。" />
+        </div>
       </div>
     </section>
 
@@ -59,6 +62,7 @@
 
 <script setup>
 import GlobalSearch from '../components/GlobalSearch.vue';
+import ShareButton from '../components/ShareButton.vue';
 import { computed } from 'vue';
 import { categoryIcons } from '../data/categoryIcons';
 

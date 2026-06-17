@@ -1,6 +1,9 @@
 <template>
   <div class="wiki-container">
-    <h1 class="text-3xl md:text-4xl font-bold mb-8 bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">作品索引</h1>
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">作品索引</h1>
+      <ShareButton title="作品索引" description="托贝诺特世界观 Wiki 的作品索引" />
+    </div>
     <div v-if="loading" class="py-12 text-center text-gray-600">加载中...</div>
     <div v-else-if="works.length === 0" class="py-12 text-center text-gray-600">暂无作品</div>
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -26,6 +29,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getWorks } from '../services/contentService';
+import ShareButton from '../components/ShareButton.vue';
 
 const loading = ref(true);
 const works = ref([]);

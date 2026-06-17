@@ -1,7 +1,10 @@
 <template>
   <div class="wiki-container">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-0 bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
+      <div class="flex items-center gap-3 mb-6 md:mb-0">
+        <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
+        <ShareButton :title="categoryTitle" />
+      </div>
       
       <!-- 搜索和筛选部分 -->
       <div class="flex flex-col sm:flex-row gap-3">
@@ -178,6 +181,8 @@ import { loadContentList, getCategoryDisplayName } from '../services/contentServ
 import Tag from '../components/ui/Tag.vue';
 import ImageLoader from '../components/ui/ImageLoader.vue';
 import BrutalSelect from '../components/ui/BrutalSelect.vue';
+import ShareButton from '../components/ShareButton.vue';
+import { usePageMeta } from '../composables/usePageMeta';
 
 const route = useRoute();
 const router = useRouter();
@@ -236,6 +241,8 @@ const categoryTitles = {
 
 // Get the display title based on category type
 const categoryTitle = computed(() => categoryTitles[categoryType.value] || '内容');
+
+usePageMeta({ title: categoryTitle });
 
 function folderToAppearance(folder) {
   const m = folder.match(/^works\/([^\/]+)\/parts\/([^\/]+)$/);

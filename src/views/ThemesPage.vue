@@ -2,7 +2,10 @@
   <div class="wiki-container">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">主题聚合</h1>
-      <router-link to="/" class="btn btn-secondary">返回首页</router-link>
+      <div class="flex items-center gap-3">
+        <ShareButton title="主题聚合" description="托贝诺特世界观 Wiki 的主题聚合页" />
+        <router-link to="/" class="btn btn-secondary">返回首页</router-link>
+      </div>
     </div>
 
     <div v-if="loading" class="py-12 text-center text-gray-600">加载中...</div>
@@ -25,6 +28,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getThemes } from '../services/contentService';
+import ShareButton from '../components/ShareButton.vue';
 
 const loading = ref(true);
 const themes = ref([]);

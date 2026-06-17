@@ -2,7 +2,10 @@
   <div class="wiki-container">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ title }}</h1>
-      <router-link :to="`/works/${workId}`" class="btn btn-secondary">返回作品</router-link>
+      <div class="flex items-center gap-3">
+        <ShareButton :title="title" :description="part?.description" />
+        <router-link :to="`/works/${workId}`" class="btn btn-secondary">返回作品</router-link>
+      </div>
     </div>
 
     <div v-if="loading" class="py-12 text-center text-gray-600">加载中...</div>
@@ -34,6 +37,8 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getPart } from '../services/contentService';
+import ShareButton from '../components/ShareButton.vue';
+import { usePageMeta } from '../composables/usePageMeta';
 
 const route = useRoute();
 const workId = computed(() => route.params.workId);
@@ -57,6 +62,11 @@ const typeTitle = (t) => ({
 }[t] || t);
 
 const title = computed(() => part.value?.title || partId.value);
+
+usePageMeta({
+  title,
+  description: computed(() => part.value?.description || ''),
+});
 
 onMounted(async () => {
   loading.value = true;

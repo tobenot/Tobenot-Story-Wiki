@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.tanaka-ren"
 summary: "贝利斯集团的新任领导。"
 tags: ["银月篇", "贝利斯", "领导", "异能者", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/tanaka_ren.png"
+image: "/images/characters/silvermoon/tanaka_ren.webp"
 ---
 
 # 田中连

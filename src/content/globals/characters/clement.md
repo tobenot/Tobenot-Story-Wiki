@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.clement"
 summary: "贝利斯集团的精英雇佣兵，拥有【衔羽展翼】异能，能在空中自由飞行并进行远程侦察。"
 tags: ["贝利斯", "雇佣兵", "银月篇", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/clement.png"
+image: "/images/characters/silvermoon/clement.webp"
 ---
 
 # 克莱门特

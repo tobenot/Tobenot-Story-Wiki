@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.xinnia"
 summary: "银月寺的新任保安，珂茵的闺蜜，具有使周围不能传播声音的异能。"
 tags: ["银月篇", "银月寺", "保安", "异能者", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/xinnia.png"
+image: "/images/characters/silvermoon/xinnia.webp"
 ---
 
 # 辛妮亚

@@ -4,7 +4,7 @@ type: "作品"
 tags: ["银月篇", "奇灵篇", "舞龙篇", "原创作品", "异能者", "保留地"]
 related: ["银月寺", "罗伯特", "贝利斯集团", "罪恶猎手"]
 description: "不止于纸上的故事系列的完整时间线，包含奇灵篇、银月篇、舞龙篇等多个篇章的重要事件。"
-image: "/images/works/beyond-books-timeline.png"
+image: "/images/works/beyond-books-timeline.webp"
 ---
 不止于纸上的故事的故事主线发生在地球上，是一个存在异能者的现代世界，柳国政府通过《异能者保留地法》将异能者隔离在专门的保留地内。
 

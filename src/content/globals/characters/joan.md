@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.joan"
 summary: "使用生成冰的能力。"
 tags: ["银月篇", "望穿秋水", "异能者", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/joan.png"
+image: "/images/characters/silvermoon/joan.webp"
 ---
 
 # 琼

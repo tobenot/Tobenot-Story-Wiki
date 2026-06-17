@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.stuart"
 summary: "贝利斯雇佣兵，异能是【内能构建】。他背上嵌入了钢铁羽翼。"
 tags: ["银月篇", "贝利斯", "雇佣兵", "异能者", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/stuart.png"
+image: "/images/characters/silvermoon/stuart.webp"
 ---
 
 # 斯图尔特

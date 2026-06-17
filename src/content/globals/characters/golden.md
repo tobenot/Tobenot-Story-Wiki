@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.golden"
 summary: "成为人类，成为圣人。"
 tags: ["横雨军", "心界", "心界人类", "船长"]
-image: "/images/characters/heartworld/golden.jpg"
+image: "/images/characters/heartworld/golden.webp"
 ---
 
 # 金

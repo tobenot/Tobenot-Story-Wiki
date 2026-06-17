@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.airin"
 summary: "银月寺内的银月大学的新生，当然也是异能者。"
 tags: ["银月篇", "银月大学", "异能者", "学生", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/airin.png"
+image: "/images/characters/silvermoon/airin.webp"
 ---
 
 # 艾琳

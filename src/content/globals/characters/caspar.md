@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.caspar"
 summary: "银月大学的棍术老师。"
 tags: ["银月篇", "银月大学", "教师", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/caspar.png"
+image: "/images/characters/silvermoon/caspar.webp"
 ---
 
 # 卡斯帕

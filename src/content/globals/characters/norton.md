@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.norton"
 summary: "银月寺的保安，未觉醒异能，但也有灵能盾，棍术也很厉害。"
 tags: ["银月篇", "银月寺", "保安"]
-image: "/images/characters/silvermoon/norton.png"
+image: "/images/characters/silvermoon/norton.webp"
 ---
 
 # 诺顿

@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.luobei"
 summary: "横雨军中一位平平无奇的新人。"
 tags: ["横雨军", "心界", "心界人类"]
-image: "/images/characters/heartworld/luobei.jpg"
+image: "/images/characters/heartworld/luobei.webp"
 ---
 
 # 萝北

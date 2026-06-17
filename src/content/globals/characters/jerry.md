@@ -4,7 +4,7 @@ type: "characters"
 canonicalId: "character.jerry"
 summary: "罪恶猎手高官"
 tags: ["银月篇", "罪恶猎手", "异能者", "不止于纸上的故事：银月篇"]
-image: "/images/characters/silvermoon/jerry.png"
+image: "/images/characters/silvermoon/jerry.webp"
 ---
 
 # 杰瑞斯

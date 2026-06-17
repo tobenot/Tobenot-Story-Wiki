@@ -91,7 +91,7 @@ const props = defineProps({
 
 // Internal state for manual reveal
 const isRevealed = ref(false);
-const pendingSourceLink = 'https://github.com/tobenot/tobenot.github.io/issues';
+const pendingSourceLink = 'https://tobenot.top/contact/';
 
 // Determine if the spoiler should actually be revealed (global override or manual)
 const isActuallyRevealed = computed(() => props.isGloballyRevealed || isRevealed.value);

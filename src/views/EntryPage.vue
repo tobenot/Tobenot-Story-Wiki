@@ -276,8 +276,6 @@ usePageMeta({
   image: computed(() => entry.value?.image ? resolveAssetPath(entry.value.image) : ''),
 });
 
-const pendingSourceLink = 'https://github.com/tobenot/tobenot.github.io/issues';
-
 // NEW: Computed property to resolve related item links
 const resolvedRelatedItems = computed(() => {
   if (!entry.value || !entry.value.related || !allMetadata.value.length) {

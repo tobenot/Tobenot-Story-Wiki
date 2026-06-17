@@ -137,9 +137,9 @@ export default {
         DEFAULT: {
           css: {
             a: {
-              color: theme('colors.secondary.500'),
+              color: theme('colors.starlight.700'),
               '&:hover': {
-                color: theme('colors.secondary.600'),
+                color: theme('colors.starlight.800'),
               },
             },
             h1: {
@@ -170,9 +170,9 @@ export default {
           css: {
             color: theme('colors.slate.300'),
             a: {
-              color: theme('colors.secondary.400'),
+              color: theme('colors.starlight.300'),
               '&:hover': {
-                color: theme('colors.secondary.300'),
+                color: theme('colors.starlight.200'),
               },
             },
             h1: {

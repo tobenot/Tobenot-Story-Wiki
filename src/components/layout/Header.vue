@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-50 w-full backdrop-blur-sm bg-cosmic-800/60 border-b border-cosmic-600/40">
+  <header class="sticky top-0 z-50 w-full backdrop-blur-md bg-cosmic-900/90 border-b border-cosmic-700/60">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
       <router-link to="/" class="flex items-center space-x-3 group">
         <div class="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-starlight-300 to-starlight-600 border-2 border-slate-900 overflow-hidden">
@@ -16,18 +16,18 @@
               :href="item.href"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-starlight-300 relative py-1 overflow-hidden group"
+              class="text-starlight-200 relative py-1 overflow-hidden group"
             >
               <span class="relative z-10 group-hover:text-starlight-50 transition-colors duration-300">{{ item.name }}</span>
-              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-secondary-400 to-secondary-600 group-hover:w-full transition-all duration-300"></span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-starlight-400 to-starlight-600 group-hover:w-full transition-all duration-300"></span>
             </a>
             <router-link
               v-else
               :to="item.path"
-              class="text-starlight-300 relative py-1 overflow-hidden group"
+              class="text-starlight-200 relative py-1 overflow-hidden group"
             >
               <span class="relative z-10 group-hover:text-starlight-50 transition-colors duration-300">{{ item.name }}</span>
-              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-secondary-400 to-secondary-600 group-hover:w-full transition-all duration-300"></span>
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-starlight-400 to-starlight-600 group-hover:w-full transition-all duration-300"></span>
             </router-link>
           </template>
         </nav>
@@ -45,14 +45,14 @@
     
     <!-- 移动端导航菜单 -->
     <div v-if="mobileMenuOpen" class="md:hidden">
-      <nav class="px-4 py-4 space-y-3 bg-cosmic-800/90 backdrop-blur-md border-t border-cosmic-600/40">
+      <nav class="px-4 py-4 space-y-3 bg-cosmic-900/95 backdrop-blur-md border-t border-cosmic-700/60">
         <template v-for="(item, index) in navItems" :key="index">
           <a
             v-if="item.external"
             :href="item.href"
             target="_blank"
             rel="noopener noreferrer"
-            class="block py-2 text-starlight-300 hover:text-starlight-100"
+            class="block py-2 text-starlight-200 hover:text-starlight-50"
             @click="mobileMenuOpen = false"
           >
             {{ item.name }}
@@ -60,7 +60,7 @@
           <router-link
             v-else
             :to="item.path"
-            class="block py-2 text-starlight-300 hover:text-starlight-100"
+            class="block py-2 text-starlight-200 hover:text-starlight-50"
             @click="mobileMenuOpen = false"
           >
             {{ item.name }}

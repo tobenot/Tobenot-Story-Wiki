@@ -188,8 +188,8 @@
 
         <!-- TOC Sidebar Area -->
         <div class="md:col-span-1 hidden md:block">
-          <div class="sticky top-20 bg-cosmic-800/60 backdrop-blur-sm border-brutal shadow-brutal p-4 overflow-hidden">
-            <h4 class="text-starlight-500 font-semibold mb-4 pb-2 border-b border-cosmic-600/40 flex items-center">
+          <div class="sticky top-20 bg-cosmic-900/90 backdrop-blur-md border-brutal shadow-brutal p-4 overflow-hidden">
+            <h4 class="text-starlight-300 font-semibold mb-4 pb-2 border-b border-cosmic-700/60 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
               </svg>

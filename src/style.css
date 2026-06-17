@@ -71,7 +71,7 @@
   }
   
   .prose-starlight a {
-    @apply text-secondary-600 hover:text-secondary-700 dark:text-secondary-400 dark:hover:text-secondary-300 font-medium;
+    @apply text-starlight-700 hover:text-starlight-800 dark:text-starlight-300 dark:hover:text-starlight-200 font-medium underline decoration-starlight-400/60 hover:decoration-starlight-500 underline-offset-2;
   }
   
   .prose-starlight p, 
@@ -126,7 +126,7 @@
   }
   
   .wiki-card .prose a {
-    @apply text-secondary-700 hover:text-secondary-800 font-medium;
+    @apply text-starlight-700 hover:text-starlight-800 font-medium underline decoration-starlight-400/60 hover:decoration-starlight-500 underline-offset-2;
   }
   
   .wiki-card .tag {
@@ -139,55 +139,8 @@
   }
 }
 
-/* 剧透块样式 */
-.spoiler {
-  @apply relative p-6 my-4 bg-slate-50 dark:bg-slate-800/50 overflow-hidden border-2 border-slate-900 dark:border-slate-600;
-}
-
-.spoiler:not(.revealed) .spoiler-content {
-  @apply blur-sm select-none;
-  /* Ensure filter is targeted */
-  filter: blur(4px); /* Use a specific value for transition */
-}
-
-.spoiler.revealed .spoiler-content {
-   filter: blur(0); /* Explicitly remove blur */
-}
-
-.spoiler-content {
-  /* Add transition for the blur effect */
-  transition: filter 0.5s ease-in-out;
-  /* Contain potential layout shifts during blur/unblur */
-  /* backface-visibility: hidden; */ /* Might help performance/rendering */
-}
-
-.spoiler-source {
-  @apply mb-3 text-sm font-medium text-slate-500 dark:text-slate-400;
-}
-
-.spoiler-actions {
-  @apply mt-4 flex flex-wrap gap-2 items-center;
-  /* Actions are now always visible */
-}
-
-.spoiler-btn {
-  @apply px-3 py-1.5 text-sm transition-colors border-2 border-slate-900 dark:border-slate-600;
-}
-
-.view-spoiler {
-  @apply bg-primary-600 text-white hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600;
-}
-
-.goto-source {
-  @apply bg-secondary-600 text-white hover:bg-secondary-700 dark:bg-secondary-500 dark:hover:bg-secondary-600;
-}
-
-.pending-source {
-  /* Make it look like a link/button */
-   @apply bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600;
-   /* Ensure cursor indicates clickability */
-   cursor: pointer;
-}
+/* 剧透块样式统一由 SpoilerBlock.vue 组件内的 scoped 样式负责，
+   避免全局样式与组件样式冲突（边框虚线/颜色、按钮紫色等问题）。 */
 
 /* 新增粗野主义/大理石风格 */
 .shadow-brutal {

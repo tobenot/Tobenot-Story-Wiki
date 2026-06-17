@@ -2,20 +2,20 @@
   <nav class="toc">
     <ul class="space-y-2">
       <li v-for="heading in headings" :key="heading.id" :class="{ 'ml-3': heading.level > 2 }">
-        <a 
-          :href="`#${heading.id}`" 
+        <a
+          :href="`#${heading.id}`"
           :class="[
             'hover:text-starlight-100 py-1 transition-colors duration-150 border-l-2 pl-2',
-            isActiveHeading(heading.id) 
-              ? 'text-starlight-100 border-starlight-500 font-medium' 
-              : 'text-starlight-300 border-transparent hover:border-starlight-500/50'
+            isActiveHeading(heading.id)
+              ? 'text-starlight-100 border-starlight-500 font-medium'
+              : 'text-starlight-200 border-transparent hover:border-starlight-500/50'
           ]"
           @click.prevent="scrollToHeading(heading.id)"
         >
           {{ heading.text }}
         </a>
       </li>
-      <li v-if="headings.length === 0" class="text-starlight-400 text-sm py-1">
+      <li v-if="headings.length === 0" class="text-starlight-300 text-sm py-1">
         无目录内容
       </li>
     </ul>

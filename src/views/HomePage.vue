@@ -55,41 +55,7 @@
 <script setup>
 import GlobalSearch from '../components/GlobalSearch.vue';
 import { computed } from 'vue';
-
-// 粗野主义风格图标：粗描边、硬边角、几何感
-const brutalistIcon = (paths) =>
-  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" class="brutal-icon">${paths}</svg>`;
-
-const icons = {
-  // 人物
-  characters: brutalistIcon(
-    '<circle cx="12" cy="7.5" r="3.5"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/>'
-  ),
-  // 地点
-  locations: brutalistIcon(
-    '<path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><rect x="9" y="7" width="6" height="6"/>'
-  ),
-  // 事件
-  events: brutalistIcon(
-    '<path d="M13 2 4 14h7l-2 8 9-12h-7l2-8z"/>'
-  ),
-  // 物品
-  items: brutalistIcon(
-    '<path d="M12 2 3 7v10l9 5 9-5V7l-9-5z"/><path d="M3 7l9 5 9-5"/><path d="M12 12v10"/>'
-  ),
-  // 概念
-  concepts: brutalistIcon(
-    '<path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 2a7 7 0 0 0-4 12.6c1 .8 1.5 1.4 1.5 2.4h5c0-1 .5-1.6 1.5-2.4A7 7 0 0 0 12 2z"/>'
-  ),
-  // 作品
-  works: brutalistIcon(
-    '<path d="M4 4h7a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4z"/><path d="M20 4h-7a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h7z"/>'
-  ),
-  // 主题
-  themes: brutalistIcon(
-    '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>'
-  ),
-};
+import { categoryIcons } from '../data/categoryIcons';
 
 const categories = [
   {
@@ -97,53 +63,53 @@ const categories = [
     path: '/category/characters',
     description: '探索各种作品中的角色',
     symbolClass: 'character-symbol',
-    icon: icons.characters
+    icon: categoryIcons.characters
   },
   {
     title: '地点',
     path: '/category/locations',
     description: '发现各种作品中的地点',
     symbolClass: 'location-symbol',
-    icon: icons.locations
+    icon: categoryIcons.locations
   },
   {
     title: '事件',
     path: '/category/events',
     description: '了解各种作品中的事件',
     symbolClass: 'event-symbol',
-    icon: icons.events
+    icon: categoryIcons.events
   },
   {
     title: '物品',
     path: '/category/items',
     description: '浏览各种作品中的物品',
     symbolClass: 'item-symbol',
-    icon: icons.items
+    icon: categoryIcons.items
   },
   {
     title: '概念',
     path: '/category/concepts',
     description: '理解各种作品中的概念',
     symbolClass: 'concept-symbol',
-    icon: icons.concepts
+    icon: categoryIcons.concepts
   },
   {
     title: '作品',
     path: '/works',
     description: '按作品/篇章组织浏览',
     symbolClass: 'novel-symbol',
-    icon: icons.works
+    icon: categoryIcons.works
   },
   {
     title: '主题',
     path: '/themes',
     description: '按主题聚合浏览',
     symbolClass: 'theme-symbol',
-    icon: icons.themes
+    icon: categoryIcons.themes
   }
 ];
 
-const worksIcon = icons.works;
+const worksIcon = categoryIcons.works;
 const otherCategories = computed(() => categories.filter(c => c.path !== '/works'));
 </script>
 

@@ -54,8 +54,8 @@
           >
             <div class="flex items-center">
               <div class="flex-shrink-0 mr-3">
-                <span :class="getCategoryClass(item.type)" class="category-icon inline-flex items-center justify-center w-8 h-8 border-2 border-slate-900 bg-slate-100 dark:bg-cosmic-700">
-                  <span class="text-xs text-starlight-600">{{ getCategoryInitial(item.type) }}</span>
+                <span class="category-icon inline-flex items-center justify-center w-8 h-8 border-2 border-slate-900 text-white" :class="getCategoryColorClass(item.type)">
+                  <span v-html="getCategoryIcon(item.type)"></span>
                 </span>
               </div>
               <div class="flex-1">
@@ -99,6 +99,7 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { getAllEntriesMetadata } from '../services/contentService';
+import { getCategoryIcon } from '../data/categoryIcons';
 
 const router = useRouter();
 const searchQuery = ref('');
@@ -142,17 +143,17 @@ const getCategoryName = (type) => {
   return categoryMap[type] || type;
 };
 
-// 获取分类样式类
-const getCategoryClass = (type) => {
+// 获取分类底色（粗野主义纯色块，与首页页签一致）
+const getCategoryColorClass = (type) => {
   const classMap = {
-    'characters': 'bg-primary-100 border-primary-200',
-    'locations': 'bg-gray-100 border-gray-200',
-    'events': 'bg-gray-100 border-gray-200',
-    'items': 'bg-accent-100 border-accent-200',
-    'concepts': 'bg-starlight-100 border-starlight-300'
+    'characters': 'bg-slate-900',
+    'locations': 'bg-secondary-600',
+    'events': 'bg-primary-600',
+    'items': 'bg-accent-600',
+    'concepts': 'bg-starlight-600',
   };
-  
-  return `border ${classMap[type] || 'bg-gray-100 border-gray-200'}`;
+
+  return classMap[type] || 'bg-slate-700';
 };
 
 // 处理输入
@@ -222,19 +223,6 @@ const loadAllItems = async () => {
   }
 };
 
-// 获取分类初始字母
-const getCategoryInitial = (type) => {
-  const initialMap = {
-    'characters': '人',
-    'locations': '地',
-    'events': '事',
-    'items': '物',
-    'concepts': '念'
-  };
-  
-  return initialMap[type] || '?';
-};
-
 // 新增键盘导航焦点方法
 const onFocus = () => {
   // 可以添加焦点处理逻辑
@@ -266,6 +254,12 @@ onBeforeUnmount(() => {
 
 .category-icon {
   position: relative;
+}
+
+/* 搜索结果里的图标比首页页签小一圈 */
+.search-results .brutal-icon {
+  width: 1.1rem;
+  height: 1.1rem;
 }
 
 .inner-icon {

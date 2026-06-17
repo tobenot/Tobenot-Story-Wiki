@@ -219,6 +219,7 @@ import { getEntryVariants, getEntryParents, getCategoryDisplayName } from '../se
 
 const route = useRoute();
 const router = useRouter();
+const BASE_URL = import.meta.env.BASE_URL;
 const loading = ref(true);
 const showAllSpoilers = ref(false);
 const entry = ref(null);

@@ -44,8 +44,9 @@ https://jsoneditoronline.org/#left=local.gijoyi
     - `workId`, `partId`, `title`, `description?`, `order?`, `timeline?`, `tags?`, `links?`
 - 篇章内条目
   - 必填：`title`, `type`, `canonicalId?`（若有对应全局权威则填写）
-  - 选填：`localNotes`, `tags`, `role?`, `firstSeenAt?`, `lastSeenAt?`, `chapters?`, `image?`
+  - 选填：`summary`, `localNotes`, `tags`, `role?`, `firstSeenAt?`, `lastSeenAt?`, `chapters?`, `image?`
   - 建议：正文尽量精简；页面展示时优先渲染 `canonicalId` 的全局权威正文，再叠加 `localNotes` 等篇章差异。
+  - 卡片摘要：`summary` 是列表/分类卡片上显示的一句话介绍（纯文本，勿写 Markdown）。优先级为 `summary` > `description`；二者皆无时卡片不显示描述，不再回退截取正文。
 - 主题 `themes/<themeId>.md`
   - 必填：`title`, `description?`, `strategy`（`by-tags` | `manual`）
   - `by-tags`：`include: { types?: string[], tags?: string[] }`

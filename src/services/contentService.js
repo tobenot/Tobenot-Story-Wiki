@@ -174,11 +174,15 @@ async function buildContentIndex() {
           const appearances = [appearance];
 
           // Record for type index
+          // 卡片摘要优先用 summary（作者在 frontmatter 写的纯文本一句话介绍），
+          // 其次 description；不再回退到正文截断——正文是 Markdown，截断后显示成乱码。
+          const summary = attributes.summary || attributes.description || '';
           const record = {
             key,
             type,
             title: attributes.title || descriptor.id,
-            description: attributes.description || (body ? String(body).substring(0, 100) + (body.length > 100 ? '...' : '') : ''),
+            summary,
+            description: summary,
             tags: attributes.tags || [],
             image: attributes.image,
             createdAt: attributes.createdAt || null,
@@ -283,7 +287,8 @@ export async function loadContentList(type, { tag } = {}) {
     category: e.category || null,
     appearances: e.appearances || [],
     title: e.title,
-    description: e.description,
+    summary: e.summary || '',
+    description: e.summary || e.description || '',
     tags: e.tags || [],
     type: type,
     image: e.image,

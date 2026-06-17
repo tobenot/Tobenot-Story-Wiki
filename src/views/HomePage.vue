@@ -168,25 +168,27 @@ const otherCategories = computed(() => categories.filter(c => c.path !== '/works
   color: #fff;
 }
 
-/* 粗野主义：纯色块 + 高对比度图标 */
+/* 粗野主义：统一金色系色块 + 高对比度图标。
+   全页只保留“黑/白/金”三色，分类之间靠图标与明度差异区分，
+   不再各自使用蓝/紫/黄等异色，避免首页色彩过花。 */
 .character-symbol {
-  background: #0f172a; /* slate-900 */
+  background: theme('colors.starlight.900'); /* 最深金 */
 }
 
 .location-symbol {
-  background: theme('colors.secondary.600');
+  background: theme('colors.starlight.800');
 }
 
 .event-symbol {
-  background: theme('colors.primary.600');
+  background: theme('colors.starlight.700');
 }
 
 .item-symbol {
-  background: theme('colors.accent.600');
+  background: theme('colors.starlight.600');
 }
 
 .concept-symbol {
-  background: theme('colors.starlight.600');
+  background: theme('colors.starlight.800');
 }
 
 .novel-symbol {
@@ -194,7 +196,7 @@ const otherCategories = computed(() => categories.filter(c => c.path !== '/works
 }
 
 .theme-symbol {
-  background: #334155; /* slate-700 */
+  background: theme('colors.starlight.900'); /* 最深金 */
 }
 
 .brutal-icon {

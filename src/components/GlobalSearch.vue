@@ -150,17 +150,17 @@ const getCategoryName = (type) => {
   return categoryMap[type] || type;
 };
 
-// 获取分类底色（粗野主义纯色块，与首页页签一致）
+// 获取分类底色（粗野主义纯色块，与首页页签一致；统一金色系，靠明度区分）
 const getCategoryColorClass = (type) => {
   const classMap = {
-    'characters': 'bg-slate-900',
-    'locations': 'bg-secondary-600',
-    'events': 'bg-primary-600',
-    'items': 'bg-accent-600',
-    'concepts': 'bg-starlight-600',
+    'characters': 'bg-starlight-900',
+    'locations': 'bg-starlight-800',
+    'events': 'bg-starlight-700',
+    'items': 'bg-starlight-600',
+    'concepts': 'bg-starlight-800',
   };
 
-  return classMap[type] || 'bg-slate-700';
+  return classMap[type] || 'bg-starlight-900';
 };
 
 // 是否有可用的缩略图：无 image 字段、或指向占位图 no_image 时回退到类型图标

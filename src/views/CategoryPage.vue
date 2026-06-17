@@ -59,7 +59,18 @@
         </div>
       </div>
     </div>
-    
+
+    <!-- 当前标签筛选指示器 -->
+    <div v-if="activeTag" class="mb-8 flex items-center gap-3">
+      <span class="text-sm text-gray-500">按标签筛选：</span>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 text-sm font-bold bg-starlight-100 text-starlight-800 border-2 border-starlight-800">
+        {{ activeTag }}
+        <button @click="clearTag" class="inline-flex items-center justify-center w-4 h-4 hover:bg-starlight-800 hover:text-white transition-colors" aria-label="清除标签筛选">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </span>
+    </div>
+
     <div v-if="loading" class="flex justify-center items-center py-20">
       <div class="animate-spin h-10 w-10 border-t-2 border-b-2 border-l-2 border-r-2 border-starlight-500"></div>
       <span class="ml-3 text-gray-600">加载中...</span>
@@ -215,8 +226,17 @@ const handleTagClick = (tag) => {
   // Prevent navigation when clicking tag inside the link
   router.push({
     path: route.path, // Stay on the current category page
-    query: { tag } 
+    query: { tag }
   });
+};
+
+// 当前激活的标签筛选（来自 ?tag= query）
+const activeTag = computed(() => route.query.tag || '');
+
+const clearTag = () => {
+  // 移除 tag query，保留其他 query（如 folder）
+  const { tag: _t, ...restQuery } = route.query;
+  router.push({ query: restQuery });
 };
 
 // Get category type from route parameters

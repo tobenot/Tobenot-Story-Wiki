@@ -19,30 +19,35 @@
         </div>
 
         <!-- 作品分类（默认）突出展示 -->
-        <div class="mb-20">
+        <div class="mb-16">
           <router-link to="/works" class="works-highlight no-underline block mx-auto">
             <div class="flex items-center gap-6">
               <div class="category-symbol novel-symbol" v-html="worksIcon"></div>
               <div class="flex-1">
-                <h2 class="text-3xl font-extrabold text-starlight-700 mb-2">作品分类</h2>
-                <p class="text-gray-700 text-lg">默认浏览方式：按作品/篇章结构进入</p>
+                <div class="flex items-center gap-3 mb-2">
+                  <h2 class="text-3xl font-extrabold text-white">作品分类</h2>
+                  <span class="text-xs font-bold px-2 py-1 border-2 border-white text-white">默认</span>
+                </div>
+                <p class="text-starlight-200 text-lg">默认浏览方式：按作品/篇章结构进入</p>
               </div>
-              <span class="ml-auto text-sm font-bold px-3 py-2 rounded border-2 border-starlight-700 text-starlight-700 bg-starlight-50">默认</span>
+              <span class="ml-auto text-2xl text-white">→</span>
             </div>
           </router-link>
         </div>
 
         <!-- 其他分类 -->
         <div class="mb-16">
-          <h3 class="text-2xl font-bold text-center text-gray-800 mb-12">其他分类</h3>
+          <div class="section-divider">
+            <span class="section-eyebrow">其他分类</span>
+          </div>
           <div class="wiki-grid">
-            <router-link v-for="(category, index) in otherCategories" :key="index" 
-              :to="category.path" 
+            <router-link v-for="(category, index) in otherCategories" :key="index"
+              :to="category.path"
               class="category-card"
               :class="'category-' + index"
             >
               <div class="category-symbol" :class="category.symbolClass" v-html="category.icon"></div>
-              <h2 class="text-xl font-bold mb-2 mt-4 text-starlight-600">{{ category.title }}</h2>
+              <h2 class="text-xl font-bold mb-2 mt-4 text-slate-800">{{ category.title }}</h2>
               <p class="text-gray-600">{{ category.description }}</p>
             </router-link>
           </div>
@@ -210,11 +215,35 @@ const otherCategories = computed(() => categories.filter(c => c.path !== '/works
   }
 }
 
-/* 作品分类突出样式 */
+/* 作品分类：全页唯一的高对比实心色块，主角 */
 .works-highlight {
-  @apply max-w-4xl w-full bg-white backdrop-blur-sm border-2 border-starlight-700 p-8 shadow-brutal transition-all;
+  @apply w-full border-2 border-slate-900 p-8 shadow-brutal transition-all;
+  max-width: 1080px;
+  background: theme('colors.starlight.800');
 }
 .works-highlight:hover {
   @apply shadow-brutal-lg -translate-y-0.5;
+  background: theme('colors.starlight.700');
+}
+.works-highlight .category-symbol {
+  @apply w-20 h-20;
+  background: #fff;
+  color: theme('colors.starlight.800');
+  box-shadow: 4px 4px 0 0 rgba(255, 255, 255, 0.9);
+}
+.works-highlight .brutal-icon {
+  @apply w-10 h-10;
+}
+
+/* 其他分类：降级为细线 + 小号 eyebrow，不再当第二个头条 */
+.section-divider {
+  @apply flex items-center gap-4 mb-8;
+}
+.section-divider::after {
+  content: '';
+  @apply flex-1 h-0.5 bg-slate-300;
+}
+.section-eyebrow {
+  @apply text-sm font-bold tracking-widest uppercase text-slate-500 whitespace-nowrap;
 }
 </style>

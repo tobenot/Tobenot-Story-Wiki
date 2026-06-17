@@ -2,10 +2,7 @@
   <div class="wiki-container">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ work?.title || workId }}</h1>
-      <div class="flex items-center gap-3">
-        <ShareButton :title="work?.title || workId" :description="work?.description" />
-        <router-link to="/works" class="btn btn-secondary">返回作品索引</router-link>
-      </div>
+      <router-link to="/works" class="btn btn-secondary">返回作品索引</router-link>
     </div>
     <div v-if="loading" class="py-12 text-center text-gray-600">加载中...</div>
     <div v-else-if="!work" class="py-12 text-center text-gray-600">未找到该作品</div>
@@ -35,7 +32,6 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getWork } from '../services/contentService';
-import ShareButton from '../components/ShareButton.vue';
 import { usePageMeta } from '../composables/usePageMeta';
 
 const route = useRoute();

@@ -169,20 +169,13 @@
           </article>
 
           <!-- 底部导航 -->
-          <div class="flex justify-between mt-10">
+          <div class="mt-10">
             <router-link :to="`/category/${categoryType}`" class="btn btn-secondary group">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
               返回{{ categoryTitle }}列表
             </router-link>
-
-            <!-- 分享按钮 -->
-            <ShareButton
-              :title="entry?.title"
-              :description="entry?.summary || entry?.description"
-              :image="entry?.image ? resolveAssetPath(entry.image) : ''"
-            />
           </div>
         </div>
 
@@ -212,7 +205,6 @@ import ImageLoader from '../components/ui/ImageLoader.vue';
 import SpoilerBlock from '../components/ui/SpoilerBlock.vue';
 import MarkdownImage from '../components/ui/MarkdownImage.vue';
 import TableOfContents from '../components/TableOfContents.vue';
-import ShareButton from '../components/ShareButton.vue';
 import { usePageMeta } from '../composables/usePageMeta';
 import { slugify } from 'transliteration';
 import { getEntryVariants, getEntryParents, getCategoryDisplayName } from '../services/contentService';

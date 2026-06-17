@@ -2,10 +2,7 @@
   <div class="wiki-container">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ theme?.title || themeId }}</h1>
-      <div class="flex items-center gap-3">
-        <ShareButton :title="theme?.title || themeId" :description="theme?.description" />
-        <router-link to="/themes" class="btn btn-secondary">返回主题列表</router-link>
-      </div>
+      <router-link to="/themes" class="btn btn-secondary">返回主题列表</router-link>
     </div>
 
     <div v-if="loading" class="py-12 text-center text-gray-600">加载中...</div>
@@ -45,7 +42,6 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getTheme, loadContentList } from '../services/contentService';
-import ShareButton from '../components/ShareButton.vue';
 import { usePageMeta } from '../composables/usePageMeta';
 
 const route = useRoute();

@@ -1,7 +1,7 @@
 <template>
   <div class="wiki-container">
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-500 to-starlight-600 text-transparent bg-clip-text">主题聚合</h1>
+      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">主题聚合</h1>
       <router-link to="/" class="btn btn-secondary">返回首页</router-link>
     </div>
 
@@ -15,7 +15,7 @@
         :to="`/theme/${t.themeId}`"
         class="wiki-card p-5 group"
       >
-        <h2 class="text-xl font-semibold text-gray-800 group-hover:text-starlight-700">{{ t.title || t.themeId }}</h2>
+        <h2 class="text-xl font-semibold text-gray-800 group-hover:text-starlight-800">{{ t.title || t.themeId }}</h2>
         <p v-if="t.description" class="text-gray-600 mt-2 line-clamp-3">{{ t.description }}</p>
       </router-link>
     </div>

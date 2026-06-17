@@ -1,7 +1,7 @@
 <template>
   <div class="wiki-container">
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-500 to-starlight-600 text-transparent bg-clip-text">{{ title }}</h1>
+      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ title }}</h1>
       <router-link :to="`/works/${workId}`" class="btn btn-secondary">返回作品</router-link>
     </div>
 
@@ -21,7 +21,7 @@
             :to="`/entry/${type}/${entry.id}`"
             class="wiki-card p-5 group"
           >
-            <h3 class="text-lg font-semibold text-gray-800 group-hover:text-starlight-700">{{ entry.title }}</h3>
+            <h3 class="text-lg font-semibold text-gray-800 group-hover:text-starlight-800">{{ entry.title }}</h3>
             <p v-if="entry.description" class="text-gray-600 mt-2 line-clamp-3">{{ entry.description }}</p>
           </router-link>
         </div>

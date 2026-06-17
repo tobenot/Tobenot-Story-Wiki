@@ -1,7 +1,7 @@
 <template>
   <div class="wiki-container">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-12">
-      <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-0 bg-gradient-to-r from-starlight-500 to-starlight-600 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
+      <h1 class="text-3xl md:text-4xl font-bold mb-6 md:mb-0 bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ categoryTitle }}</h1>
       
       <!-- 搜索和筛选部分 -->
       <div class="flex flex-col sm:flex-row gap-3">
@@ -13,7 +13,7 @@
             class="brutal-control w-full pl-10 pr-4 py-2.5 border-2 border-slate-900 bg-white/90 backdrop-blur-sm focus:border-starlight-500 text-gray-700 placeholder-gray-500"
           />
           <!-- 搜索图标 -->
-          <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-starlight-500">
+          <span class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-starlight-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -50,7 +50,7 @@
     </div>
     
     <div v-else-if="paginatedEntries.length === 0" class="text-center py-20">
-      <div class="mb-4 text-starlight-500">
+      <div class="mb-4 text-starlight-700">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
         </svg>
@@ -97,7 +97,7 @@
         </div>
         
         <div class="flex-grow flex flex-col p-5">
-          <h2 class="text-xl font-bold mb-2 text-gray-800 group-hover:text-starlight-700 transition-colors">{{ entry.title }}</h2>
+          <h2 class="text-xl font-bold mb-2 text-gray-800 group-hover:text-starlight-800 transition-colors">{{ entry.title }}</h2>
           
           <div class="flex flex-wrap gap-2 my-3" v-if="entry.tags && entry.tags.length > 0">
             <Tag 
@@ -115,7 +115,7 @@
           </p>
           
           <div class="mt-auto pt-4 border-t border-gray-200 flex justify-end items-center">
-            <span class="inline-flex items-center gap-1.5 text-sm font-bold text-starlight-700 border-2 border-slate-900 bg-white px-3 py-1 shadow-[3px_3px_0_0_rgba(15,23,42,0.9)] transition-all duration-150 group-hover:-translate-y-0.5 group-hover:shadow-[4px_4px_0_0_rgba(15,23,42,0.9)] group-active:translate-x-[3px] group-active:translate-y-[3px] group-active:shadow-none">
+            <span class="inline-flex items-center gap-1.5 text-sm font-bold text-starlight-800 border-2 border-slate-900 bg-white px-3 py-1 shadow-[3px_3px_0_0_rgba(15,23,42,0.9)] transition-all duration-150 group-hover:-translate-y-0.5 group-hover:shadow-[4px_4px_0_0_rgba(15,23,42,0.9)] group-active:translate-x-[3px] group-active:translate-y-[3px] group-active:shadow-none">
               查看详情 <span class="transition-transform group-hover:translate-x-0.5 group-active:translate-x-1.5">→</span>
             </span>
           </div>
@@ -521,7 +521,7 @@ watch([categoryType, () => route.query.tag], loadData);
 }
 
 .btn-page-active {
-  @apply bg-starlight-50 text-starlight-700 border-starlight-200;
+  @apply bg-slate-900 text-starlight-200 border-slate-900;
 }
 
 .btn-page-disabled {

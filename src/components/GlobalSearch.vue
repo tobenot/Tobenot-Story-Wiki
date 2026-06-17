@@ -15,7 +15,7 @@
         placeholder="搜索任何内容..."
         class="w-full py-3 pl-10 pr-4 bg-white border-2 border-slate-900 dark:border-slate-700 dark:bg-cosmic-800 shadow-brutal text-slate-700 dark:text-slate-200 placeholder-slate-400 focus:border-starlight-500 focus:ring-1 focus:ring-starlight-500 transition-colors"
       />
-      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-starlight-600">
+      <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-starlight-700">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
@@ -23,7 +23,7 @@
       <span 
         v-if="searchQuery" 
         @click="clearSearch" 
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-starlight-600 hover:text-starlight-700 cursor-pointer"
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-starlight-700 hover:text-starlight-800 cursor-pointer"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -69,7 +69,7 @@
                 <div class="text-gray-800 font-medium">{{ item.title }}</div>
                 <div v-if="item.description" class="text-gray-600 text-sm mt-1 line-clamp-1">{{ item.description }}</div>
                 <div class="flex mt-1.5 space-x-2">
-                  <span class="text-xs px-2 py-0.5 border border-slate-900 bg-gray-200 text-starlight-700">{{ getCategoryName(item.type) }}</span>
+                  <span class="text-xs px-2 py-0.5 border border-slate-900 bg-slate-900 text-starlight-300">{{ getCategoryName(item.type) }}</span>
                   <span v-for="(tag, tagIndex) in item.tags?.slice(0, 2)" :key="tagIndex" class="text-xs px-2 py-0.5 border border-slate-900 bg-gray-100 text-gray-600">{{ tag }}</span>
                 </div>
               </div>

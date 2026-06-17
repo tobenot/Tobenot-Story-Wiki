@@ -3,11 +3,11 @@
     <!-- 标题（恢复原始样式） -->
     <section class="text-center relative z-10">
       <div class="inline-block py-10 px-4">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-10 font-bold bg-gradient-to-r from-starlight-500 via-starlight-400 to-starlight-500 text-transparent bg-clip-text mx-auto max-w-full leading-normal tracking-wide">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-10 font-bold bg-gradient-to-r from-starlight-800 via-starlight-600 to-starlight-800 text-transparent bg-clip-text mx-auto max-w-full leading-normal tracking-wide">
           托贝诺特 世界观
         </h1>
-        <div class="h-0.5 w-3/4 sm:w-2/3 lg:w-1/2 mx-auto bg-gradient-to-r from-transparent via-starlight-400 to-transparent"></div>
-        <div class="h-0.5 w-1/2 sm:w-1/3 lg:w-1/4 mx-auto mt-1 bg-gradient-to-r from-transparent via-starlight-300 to-transparent"></div>
+        <div class="h-0.5 w-3/4 sm:w-2/3 lg:w-1/2 mx-auto bg-gradient-to-r from-transparent via-starlight-600 to-transparent"></div>
+        <div class="h-0.5 w-1/2 sm:w-1/3 lg:w-1/4 mx-auto mt-1 bg-gradient-to-r from-transparent via-starlight-700 to-transparent"></div>
       </div>
     </section>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="wiki-container">
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-500 to-starlight-600 text-transparent bg-clip-text">{{ work?.title || workId }}</h1>
+      <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-starlight-800 to-starlight-700 text-transparent bg-clip-text">{{ work?.title || workId }}</h1>
       <router-link to="/works" class="btn btn-secondary">返回作品索引</router-link>
     </div>
     <div v-if="loading" class="py-12 text-center text-gray-600">加载中...</div>
@@ -19,7 +19,7 @@
           class="wiki-card p-5 group"
         >
           <div class="flex justify-between items-center">
-            <h3 class="text-lg font-semibold text-gray-800 group-hover:text-starlight-700">{{ p.title || p.partId }}</h3>
+            <h3 class="text-lg font-semibold text-gray-800 group-hover:text-starlight-800">{{ p.title || p.partId }}</h3>
             <span class="text-gray-500 text-sm">序号: {{ p.order ?? 0 }}</span>
           </div>
         </router-link>

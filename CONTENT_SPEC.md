@@ -20,7 +20,7 @@ Wiki 的价值 = **连接密度 × 可信度 × 剧透安全 × 语体专业度*
 
 ## 1. 核心原则
 
-1. **单一真源（Canonical）**——每个实体只有一个权威页（`globals/*`）；篇章内只写差异（`localNotes`/`role`），不复制正文。
+1. **单一真源（Canonical）**——每个实体只有一个跨篇章设定权威页（`globals/*`），承载不随篇章变化的设定（身份/异能机制/稳定关系网）。篇章页（`works/<workId>/parts/<partId>/...`）是**独立完整页**，写该实体在本篇的经历与揭示，二者为两个独立路由、互为链接（非叠加关系）。
 
 2. **百科语体（Encyclopedic voice）**——第三人称、客观、克制、可溯源。不夸饰、不第一人称、不「小编体」。详见 §6。
 
@@ -162,12 +162,12 @@ Lead → 定义 → 机制 → 世界内规则/社会影响 → 实例列举 →
 |---|---|---|
 | `title` | 必填，中文显示名 | |
 | `type` | 必填，**英文枚举** `characters\|locations\|events\|items\|concepts` | ❌ 现有部分文件写成 `"事件"`/`"地点"`/`"概念"`，与路径派生 type 不一致，必须改回英文。 |
-| `canonicalId` | 全局权威必填，点分式 `character.robert` | 篇章引用条目也填，指向其全局权威。 |
+| `canonicalId` | 全局页必填，点分式 `character.robert` | 篇章页也填，指向其全局设定页以建立互链。 |
 | `summary` | 纯文本、无 Markdown、无剧透、一句话 | 卡片摘要；优先级 `summary > description`。 |
 | `description` | 较长安全描述，无剧透 | 详情页/兜底。 |
 | `related` | **canonicalId 列表** | ❌ 现有写成中文名 `["银月寺","罗伯特"]` 无法解析，必须改 canonicalId。 |
 | `tags` / `aliases` / `image` | 选填 | `image` 用 `/images/<type>/<slug>.webp`。 |
-| `localNotes`/`role`/`firstSeenAt`/`lastSeenAt`/`chapters` | 仅篇章引用条目 | 只写差异，不复制全局正文。 |
+| `role`/`firstSeenAt`/`lastSeenAt`/`chapters`/`localNotes` | 仅篇章页 | 篇章页是**独立完整页**（正文原样渲染，无全局叠加），写本篇经历与揭示；`localNotes` 当前未被前端读取，不要把需展示内容仅放其中。 |
 
 ---
 
@@ -190,7 +190,7 @@ Lead → 定义 → 机制 → 世界内规则/社会影响 → 实例列举 →
 1. ❌ `summary`/`description`/`role` 含剧透（泄露到卡片）。
 2. ❌ `related` 用中文名而非 canonicalId（断链）。
 3. ❌ `type` 写中文枚举（破坏 typeIndex）。
-4. ❌ 篇章引用条目复制全局正文（应只写差异）。
+4. ❌ 篇章页与全局页职责混淆：把单篇剧情/揭示塞进全局页，或把跨篇章设定复制进每个篇章页。（全局=设定真源、低剧透；篇章=本篇经历、承载剧透。）
 5. ❌ 把粉丝推测当事实写进正文。
 6. ❌ 删除悬念描述以迎合揭晓（应追加剧透块）。
 7. ❌ 无 Lead 段、无 Infobox 的「一句话条目」长期留存（须提升至 B 级或标记 Stub 待补）。
@@ -208,7 +208,7 @@ Lead → 定义 → 机制 → 世界内规则/社会影响 → 实例列举 →
 - [ ] `related` 全为已存在 canonicalId（无断链）。
 - [ ] `summary`/`description`/`role` 无剧透；`summary` 纯文本。
 - [ ] 剧情揭示全在 `:::spoiler source=…` 内，source 非空。
-- [ ] 篇章引用条目未复制全局正文，仅写差异。
+- [ ] 全局页只放跨篇章设定（低剧透），篇章页放本篇经历与揭示（剧透块）；两者职责不混。
 - [ ] 语体百科化（§6），无夸饰/第一人称。
 - [ ] 复用实体已建 `globals/*`；仅本篇实体可暂留篇章内。
 - [ ] 内容变更后 `npm run build:index` 重建搜索索引（`dev`/`build` 已自动触发）。

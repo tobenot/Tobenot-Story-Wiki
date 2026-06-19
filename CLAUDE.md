@@ -43,7 +43,12 @@ When adding new content layout conventions, update path parsing in **both** `con
 
 ### Rendering & dedup rule
 
-Entry detail pages (`/entry/:type/:id`) prefer the global canonical body when one exists; if the entry is reached via a work/part context, the page overlays that part's `localNotes`, `role`, `firstSeenAt`, etc. on top of the canonical body. `getEntryVariants()` gathers all the places a canonical entity appears across works/parts.
+Global (`globals/*`) and part (`works/<workId>/parts/<partId>/<type>/*`) entries are **two independent pages on two independent routes** — `loadContentEntry()` loads the single physical file matching the route id and renders its body verbatim; there is **no overlay** of one onto the other. The intended split of content:
+
+- **Global page** = the cross-part setting truth source: identity, appearance, personality, ability mechanics, the stable relationship net, and an "appeared in" list. Low spoiler density. Write what does *not* change between parts.
+- **Part page** = what the entity *did in that part*: a full, self-contained experience page with `role` / `firstSeenAt` / `chapters` in frontmatter and the part's events (mostly inside `:::spoiler` blocks). Write the part-specific plot and any reveals about this entity uncovered in that part.
+
+`getEntryVariants()` gathers every place a canonical entity appears (global + each part) and surfaces them as cross-links ("全局权威" / "作品·篇章" tabs), so the two pages point at each other. Note: the `localNotes` frontmatter field is **not currently read** by `EntryPage.vue` (no overlay is implemented) — do not put content you need rendered into `localNotes` alone; write it in the part page body. If you ever implement overlay, the place to wire it is `EntryPage.vue` + `loadContentEntry`.
 
 ### Routing
 
@@ -64,7 +69,7 @@ Entry detail pages (`/entry/:type/:id`) prefer the global canonical body when on
 
 - `canonicalId` is dot-form: `character.robert`, `location.silver-temple`
 - `workId`/`partId`/`slug` are kebab-case
-- Reused entities should have a `globals/*` canonical entry; part entries reference it via `canonicalId` and add only `localNotes`/differences
+- Reused entities should have a `globals/*` canonical entry (the setting truth source: identity/ability mechanics/stable relationships, low spoilers); part entries reference it via `canonicalId` and are **full, self-contained pages** covering what the entity did in that part (the part page body is rendered verbatim — `localNotes` is not overlaid)
 - Themes use `strategy: by-tags | manual` (see `themes/<themeId>.md` frontmatter)
 
 ### Known gotcha (documented in README)

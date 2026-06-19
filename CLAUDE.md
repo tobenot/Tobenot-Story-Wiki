@@ -71,6 +71,7 @@ Global (`globals/*`) and part (`works/<workId>/parts/<partId>/<type>/*`) entries
 - `workId`/`partId`/`slug` are kebab-case
 - Reused entities should have a `globals/*` canonical entry (the setting truth source: identity/ability mechanics/stable relationships, low spoilers); part entries reference it via `canonicalId` and are **full, self-contained pages** covering what the entity did in that part (the part page body is rendered verbatim — `localNotes` is not overlaid)
 - Themes use `strategy: by-tags | manual` (see `themes/<themeId>.md` frontmatter)
+- **Authoring docs**: `CONTENT_SPEC.md` (quality standard & ratings), `CONTENT_GUIDE.md` (hands-on editing playbook, pitfalls, link-check script). Read `CONTENT_GUIDE.md` before writing/upgrading entries — it has the B-class skeleton per type, spoiler-layering rules, the canonicalId-rename checklist, and a dangling-link validator. `globals/characters/robert.md` + its silver-moon part page are the reference B-class exemplars.
 
 ### Known gotcha (documented in README)
 

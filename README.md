@@ -44,8 +44,9 @@ https://jsoneditoronline.org/#left=local.gijoyi
     - `workId`, `partId`, `title`, `description?`, `order?`, `timeline?`, `tags?`, `links?`
 - 篇章内条目
   - 必填：`title`, `type`, `canonicalId?`（若有对应全局权威则填写）
-  - 选填：`summary`, `localNotes`, `tags`, `role?`, `firstSeenAt?`, `lastSeenAt?`, `chapters?`, `image?`
-  - 建议：正文尽量精简；页面展示时优先渲染 `canonicalId` 的全局权威正文，再叠加 `localNotes` 等篇章差异。
+  - 选填：`summary`, `tags`, `role?`, `firstSeenAt?`, `lastSeenAt?`, `chapters?`, `image?`, `localNotes?`
+  - **页面是独立完整页**：篇章条目页的正文被原样渲染（`loadContentEntry` 只加载单个物理文件），不存在"叠加全局正文"的机制。因此篇章页应自包含——写清该实体在本篇做了什么。全局页（`globals/*`）负责跨篇章稳定的设定真源（身份/异能机制/稳定关系网），篇章页负责本篇经历与揭示；两者是两个独立路由，靠 `getEntryVariants` 互链。
+  - `localNotes` 目前**未被前端读取**，不要把需要展示的内容仅放进 `localNotes`；如需展示就写进正文。
   - 卡片摘要：`summary` 是列表/分类卡片上显示的一句话介绍（纯文本，勿写 Markdown）。优先级为 `summary` > `description`；二者皆无时卡片不显示描述，不再回退截取正文。
 - 主题 `themes/<themeId>.md`
   - 必填：`title`, `description?`, `strategy`（`by-tags` | `manual`）
@@ -70,7 +71,7 @@ https://jsoneditoronline.org/#left=local.gijoyi
   - `typeIndex`：按类型聚合，去重优先显示全局权威；同时统计 `appearances`（出现于哪些作品/篇章）
   - `workIndex`、`partIndex`：作品/篇章元信息与条目清单
   - `themes`：主题配置与正文
-- 详情页渲染规则：优先渲染全局权威正文；若从篇章入口进入，附加该篇章的 `localNotes/role/...` 差异。
+- 详情页渲染规则：全局页与篇章页是两个独立路由，各自原样渲染自身文件正文（无叠加）；`getEntryVariants` 在页面间提供"全局权威 / 作品·篇章"互链。`localNotes` 字段当前未被前端读取。
 
 ### 命名与规范建议
 - `workId`、`partId`、`slug` 使用 kebab-case（英文/拼音）

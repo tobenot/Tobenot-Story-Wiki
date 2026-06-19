@@ -227,6 +227,25 @@ async function buildContentIndex() {
       }
     }));
 
+    // 图片回退：子篇目条目未配 image 时，继承同 canonicalId 的全局规范条目图片。
+    // 子篇目一旦显式配了 image（如换立绘），以本地为准，不会被覆盖。
+    // 仅以全局规范条目为回退源，避免跨篇章互相污染。
+    const canonicalGlobalImage = new Map();
+    canonicalIndex.forEach((c, cid) => {
+      if (c.fileInfo?.sourceScope === 'global' && c.attributes?.image) {
+        canonicalGlobalImage.set(cid, c.attributes.image);
+      }
+    });
+    const applyImageFallback = (record) => {
+      if (record.image) return;
+      if (record.sourceScope !== 'partEntry') return;
+      if (!record.canonicalId) return;
+      const fallback = canonicalGlobalImage.get(record.canonicalId);
+      if (fallback) record.image = fallback;
+    };
+    typeIndex.forEach((map) => map.forEach(applyImageFallback));
+    partIndex.forEach((part) => part.entriesByType.forEach((arr) => arr.forEach(applyImageFallback)));
+
     // 用篇章 index.md 的元信息覆盖 work.parts（partEntry 可能先于 partIndex 被索引）
     workIndex.forEach((work, workId) => {
       work.parts = work.parts.map((p) => {
@@ -386,11 +405,30 @@ export async function getAllEntriesMetadata() {
           description: attributes.summary || attributes.description || '',
           tags: attributes.tags || [],
           image: attributes.image || '',
+          _canonicalId: attributes.canonicalId || null,
+          _sourceScope: descriptor.sourceScope,
         });
       } catch (err) {
         console.error(`Failed to load metadata for path ${path}:`, err);
       }
     }));
+
+    // 图片回退：子篇目条目未配 image 时，继承同 canonicalId 的全局规范条目图片。
+    // 子篇目一旦显式配了 image（如换立绘），以本地为准，不会被覆盖。
+    const globalImageByCanonicalId = new Map();
+    for (const r of results) {
+      if (r._sourceScope === 'global' && r._canonicalId && r.image) {
+        globalImageByCanonicalId.set(r._canonicalId, r.image);
+      }
+    }
+    for (const r of results) {
+      if (!r.image && r._sourceScope === 'partEntry' && r._canonicalId) {
+        const fallback = globalImageByCanonicalId.get(r._canonicalId);
+        if (fallback) r.image = fallback;
+      }
+      delete r._canonicalId;
+      delete r._sourceScope;
+    }
 
     allEntriesMetadataCache = results;
     metadataPromise = null;

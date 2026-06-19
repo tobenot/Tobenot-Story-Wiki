@@ -1,5 +1,6 @@
 import fm from 'front-matter';
 import { marked } from 'marked';
+import { getCategoryIcon } from '../data/categoryIcons.js';
 
 // Import all markdown files from the content directory dynamically
 const contentModules = import.meta.glob('/src/content/**/*.md', { eager: false, as: 'raw' });
@@ -665,23 +666,62 @@ export async function getEntryParents(type, id) {
 // -----------------------------
 // Markdown rendering with spoilers and images
 // -----------------------------
+
+// 站内链接缩略图占位图，不为其生成缩略图（前端按规则回退到类型图标）。
+const LINK_PLACEHOLDER_IMAGE = '/images/no_image.png';
+
+// 由条目 image 路径推导其 48px 缩略图路径。
+// /images/foo/bar.webp  ->  /images/thumbs/foo/bar.webp
+// 扩展名统一为 .webp（build-thumbnails.js 一律输出 webp）。
+export function imageToThumb(image) {
+  if (!image || typeof image !== 'string') return null;
+  const prefix = '/images/';
+  if (!image.startsWith(prefix)) return null;
+  const rel = image.slice(prefix.length);
+  const dot = rel.lastIndexOf('.');
+  const stem = dot > 0 ? rel.slice(0, dot) : rel;
+  return `/images/thumbs/${stem}.webp`;
+}
+
+// 构造 wikilink 链接文本前的小图标：有缩略图用缩略图，否则用类型图标。
+function buildWikilinkPrefix(meta) {
+  const image = meta && meta.image;
+  if (image && image !== LINK_PLACEHOLDER_IMAGE) {
+    const thumb = imageToThumb(image);
+    if (thumb) {
+      return `<img class="wl-thumb" src="${thumb}" alt="" loading="lazy" width="20" height="20">`;
+    }
+  }
+  const icon = getCategoryIcon(meta && meta.type);
+  return `<span class="wl-icon">${icon}</span>`;
+}
+
 export function renderContent(content, options = {}) {
   if (!content) {
     return [];
   }
 
   // Wikilinks: [[canonicalId|显示文本]] or [[canonicalId]].
-  // Resolved to entry hash-links via the optional linkResolver (canonicalId -> href).
-  // Unresolvable wikilinks are left untouched so they stay readable.
+  // 解析为站内 hash 链接。linkResolver 可返回：
+  //   - 字符串 href（仅链接）
+  //   - 对象 { href, type, image }（同时提供缩略图/类型图标所需信息）
+  //   - null（无法解析，原样保留）
+  // 解析失败时保留原文，保证可读性。
   const linkResolver = typeof options.linkResolver === 'function' ? options.linkResolver : null;
   const wikilinkRegex = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
   function resolveWikilinks(text) {
     if (!linkResolver) return text;
     return text.replace(wikilinkRegex, (match, canonicalId, display) => {
-      const href = linkResolver(canonicalId.trim());
+      const resolved = linkResolver(canonicalId.trim());
+      if (!resolved) return match;
+      const isObj = typeof resolved === 'object' && resolved !== null;
+      const href = isObj ? resolved.href : resolved;
       if (!href) return match;
       const label = (display || canonicalId).trim();
-      return `<a href="${href}">${label}</a>`;
+      const type = isObj && resolved.type ? resolved.type : '';
+      const prefix = buildWikilinkPrefix(isObj ? resolved : {});
+      const typeAttr = type ? ` data-type="${type}"` : '';
+      return `<a href="${href}" class="wikilink"${typeAttr}>${prefix}${label}</a>`;
     });
   }
 

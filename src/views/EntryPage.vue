@@ -303,8 +303,13 @@ const canonicalLinkMap = computed(() => {
   for (const meta of allMetadata.value) {
     if (!meta.canonicalId) continue;
     const existing = map.get(meta.canonicalId);
+    // 优先全局规范页；其余取首次出现。携带 type/image 供缩略图/类型图标使用。
     if (!existing || meta.sourceScope === 'global') {
-      map.set(meta.canonicalId, `/entry/${meta.type}/${meta.id}`);
+      map.set(meta.canonicalId, {
+        href: `/entry/${meta.type}/${meta.id}`,
+        type: meta.type,
+        image: meta.image,
+      });
     }
   }
   return map;
@@ -319,8 +324,9 @@ const structuredContent = computed(() => {
     // Wikilinks render as raw <a> tags via v-html, so they need the hash
     // prefix to play nice with createWebHashHistory (avoid full page reload).
     linkResolver: (cid) => {
-      const path = canonicalLinkMap.value.get(cid);
-      return path ? `#${path}` : null;
+      const meta = canonicalLinkMap.value.get(cid);
+      if (!meta) return null;
+      return { href: `#${meta.href}`, type: meta.type, image: meta.image };
     },
   });
   return result;

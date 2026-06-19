@@ -128,6 +128,29 @@
   .wiki-card .prose a {
     @apply text-starlight-700 hover:text-starlight-800 font-medium underline decoration-starlight-400/60 hover:decoration-starlight-500 underline-offset-2;
   }
+
+  /* 站内 wikilink 前的小图标：缩略图或类型图标 */
+  .wikilink {
+    @apply inline-flex items-center gap-1;
+  }
+  .wikilink .wl-thumb {
+    @apply inline-block flex-shrink-0;
+    width: 1.15em;
+    height: 1.15em;
+    object-fit: cover;
+    border: 1px solid rgba(15, 23, 42, 0.55);
+    border-radius: 2px;
+  }
+  .wikilink .wl-icon {
+    @apply inline-flex items-center flex-shrink-0;
+    width: 1.05em;
+    height: 1.05em;
+    color: theme('colors.starlight.500');
+  }
+  .wikilink .wl-icon svg {
+    width: 100%;
+    height: 100%;
+  }
   
   .wiki-card .tag {
     @apply text-primary-700 bg-primary-50 border border-primary-900;

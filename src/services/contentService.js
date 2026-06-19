@@ -670,6 +670,29 @@ export async function getEntryParents(type, id) {
 // 站内链接缩略图占位图，不为其生成缩略图（前端按规则回退到类型图标）。
 const LINK_PLACEHOLDER_IMAGE = '/images/no_image.png';
 
+// 内联缩略图映射：image 原始路径 -> data URI（构建期生成 link-thumbs.json）。
+// 用内联 data URI 渲染，避免每个 wikilink 发一次图片请求（一页几十个链接会瀑布加载）。
+let linkThumbsCache = null;
+let linkThumbsPromise = null;
+export async function loadLinkThumbs() {
+  if (linkThumbsCache) return linkThumbsCache;
+  if (linkThumbsPromise) return linkThumbsPromise;
+  linkThumbsPromise = (async () => {
+    try {
+      const res = await fetch('/link-thumbs.json');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      linkThumbsCache = await res.json();
+    } catch (err) {
+      console.warn('[contentService] 加载 link-thumbs.json 失败，wikilink 将回退到文件缩略图/类型图标:', err.message);
+      linkThumbsCache = {};
+    } finally {
+      linkThumbsPromise = null;
+    }
+    return linkThumbsCache;
+  })();
+  return linkThumbsPromise;
+}
+
 // 由条目 image 路径推导其 48px 缩略图路径。
 // /images/foo/bar.webp  ->  /images/thumbs/foo/bar.webp
 // 扩展名统一为 .webp（build-thumbnails.js 一律输出 webp）。
@@ -683,13 +706,18 @@ export function imageToThumb(image) {
   return `/images/thumbs/${stem}.webp`;
 }
 
-// 构造 wikilink 链接文本前的小图标：有缩略图用缩略图，否则用类型图标。
-function buildWikilinkPrefix(meta) {
+// 构造 wikilink 链接文本前的小图标：优先用内联 data URI 缩略图，其次文件缩略图，
+// 都没有则回退到类型图标。linkThumbs 为 loadLinkThumbs() 返回的映射表（可选）。
+function buildWikilinkPrefix(meta, linkThumbs) {
   const image = meta && meta.image;
   if (image && image !== LINK_PLACEHOLDER_IMAGE) {
+    const inline = linkThumbs && linkThumbs[image];
+    if (inline) {
+      return `<img class="wl-thumb" src="${inline}" alt="" width="20" height="20" decoding="async">`;
+    }
     const thumb = imageToThumb(image);
     if (thumb) {
-      return `<img class="wl-thumb" src="${thumb}" alt="" loading="lazy" width="20" height="20">`;
+      return `<img class="wl-thumb" src="${thumb}" alt="" loading="lazy" width="20" height="20" decoding="async">`;
     }
   }
   const icon = getCategoryIcon(meta && meta.type);
@@ -708,6 +736,7 @@ export function renderContent(content, options = {}) {
   //   - null（无法解析，原样保留）
   // 解析失败时保留原文，保证可读性。
   const linkResolver = typeof options.linkResolver === 'function' ? options.linkResolver : null;
+  const linkThumbs = options.linkThumbs || null;
   const wikilinkRegex = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
   function resolveWikilinks(text) {
     if (!linkResolver) return text;
@@ -719,7 +748,7 @@ export function renderContent(content, options = {}) {
       if (!href) return match;
       const label = (display || canonicalId).trim();
       const type = isObj && resolved.type ? resolved.type : '';
-      const prefix = buildWikilinkPrefix(isObj ? resolved : {});
+      const prefix = buildWikilinkPrefix(isObj ? resolved : {}, linkThumbs);
       const typeAttr = type ? ` data-type="${type}"` : '';
       return `<a href="${href}" class="wikilink"${typeAttr}>${prefix}${label}</a>`;
     });

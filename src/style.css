@@ -140,6 +140,8 @@
     object-fit: cover;
     border: 1px solid rgba(15, 23, 42, 0.55);
     border-radius: 2px;
+    /* 加载中/失败时显示浅灰占位，避免裸露的破图与布局跳动 */
+    background-color: rgba(148, 163, 184, 0.25);
   }
   .wikilink .wl-icon {
     @apply inline-flex items-center flex-shrink-0;

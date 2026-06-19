@@ -199,7 +199,7 @@
 <script setup>
 import { ref, computed, watch, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { loadContentEntry, renderContent, getAllEntriesMetadata } from '../services/contentService';
+import { loadContentEntry, renderContent, getAllEntriesMetadata, loadLinkThumbs } from '../services/contentService';
 import Tag from '../components/ui/Tag.vue';
 import ImageLoader from '../components/ui/ImageLoader.vue';
 import SpoilerBlock from '../components/ui/SpoilerBlock.vue';
@@ -316,6 +316,8 @@ const canonicalLinkMap = computed(() => {
 });
 
 // NEW: Compute structured content (no change needed here for related links)
+// 内联缩略图映射：随条目一起加载，让 wikilink 缩略图用 data URI 零请求渲染。
+const linkThumbs = ref(null);
 const structuredContent = computed(() => {
   if (!entry.value || !entry.value.content) {
     return [];
@@ -328,6 +330,7 @@ const structuredContent = computed(() => {
       if (!meta) return null;
       return { href: `#${meta.href}`, type: meta.type, image: meta.image };
     },
+    linkThumbs: linkThumbs.value,
   });
   return result;
 });
@@ -341,9 +344,11 @@ const loadData = async () => {
     // Load metadata first (or concurrently) - it's cached after the first time
     const metaPromise = getAllEntriesMetadata(); // Start fetching metadata
     const entryPromise = loadContentEntry(categoryType.value, entryId.value); // Start fetching entry
+    const thumbsPromise = loadLinkThumbs(); // 内联缩略图映射，首次后缓存
 
-    // Await both promises
+    // Await all promises
     allMetadata.value = await metaPromise;
+    linkThumbs.value = await thumbsPromise;
     const data = await entryPromise;
 
     entry.value = data;

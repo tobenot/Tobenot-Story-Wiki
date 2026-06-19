@@ -18,6 +18,9 @@
           <GlobalSearch />
         </div>
 
+        <!-- 站点统计面板 -->
+        <SiteStats />
+
         <!-- 作品分类（默认）突出展示 -->
         <div class="mb-16">
           <router-link to="/works" class="works-highlight no-underline block mx-auto">
@@ -59,6 +62,7 @@
 
 <script setup>
 import GlobalSearch from '../components/GlobalSearch.vue';
+import SiteStats from '../components/SiteStats.vue';
 import { computed } from 'vue';
 import { categoryIcons } from '../data/categoryIcons';
 

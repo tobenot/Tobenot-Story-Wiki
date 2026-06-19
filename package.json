@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run build:thumbs && npm run build:index && vite",
-    "build": "npm run build:thumbs && npm run build:index && vue-tsc -b && vite build",
+    "dev": "npm run build:thumbs && npm run build:index && npm run build:stats && vite",
+    "build": "npm run build:thumbs && npm run build:index && npm run build:stats && vue-tsc -b && vite build",
     "preview": "vite preview",
     "deploy": "npm run build && cd dist && git init && git add -A && git commit -m 'deploy' && git push -f git@github.com:tobenot/Tobenot-Story-Wiki.git master:gh-pages && cd ..",
     "build:index": "node ./scripts/build-search-index.js",
+    "build:stats": "node ./scripts/build-stats.js",
     "build:thumbs": "node ./scripts/build-thumbnails.js",
     "postinstall": "patch-package"
   },

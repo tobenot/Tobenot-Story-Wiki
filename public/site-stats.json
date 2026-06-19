@@ -1,0 +1,42 @@
+{
+  "generatedAt": "2026-06-19T16:14:54.761Z",
+  "totalChars": 37061,
+  "totalEntries": 52,
+  "entryFiles": 68,
+  "works": 2,
+  "parts": 3,
+  "themes": 1,
+  "byType": [
+    {
+      "type": "characters",
+      "label": "人物",
+      "count": 18,
+      "chars": 21922
+    },
+    {
+      "type": "locations",
+      "label": "地点",
+      "count": 7,
+      "chars": 2733
+    },
+    {
+      "type": "events",
+      "label": "事件",
+      "count": 9,
+      "chars": 5289
+    },
+    {
+      "type": "items",
+      "label": "物品",
+      "count": 7,
+      "chars": 2300
+    },
+    {
+      "type": "concepts",
+      "label": "概念",
+      "count": 11,
+      "chars": 4795
+    }
+  ],
+  "lastUpdated": "2025-01-05T09:30:00Z"
+}

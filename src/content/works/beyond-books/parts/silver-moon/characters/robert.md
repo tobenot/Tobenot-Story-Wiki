@@ -14,6 +14,11 @@ related:
   - "character.tanaka-ren"
   - "character.joan"
   - "character.airin"
+  - "character.xinnia"
+  - "character.caspar"
+  - "character.stuart"
+  - "character.clement"
+  - "character.steve"
 ---
 
 **罗伯特**是《不止于纸上的故事：银月篇》的核心视角人物，银月寺保安队成员，持有停止时间的异能【苍穹缝隙】。本页记载他在银月篇中的具体经历与该篇章揭示的关于他的信息；其跨篇章设定（异能机制、性格、稳定关系网等）见 [全局条目·罗伯特](#/entry/characters/globals/robert)。

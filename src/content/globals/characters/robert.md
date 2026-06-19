@@ -11,9 +11,12 @@ related:
   - "character.xinnia"
   - "character.caspar"
   - "character.tours"
+  - "character.tanaka-ren"
+  - "character.stuart"
+  - "character.clement"
+  - "character.steve"
   - "character.joan"
   - "character.airin"
-  - "character.tanaka-ren"
 image: "/images/characters/silvermoon/robert.webp"
 ---
 
@@ -64,11 +67,14 @@ image: "/images/characters/silvermoon/robert.webp"
 ### 师长
 
 - **[[character.caspar|卡斯帕]]**：罗伯特的大学棍术老师，后继任银月寺主持。
+- **[[character.steve|史蒂文]]**：银月寺主持，罗伯特的上级，对其信任有加。
 
 ### 敌手
 
 - **[[character.tours|图尔斯]]**：罗伯特的初中同学与曾经的知音，后为贝利斯雇佣兵。
 - **[[character.tanaka-ren|田中连]]**：贝利斯集团领导人。
+- **[[character.stuart|斯图尔特]]**：贝利斯雇佣兵，多次与罗伯特交手。
+- **[[character.clement|克莱门特]]**：贝利斯精英雇佣兵，参与抢夺能量之体。
 
 ### 其他
 

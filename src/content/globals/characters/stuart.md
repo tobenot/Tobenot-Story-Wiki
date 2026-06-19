@@ -38,4 +38,4 @@ image: "/images/characters/silvermoon/stuart.webp"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于斯图尔特的故事
+[《不止于纸上的故事：银月篇》](https://tobenot.top/p/story-bb-silvermoon-director-cut/) - 了解更多关于斯图尔特的故事

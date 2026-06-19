@@ -44,4 +44,4 @@ image: "/images/characters/silvermoon/corn.webp"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于珂茵的故事
+[《不止于纸上的故事：银月篇》](https://tobenot.top/p/story-bb-silvermoon-director-cut/) - 了解更多关于珂茵的故事

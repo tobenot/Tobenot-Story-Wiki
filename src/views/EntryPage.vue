@@ -268,25 +268,46 @@ usePageMeta({
   image: computed(() => entry.value?.image ? resolveAssetPath(entry.value.image) : ''),
 });
 
+// Resolve a related reference (canonicalId like "character.corn" OR a title
+// like "银月寺") to an entry path, preferring the global canonical page when
+// several entries share the same canonicalId/title.
+function resolveRelated(ref) {
+  const candidates = allMetadata.value.filter(meta =>
+    (meta.canonicalId && meta.canonicalId === ref) || meta.title === ref
+  );
+  if (!candidates.length) return null;
+  const picked = candidates.find(m => m.sourceScope === 'global') || candidates[0];
+  return {
+    title: picked.title,
+    path: `/entry/${picked.type}/${picked.id}`,
+  };
+}
+
 // NEW: Computed property to resolve related item links
 const resolvedRelatedItems = computed(() => {
   if (!entry.value || !entry.value.related || !allMetadata.value.length) {
     return [];
   }
-  return entry.value.related.map(relatedTitle => {
-    // Find the entry in the metadata list by title
-    const relatedEntry = allMetadata.value.find(meta => meta.title === relatedTitle);
-    if (relatedEntry) {
-      return {
-        title: relatedTitle,
-        path: `/entry/${relatedEntry.type}/${relatedEntry.id}` // Construct the path
-      };
-    } else {
-      // Return the title as plain text if not found
-      console.warn(`Related entry with title "${relatedTitle}" not found in metadata.`);
-      return { title: relatedTitle, path: null };
+  return entry.value.related.map(ref => {
+    const resolved = resolveRelated(ref);
+    if (resolved) return resolved;
+    console.warn(`Related entry "${ref}" not found in metadata.`);
+    return { title: ref, path: null };
+  });
+});
+
+// canonicalId -> entry path, preferring the global canonical page. Used to
+// render [[canonicalId|文本]] wikilinks inside the entry body.
+const canonicalLinkMap = computed(() => {
+  const map = new Map();
+  for (const meta of allMetadata.value) {
+    if (!meta.canonicalId) continue;
+    const existing = map.get(meta.canonicalId);
+    if (!existing || meta.sourceScope === 'global') {
+      map.set(meta.canonicalId, `/entry/${meta.type}/${meta.id}`);
     }
-  }).filter(item => item !== null);
+  }
+  return map;
 });
 
 // NEW: Compute structured content (no change needed here for related links)
@@ -294,7 +315,14 @@ const structuredContent = computed(() => {
   if (!entry.value || !entry.value.content) {
     return [];
   }
-  const result = renderContent(entry.value.content);
+  const result = renderContent(entry.value.content, {
+    // Wikilinks render as raw <a> tags via v-html, so they need the hash
+    // prefix to play nice with createWebHashHistory (avoid full page reload).
+    linkResolver: (cid) => {
+      const path = canonicalLinkMap.value.get(cid);
+      return path ? `#${path}` : null;
+    },
+  });
   return result;
 });
 

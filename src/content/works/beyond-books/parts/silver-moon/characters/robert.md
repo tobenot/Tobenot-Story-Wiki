@@ -97,5 +97,5 @@ related:
 
 ## 出处与外部链接
 
-- [《不止于纸上的故事：银月篇》导演剪辑版](https://tobenot.itch.io/beyond-books)
+- [《不止于纸上的故事：银月篇》导演剪辑版](https://tobenot.top/p/story-bb-silvermoon-director-cut/)
 - 跨篇章设定见 [全局条目·罗伯特](#/entry/characters/globals/robert)

@@ -7,7 +7,7 @@ order: 1
 tags: ["异能者", "现代"]
 links:
   - label: "银月篇 Itch.io"
-    url: "https://tobenot.itch.io/beyond-books"
+    url: "https://tobenot.top/p/story-bb-silvermoon-director-cut/"
 ---
 
 该作品为系列设定，记录不同保留地与组织之间的冲突与合作。

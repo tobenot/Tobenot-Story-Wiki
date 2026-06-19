@@ -405,8 +405,10 @@ export async function getAllEntriesMetadata() {
           description: attributes.summary || attributes.description || '',
           tags: attributes.tags || [],
           image: attributes.image || '',
-          _canonicalId: attributes.canonicalId || null,
-          _sourceScope: descriptor.sourceScope,
+          // Kept for related-entry & wikilink resolution (canonicalId is the
+          // identity key; sourceScope lets callers prefer the global page).
+          canonicalId: attributes.canonicalId || null,
+          sourceScope: descriptor.sourceScope,
         });
       } catch (err) {
         console.error(`Failed to load metadata for path ${path}:`, err);
@@ -417,17 +419,15 @@ export async function getAllEntriesMetadata() {
     // 子篇目一旦显式配了 image（如换立绘），以本地为准，不会被覆盖。
     const globalImageByCanonicalId = new Map();
     for (const r of results) {
-      if (r._sourceScope === 'global' && r._canonicalId && r.image) {
-        globalImageByCanonicalId.set(r._canonicalId, r.image);
+      if (r.sourceScope === 'global' && r.canonicalId && r.image) {
+        globalImageByCanonicalId.set(r.canonicalId, r.image);
       }
     }
     for (const r of results) {
-      if (!r.image && r._sourceScope === 'partEntry' && r._canonicalId) {
-        const fallback = globalImageByCanonicalId.get(r._canonicalId);
+      if (!r.image && r.sourceScope === 'partEntry' && r.canonicalId) {
+        const fallback = globalImageByCanonicalId.get(r.canonicalId);
         if (fallback) r.image = fallback;
       }
-      delete r._canonicalId;
-      delete r._sourceScope;
     }
 
     allEntriesMetadataCache = results;
@@ -665,9 +665,24 @@ export async function getEntryParents(type, id) {
 // -----------------------------
 // Markdown rendering with spoilers and images
 // -----------------------------
-export function renderContent(content) {
+export function renderContent(content, options = {}) {
   if (!content) {
     return [];
+  }
+
+  // Wikilinks: [[canonicalId|显示文本]] or [[canonicalId]].
+  // Resolved to entry hash-links via the optional linkResolver (canonicalId -> href).
+  // Unresolvable wikilinks are left untouched so they stay readable.
+  const linkResolver = typeof options.linkResolver === 'function' ? options.linkResolver : null;
+  const wikilinkRegex = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
+  function resolveWikilinks(text) {
+    if (!linkResolver) return text;
+    return text.replace(wikilinkRegex, (match, canonicalId, display) => {
+      const href = linkResolver(canonicalId.trim());
+      if (!href) return match;
+      const label = (display || canonicalId).trim();
+      return `<a href="${href}">${label}</a>`;
+    });
   }
 
   const spoilers = [];
@@ -679,7 +694,7 @@ export function renderContent(content) {
   const spoilerRegex = /::spoiler source=\"([^\\n\"]+)\"\s*\n([\s\S]*?):::/g;
   processedContent = processedContent.replace(spoilerRegex, (match, source, innerContent) => {
     const placeholder = `${spoilerPlaceholderPrefix}${spoilers.length}${spoilerPlaceholderSuffix}`;
-    spoilers.push({ source, rawContent: innerContent.trim() });
+    spoilers.push({ source, rawContent: resolveWikilinks(innerContent.trim()) });
     return placeholder;
   });
 
@@ -692,6 +707,9 @@ export function renderContent(content) {
     images.push({ alt, src });
     return placeholder;
   });
+
+  // Resolve wikilinks in the main body after spoilers/images have been lifted out.
+  processedContent = resolveWikilinks(processedContent);
 
   marked.use({
     gfm: true,
@@ -749,7 +767,7 @@ export function renderContent(content) {
 
 // Example: Add function to get source links (can be expanded)
 const spoilerLinksConfig = {
-  '《不止于纸上的故事：银月篇》': 'https://tobenot.itch.io/beyond-books', // Example
+  '《不止于纸上的故事：银月篇》': 'https://tobenot.top/p/story-bb-silvermoon-director-cut/', // Example
   '《在回家之前到家》': 'https://tobenot.top/2024/06/28/Story-Arrive-Before-Go-Home/',
 };
 

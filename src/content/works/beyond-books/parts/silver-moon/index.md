@@ -7,7 +7,7 @@ order: 1
 tags: ["银月寺", "贝利斯集团"]
 links:
   - label: "作品页面"
-    url: "https://tobenot.itch.io/beyond-books"
+    url: "https://tobenot.top/p/story-bb-silvermoon-director-cut/"
 ---
 
 本篇章聚焦银月寺保留地与贝利斯集团之间的冲突。

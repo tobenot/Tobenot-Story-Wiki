@@ -37,4 +37,4 @@ image: "/images/characters/silvermoon/jerry.webp"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.itch.io/beyond-books) - 了解更多关于杰瑞斯的故事
+[《不止于纸上的故事：银月篇》](https://tobenot.top/p/story-bb-silvermoon-director-cut/) - 了解更多关于杰瑞斯的故事

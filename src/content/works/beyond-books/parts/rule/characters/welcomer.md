@@ -4,6 +4,7 @@ type: "characters"
 canonicalId: "character.welcomer"
 summary: "规律机构核心执行者，借汲取光明境能量、消除自身死亡概念以求不死，本篇终战反派。"
 tags: ["鸿律篇", "规律机构", "反派"]
+order: 7
 role: "规律机构核心 / 终战反派"
 firstSeenAt: "第二章·规律机构（墙刻场景）"
 chapters: ["第五章·聚散之律", "第五章·银剑"]

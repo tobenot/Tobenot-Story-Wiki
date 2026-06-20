@@ -2,7 +2,7 @@
 title: "光明境真相"
 type: "events"
 canonicalId: "event.bright-realm-revelation"
-summary: "银在光明境向苏敬峰揭示本篇核心真相、并授其往返光明境之法的关键转折。"
+summary: "银在光明境向苏敬峰揭示本篇核心真相、授其往返光明境之法的关键转折。"
 tags: ["鸿律篇"]
 role: "核心真相揭示"
 firstSeenAt: "第四章·大理石"
@@ -16,7 +16,7 @@ related:
   - "concept.rule"
 ---
 
-**光明境真相**是《不止于纸上的故事：鸿律篇》中的事件，[[character.silver|银]]在[[location.bright-realm|光明境]]向苏敬峰揭示本篇核心真相：规律机构正汲取光明境能量、毁灭心界；王烛馨因与光明境能量相通而能力不断增强，是破局关键。银授苏敬峰存在法则与课桌锚点，要求他把烛馨带入光明境。
+**光明境真相**是《不止于纸上的故事：鸿律篇》中的关键转折事件：[[character.silver|银]]在[[location.bright-realm|光明境]]向苏敬峰揭示本篇核心真相，并授其往返光明境之法。
 
 ## 身份卡
 

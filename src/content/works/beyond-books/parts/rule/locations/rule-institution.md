@@ -31,8 +31,10 @@ related:
 
 ## 成员
 
+机构成员包括 [[character.assailant|行凶者]]、[[character.welcomer|迎接者]]（核心执行者），以及受派追杀苏敬峰的众刺客——[[character.statue-assassin|铜像男]]自称「他们中的最后一个」。[[character.blind-one|目盲者]]疑为其所派。
+
 :::spoiler source="《不止于纸上的故事：鸿律篇》规律机构 / 铜像 / 聚散之律"
-机构成员包括 [[character.assailant|行凶者]]、[[character.welcomer|迎接者]]（核心执行者），以及受派追杀苏敬峰的众刺客——[[character.statue-assassin|铜像男]]自称「他们中的最后一个」。[[character.blind-one|目盲者]]疑为其所派。机构内两人对苏敬峰的出现既熟悉又敌对，早在墙刻时便已「认识」他。
+机构内两人对苏敬峰的出现既熟悉又敌对，早在墙刻时便已「认识」他。
 :::
 
 ## 剧情意义

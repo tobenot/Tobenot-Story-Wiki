@@ -41,6 +41,16 @@ Content lives as Markdown in `src/content/` and is consumed two ways:
 
 When adding new content layout conventions, update path parsing in **both** `contentService.js` (`parsePathForEntry`) and `scripts/build-search-index.js` (`deriveTypeAndFullId`) — they must agree on how a path maps to `{type, id/routeId}`.
 
+### Work/part page metadata & external links
+
+`WorkDetailPage.vue` / `PartDetailPage.vue` render frontmatter from the work/part `index.md` verbatim (via `getWork`/`getPart`, which spread `...attributes`). Three fields matter:
+
+- **`links:`** (`[{label, url}]`) — the **single source of truth for external original-story URLs**. Work-level `links` lives in `works/<workId>/index.md`, part-level in `parts/<partId>/index.md`. Rendered as outbound buttons. When an original story changes host, **change only this one field**.
+- **`cover:`** — root-relative path (`/images/...`), same resolution path as `MarkdownImage`/`ImageLoader` (`BASE_URL` prefix), file lives under `public/images/`. No `cover` → not rendered (no broken image). Works page cards also show `cover` thumbnails.
+- **Overview entry** — `PartDetailPage` auto-detects a feature entry whose route id ends in `-overview` (e.g. `silver-moon-overview`) and shows an "进入篇章导览" button. Parts without an overview page simply don't show it — no forced content authoring.
+
+**Link policy (do not regress):** entry bodies must **not** hardcode external story URLs inline. Link in-body "see the original story" references to the **in-site part page** `#/works/<workId>/parts/<partId>` instead, so the external URL stays centralized in one `links:` field. The silver-moon link was previously spread across 68 files; it is now in-site everywhere except the two `index.md` `links:` fields.
+
 ### Rendering & dedup rule
 
 Global (`globals/*`) and part (`works/<workId>/parts/<partId>/<type>/*`) entries are **two independent pages on two independent routes** — `loadContentEntry()` loads the single physical file matching the route id and renders its body verbatim; there is **no overlay** of one onto the other. The intended split of content:
@@ -81,3 +91,4 @@ The Lunr Chinese tokenizer expects `nodejieba`; the `@node-rs/jieba` import in `
 
 - The repo deploys `dist/` as a separate git repo to `gh-pages` (see the `deploy` script). Do not commit `dist/` to `main` (it is gitignored).
 - Content is primarily in Chinese; commits and README are bilingual.
+- `.gitattributes` forces `eol=lf` on all text files and marks images binary. Do not delete it — without it, editing a single `.md`/`.vue` on Windows (`autocrlf=true`) churns dozens of CRLF-only diffs. Blobs are already LF, so the attribute just governs working-tree normalization; no `renormalize` migration needed.

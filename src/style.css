@@ -139,6 +139,7 @@
   }
   .wikilink .wl-thumb {
     @apply inline-block flex-shrink-0;
+    margin: 0; /* ponytail: 抵消 @tailwindcss/typography 给 .prose img 的 2em 上下 margin，否则 inline-flex 链接盒被撑到 5em、行距爆炸 */
     width: 1.15em;
     height: 1.15em;
     object-fit: cover;

@@ -9,8 +9,8 @@
     <div v-else-if="!part" class="py-12 text-center text-gray-600">未找到该篇章</div>
 
     <div v-else>
-      <!-- ponytail: cover 走与正文图片同一套根相对路径解析（/images/... + BASE_URL），无图则不渲染 -->
-      <img v-if="coverSrc" :src="coverSrc" :alt="title" class="w-full max-h-80 object-cover rounded-lg mb-6 border-2 border-slate-900" />
+      <!-- ponytail: cover 走与正文图片同一套根相对路径解析（/images/... + BASE_URL）；@error 兜底，图缺失则静默不渲染而非破图 -->
+      <img v-if="coverSrc && !coverFailed" :src="coverSrc" :alt="title" @error="coverFailed = true" class="w-full max-h-80 object-cover rounded-lg mb-6 border-2 border-slate-900" />
       <p v-if="part.description" class="text-gray-700 mb-6">{{ part.description }}</p>
 
       <!-- 门面入口：仅在该篇章存在 *-overview 专题页时显示，没写概览的篇章不显示 -->
@@ -62,6 +62,7 @@ const workId = computed(() => route.params.workId);
 const partId = computed(() => route.params.partId);
 const loading = ref(true);
 const part = ref(null);
+const coverFailed = ref(false);
 
 const orderedTypes = computed(() => {
   if (!part.value) return [];
@@ -102,6 +103,7 @@ usePageMeta({
 
 onMounted(async () => {
   loading.value = true;
+  coverFailed.value = false;
   try {
     part.value = await getPart(workId.value, partId.value);
   } finally {

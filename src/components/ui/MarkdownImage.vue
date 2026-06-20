@@ -1,5 +1,5 @@
 <template>
-  <img :src="resolvedSrc" :alt="alt" @error="onImageError" />
+  <img class="markdown-image" :src="resolvedSrc" :alt="alt" @error="onImageError" />
   <!-- TODO: Integrate with ImageLoader for placeholders/errors if needed -->
 </template>
 
@@ -51,8 +51,10 @@ const onImageError = (event) => {
 }
 
 .markdown-image {
+  display: block; /* ponytail: block so inline img doesn't inflate the prose line-box */
   max-width: 100%;
   height: auto;
+  margin: 1.5rem auto;
   border: 2px solid #1a202c; /* 添加硬边框 */
 }
 

@@ -2,7 +2,7 @@
 title: "烛馨觉醒"
 type: "events"
 canonicalId: "event.zhuxin-awakening"
-summary: "王烛馨无感中觉醒结构操控异能并失控，致病房花色异常、吊扇松脱、外界连环车祸与高铁脱轨，银泪求带她入光明境。"
+summary: "王烛馨无感中觉醒异能并失控，引发病房与外界一连串异常，苏敬峰求助于光明境的转折事件。"
 tags: ["鸿律篇"]
 role: "烛馨觉醒失控"
 firstSeenAt: "第四章·烛馨同学"

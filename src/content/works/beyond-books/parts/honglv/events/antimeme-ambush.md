@@ -2,7 +2,7 @@
 title: "逆模因伏击"
 type: "events"
 canonicalId: "event.antimeme-ambush"
-summary: "携烛馨赴大理石途中遭逆模因刺客无形割伤，苏敬峰自轰左眼入光明境习花蕊反制图案，乱枪击杀刺客。"
+summary: "携烛馨赴大理石途中遭逆模因刺客伏击，全城行人互不可见的绝境之战。"
 tags: ["鸿律篇"]
 role: "逆模因死斗"
 firstSeenAt: "第四章·勿忘我"

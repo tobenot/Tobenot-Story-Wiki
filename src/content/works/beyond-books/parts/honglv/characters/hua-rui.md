@@ -2,7 +2,7 @@
 title: "花蕊（鸿律篇）"
 type: "characters"
 canonicalId: "character.hua-rui"
-summary: "花蕊在鸿律篇中的经历：以心棱域天使队长官身份现身光明境，授苏敬峰反制逆模因的更强图案。"
+summary: "花蕊在鸿律篇中的经历：心棱域天使队长官，于光明境现身接教苏敬峰。"
 tags: ["鸿律篇"]
 role: "天使队长官 / 授艺者"
 firstSeenAt: "第四章·勿忘我"

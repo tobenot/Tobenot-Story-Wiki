@@ -2,7 +2,7 @@
 title: "时光机事件"
 type: "events"
 canonicalId: "event.time-machine-incident"
-summary: "人类首次启动时光机时，未来穿越者从门框探出拔断电线中止实验，警告敌人可经通道而至，实验自此永久停止。"
+summary: "人类首次启动时光机实验，被一名自未来而来的穿越者干预中止的序幕事件。"
 tags: ["鸿律篇"]
 role: "本篇序幕"
 firstSeenAt: "第一章·时光机事件"

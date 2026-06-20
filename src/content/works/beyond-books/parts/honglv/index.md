@@ -4,7 +4,6 @@ partId: "honglv"
 title: "鸿律篇"
 description: "苏敬峰因异能【作者世界】卷入时光机事件与规律机构阴谋，与恋人王烛馨一同被引向正在毁灭的光明境，直面「鸿律」之争。"
 order: 2
-cover: "/images/works/beyond-books/honglv/cover.webp"
 tags: ["光明境", "心界", "规律机构", "作者世界"]
 ---
 

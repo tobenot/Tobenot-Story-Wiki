@@ -2,7 +2,7 @@
 title: "目盲者遭遇"
 type: "events"
 canonicalId: "event.blind-one-encounter"
-summary: "苏敬峰赴医院途中遭目盲者触碰袭击，以逆模因手枪连击，目盲者被快车撞飞，疑为烛馨觉醒的诱因。"
+summary: "苏敬峰赴医院途中遭目盲者触碰袭击，逆模因手枪首次现身的街头遭遇战。"
 tags: ["鸿律篇"]
 role: "逆模因手枪初现"
 firstSeenAt: "第三章·搀扶"

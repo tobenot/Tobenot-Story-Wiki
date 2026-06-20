@@ -2,7 +2,7 @@
 title: "光明境真相"
 type: "events"
 canonicalId: "event.bright-realm-revelation"
-summary: "银在光明境向苏敬峰揭示规律机构正毁灭心界、烛馨为破局关键，授存在法则与课桌锚点，要他带烛馨入界。"
+summary: "银在光明境向苏敬峰揭示本篇核心真相、并授其往返光明境之法的关键转折。"
 tags: ["鸿律篇"]
 role: "核心真相揭示"
 firstSeenAt: "第四章·大理石"

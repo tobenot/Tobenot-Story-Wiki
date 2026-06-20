@@ -2,7 +2,7 @@
 title: "无光空间死斗"
 type: "events"
 canonicalId: "event.lightless-space-battle"
-summary: "苏敬峰闯入规律机构黑暗实验室，与行凶者近身刀战，借作者世界引爆服务器将其击杀，自身重伤昏迷。"
+summary: "苏敬峰为寻论文原稿闯入规律机构，于熄灯黑暗实验室遭行凶者袭击的近身死斗。"
 tags: ["鸿律篇"]
 role: "首战规律机构"
 firstSeenAt: "第二章·无光空间"

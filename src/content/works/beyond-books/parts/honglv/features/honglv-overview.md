@@ -63,10 +63,10 @@ related:
 ### 主角方
 
 - [[character.su-jingfeng|苏敬峰]]：视角人物，大三学生，异能【作者世界】，被机构视为「通道」。
-- [[character.wang-zhuxin|王烛馨]]：苏敬峰的恋人，觉醒结构操控，终悟鸿律。
+- [[character.wang-zhuxin|王烛馨]]：苏敬峰的恋人，觉醒结构操控异能。
 - [[character.traveler|穿越者]]：来自未来的女子，远程自愈能力跟随苏敬峰。
 - [[character.silver|银]]：心界圣人、心棱域守护者，引导者。
-- [[character.hua-rui|花蕊]]：心棱域先遣天使队队长，授反制逆模因图案。
+- [[character.hua-rui|花蕊]]：心棱域先遣天使队队长，于光明境接教苏敬峰。
 
 ### 规律机构
 
@@ -82,11 +82,11 @@ related:
 1. [[event.time-machine-incident|时光机事件]] — 人类首启时光机，被穿越者中止。
 2. [[event.lightless-space-battle|无光空间死斗]] — 苏敬峰闯规律机构，首战行凶者。
 3. [[event.blind-one-encounter|目盲者遭遇]] — 赴医院途中遭触碰袭击，逆模因手枪初现。
-4. [[event.zhuxin-awakening|烛馨觉醒]] — 王烛馨觉醒失控，银泪求带人入光明境。
+4. [[event.zhuxin-awakening|烛馨觉醒]] — 王烛馨觉醒失控，苏敬峰求助于光明境。
 5. [[event.antimeme-ambush|逆模因伏击]] — 全城逆模因伏击，花蕊授反制图案。
 6. [[event.statue-duel|铜像之战]] — 末位刺客雕像化对决。
-7. [[event.bright-realm-revelation|光明境真相]] — 银揭示机构毁灭心界、授存在法则。
-8. [[event.rule-institution-final-battle|规律机构终战]] — 烛馨悟鸿律持银剑斩迎接者，拆毁仪器。
+7. [[event.bright-realm-revelation|光明境真相]] — 银揭示本篇核心真相、授往返光明境之法。
+8. [[event.rule-institution-final-battle|规律机构终战]] — 苏敬峰携烛馨直捣规律机构，与迎接者的终局决战。
 
 ## 跨作品关联
 

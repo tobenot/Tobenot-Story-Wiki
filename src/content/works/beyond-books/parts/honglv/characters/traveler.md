@@ -2,7 +2,7 @@
 title: "穿越者（鸿律篇）"
 type: "characters"
 canonicalId: "character.traveler"
-summary: "鸿律篇中自未来经时光机门框抵达现世的女子，持远程自愈异能，庇护苏敬峰并驾车接应二人。"
+summary: "鸿律篇中自未来经时光机门框抵达现世的女子，持远程自愈异能。"
 tags: ["鸿律篇"]
 role: "自愈者 / 庇护者"
 firstSeenAt: "第一章·时光机事件"

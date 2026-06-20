@@ -2,7 +2,7 @@
 title: "行凶者"
 type: "characters"
 canonicalId: "character.assailant"
-summary: "规律机构成员，于黑暗实验室以刻刀、美工刀偷袭苏敬峰，无光空间死斗中被服务器爆炸碎片击杀。"
+summary: "规律机构成员，于黑暗实验室以刻刀偷袭苏敬峰的刻字者。"
 tags: ["鸿律篇", "规律机构", "反派"]
 role: "规律机构刻字者 / 刺客"
 firstSeenAt: "第二章·规律机构"

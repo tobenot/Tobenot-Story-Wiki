@@ -2,7 +2,7 @@
 title: "目盲者"
 type: "characters"
 canonicalId: "character.blind-one"
-summary: "鸿律篇中疑似规律机构所派的黄西装女刺客，眼珠浑浊，以触碰扭曲他人体内，被快车撞飞。"
+summary: "鸿律篇中疑似规律机构所派的黄西装女刺客，眼珠浑浊，以触碰扭曲他人体内。"
 tags: ["鸿律篇", "反派"]
 role: "触碰型刺客"
 firstSeenAt: "第三章·搀扶"

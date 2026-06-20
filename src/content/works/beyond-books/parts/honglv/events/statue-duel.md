@@ -2,7 +2,7 @@
 title: "铜像之战"
 type: "events"
 canonicalId: "event.statue-duel"
-summary: "规律机构末位刺客铜像男在广场赠枪「公平对决」，以雕像化自愈周旋，终自困雕像被王烛馨拆成碎石。"
+summary: "规律机构末位刺客铜像男于广场赠枪「公平对决」，以雕像化自愈展开的对决。"
 tags: ["鸿律篇"]
 role: "终战前的最后刺客"
 firstSeenAt: "第四章·铜像"

@@ -2,7 +2,7 @@
 title: "规律机构终战"
 type: "events"
 canonicalId: "event.rule-institution-final-battle"
-summary: "苏敬峰携烛馨直捣规律机构，迎接者杀烛馨、消死亡概念求不死，烛馨悟鸿律持银剑复生，令迎接者从未存在并拆毁仪器。"
+summary: "苏敬峰携烛馨直捣规律机构，与迎接者展开的本篇终局决战。"
 tags: ["鸿律篇"]
 role: "本篇终战"
 firstSeenAt: "第五章·聚散之律"

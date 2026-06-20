@@ -153,9 +153,23 @@
                 </h3>
                 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <li v-for="item in resolvedRelatedItems" :key="item.title" class="flex items-center">
-                    <span class="mr-2 text-starlight-400">•</span>
-                    <!-- Use router-link if path exists, otherwise display text -->
-                    <router-link v-if="item.path" :to="item.path" class="text-starlight-500 hover:text-starlight-100 transition-colors">
+                    <!-- 缩略图/类型图标前缀，与正文 wikilink 一致 -->
+                    <router-link
+                      v-if="item.path"
+                      :to="item.path"
+                      class="wikilink text-starlight-500 hover:text-starlight-100 transition-colors"
+                    >
+                      <img
+                        v-if="relatedThumb(item).kind === 'img'"
+                        class="wl-thumb"
+                        :src="relatedThumb(item).src"
+                        :loading="relatedThumb(item).inline ? null : 'lazy'"
+                        alt=""
+                        width="20"
+                        height="20"
+                        decoding="async"
+                      />
+                      <span v-else class="wl-icon" v-html="getCategoryIcon(item.type)"></span>
                       {{ item.title }}
                     </router-link>
                     <span v-else class="text-starlight-300">{{ item.title }}</span>
@@ -199,7 +213,8 @@
 <script setup>
 import { ref, computed, watch, nextTick } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { loadContentEntry, renderContent, getAllEntriesMetadata, loadLinkThumbs } from '../services/contentService';
+import { loadContentEntry, renderContent, getAllEntriesMetadata, loadLinkThumbs, imageToThumb } from '../services/contentService';
+import { getCategoryIcon } from '../data/categoryIcons';
 import Tag from '../components/ui/Tag.vue';
 import ImageLoader from '../components/ui/ImageLoader.vue';
 import SpoilerBlock from '../components/ui/SpoilerBlock.vue';
@@ -281,7 +296,23 @@ function resolveRelated(ref) {
   return {
     title: picked.title,
     path: `/entry/${picked.type}/${picked.id}`,
+    type: picked.type,
+    image: picked.image || null,
   };
+}
+
+// 占位图不渲染缩略图，回退到类型图标（与 buildWikilinkPrefix 规则一致）。
+const LINK_PLACEHOLDER_IMAGE = '/images/no_image.png';
+// 返回相关条目链接前的小图标信息：{ kind: 'img', src, inline } 或 { kind: 'icon' }。
+function relatedThumb(item) {
+  const image = item && item.image;
+  if (image && image !== LINK_PLACEHOLDER_IMAGE) {
+    const inline = linkThumbs.value && linkThumbs.value[image];
+    if (inline) return { kind: 'img', src: inline, inline: true };
+    const thumb = imageToThumb(image);
+    if (thumb) return { kind: 'img', src: thumb, inline: false };
+  }
+  return { kind: 'icon' };
 }
 
 // NEW: Computed property to resolve related item links

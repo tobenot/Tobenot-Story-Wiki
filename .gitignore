@@ -20,6 +20,9 @@ public/link-thumbs.json
 public/search-index.json
 public/search-map.json
 
+# 站点统计：由 npm run build:stats 生成，dev/build 均会自动重新生成
+public/site-stats.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -40,10 +40,10 @@ related:
 
 ## 登场作品
 
-- 《不止于纸上的故事：鸿律篇》——详见 [鸿律篇 · 花蕊](#/entry/characters/works/beyond-books/parts/honglv/hua-rui)
+- 《不止于纸上的故事：鸿律篇》——详见 [鸿律篇 · 花蕊](#/entry/characters/works/beyond-books/parts/rule/hua-rui)
 - 《心界录》——天使队长官，专属篇章页待补
 
 ## 出处与外部链接
 
 - 本条目为跨篇章设定真源；剧情揭示集中于各篇章专属页。
-- 鸿律篇剧情见 [鸿律篇 · 花蕊](#/entry/characters/works/beyond-books/parts/honglv/hua-rui)。
+- 鸿律篇剧情见 [鸿律篇 · 花蕊](#/entry/characters/works/beyond-books/parts/rule/hua-rui)。

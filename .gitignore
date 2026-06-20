@@ -38,3 +38,6 @@ story/story-bb-silvermoon-director-cut.md
 # 临时备份目录（不纳入版本库）
 .search-index-backup-*
 story/story-bb-RULE.md
+
+# 图片中转目录（原图转 webp 后入 public/images，源文件不纳入版本库）
+temp

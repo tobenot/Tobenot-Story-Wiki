@@ -40,5 +40,5 @@ related:
 ## 出处与外部链接
 
 - [《心界录》](#/works/heartworld)——心棱域叙事主舞台，专属页待补
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/honglv)——作为枪的来源与花蕊、银的来历被提及
+- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)——作为枪的来源与花蕊、银的来历被提及
 - 本条目为跨篇章设定真源。

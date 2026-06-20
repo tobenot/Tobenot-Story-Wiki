@@ -41,5 +41,5 @@ related:
 ## 出处与外部链接
 
 - [《心界录》](#/works/heartworld)——心界叙事主舞台，各篇章页待补
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/honglv)——以心界为银的来历被提及
+- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)——以心界为银的来历被提及
 - 本条目为跨篇章设定真源。

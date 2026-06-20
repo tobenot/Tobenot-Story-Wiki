@@ -9,7 +9,7 @@ related:
   - "location.heart-edge-realm"
   - "character.silver"
   - "character.hua-rui"
-  - "concept.honglv-rule"
+  - "concept.rule"
   - "location.rule-institution"
 ---
 
@@ -59,5 +59,5 @@ related:
 
 ## 出处与外部链接
 
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/honglv)
+- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
 - 本条目为跨篇章设定真源；心界内部地理详见 [[location.heart-realm|心界]]。

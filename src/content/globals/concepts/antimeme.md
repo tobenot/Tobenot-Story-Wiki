@@ -37,5 +37,5 @@ related:
 
 ## 出处与外部链接
 
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/honglv)
+- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
 - 本条目为设定词典，保持中立无剧透；具体剧情见各篇章专属页。

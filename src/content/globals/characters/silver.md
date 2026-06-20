@@ -44,10 +44,10 @@ related:
 
 ## 登场作品
 
-- 《不止于纸上的故事：鸿律篇》——详见 [鸿律篇 · 银](#/entry/characters/works/beyond-books/parts/honglv/silver)
+- 《不止于纸上的故事：鸿律篇》——详见 [鸿律篇 · 银](#/entry/characters/works/beyond-books/parts/rule/silver)
 - 《心界录》——作为圣人银被 [[character.golden|金]] 朝圣，专属篇章页待补
 
 ## 出处与外部链接
 
 - 本条目为跨篇章设定真源；剧情揭示集中于各篇章专属页。
-- 鸿律篇剧情见 [鸿律篇 · 银](#/entry/characters/works/beyond-books/parts/honglv/silver)。
+- 鸿律篇剧情见 [鸿律篇 · 银](#/entry/characters/works/beyond-books/parts/rule/silver)。

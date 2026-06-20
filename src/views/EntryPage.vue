@@ -272,9 +272,9 @@ const categoryBreadcrumbLink = computed(() => {
 // 页面标题
 const pageTitle = computed(() => {
   if (entry.value) {
-    return `${entry.value.type}: ${entry.value.title} - Tobenot Story Wiki`;
+    return `${categoryTitle.value}: ${entry.value.title} · 托贝诺特世界观 Wiki`;
   }
-  return 'Tobenot Story Wiki';
+  return '托贝诺特世界观 Wiki';
 });
 
 // 更新页面标题 & OG/分享 meta
@@ -405,14 +405,14 @@ const loadData = async () => {
 
     if (!data) {
        console.error(`Entry data is null for ${categoryType.value}/${entryId.value}`);
-       document.title = '未找到条目 - Tobenot Story Wiki';
+       document.title = '未找到条目 · 托贝诺特世界观 Wiki';
     } else {
        // Set title after entry is loaded successfully
        document.title = pageTitle.value;
     }
   } catch (error) {
     console.error(`Failed to load content entry or metadata for ${categoryType.value}/${entryId.value}:`, error);
-    document.title = '加载错误 - Tobenot Story Wiki';
+    document.title = '加载错误 · 托贝诺特世界观 Wiki';
   } finally {
     loading.value = false;
   }

@@ -187,4 +187,14 @@ dangling.length?console.log("DANGLING:",dangling):console.log("No dangling relat
 
 - **链接策略**：站内链接原窗口、站外链接新窗口。需改 `contentService.js` 的 marked 渲染器，给 `http(s)://` 外链加 `target="_blank" rel="noopener"`，站内 `#/...` 不动。这是通用 wiki 惯例。
 - **校验脚本入库**：把 §9 的断链脚本沉淀为 `scripts/check-links.js` 并接进 `npm run build`。
-- **工具型页面**（暂未做，按需取用）：时间线页、伏笔追踪页、多视角事件对照页、异能图鉴、势力关系图、篇章概览页。详见与维护者的讨论记录。
+- **工具型页面**：篇章概览、时间线、伏笔与悬念追踪、多视角事件对照四页已落地于银月篇，统一用新建的 `features` 类型承载（见下）。异能图鉴、势力关系图等暂未做，按需取用。
+
+#### 工具型页面与 `features` 类型
+
+工具/专题页（时间线、伏笔追踪、多视角对照、篇章概览等）不是某个实体的设定页，而是**分析型长文**，剧透密度高、需 `:::spoiler` 与 `[[wikilink]]`。因此它们不进 `concepts`（概念页是中立无剧透的设定词典），而是用独立的 `features` 类型承载：
+
+- 路径：`works/<workId>/parts/<partId>/features/<slug>.md`（篇章级专题），或 `globals/features/<slug>.md`（跨篇章专题）。
+- `type: "features"`、`canonicalId` 前缀 `feature.`（如 `feature.silver-moon-timeline`），以便互相 `[[wikilink]]`。
+- 渲染走现成的 `EntryPage` 管线（spoiler/wikilink/TOC/related 全可用），**无需改 contentService 或 router**——`<type>` 是任意目录名（见 §5）。
+- 发现性：篇章页（`PartDetailPage`）会自动按类型列出「专题」分节；篇章概览页作为门面，链向其余工具页。`EntryPage` 面包屑与 `PartDetailPage` 分节标题已加 `features → 专题` 显示名映射；其余视图对未知类型回退为「内容」/原 slug，可按需补映射。
+- 银月篇四页位于 `works/beyond-books/parts/silver-moon/features/`：`silver-moon-overview`（门面）、`silver-moon-timeline`、`silver-moon-foreshadowing`、`silver-moon-perspective-comparison`，互链成网。

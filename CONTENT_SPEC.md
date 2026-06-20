@@ -163,7 +163,7 @@ Lead → 定义 → 机制 → 世界内规则/社会影响 → 实例列举 →
 | 字段 | 要求 | 备注 |
 |---|---|---|
 | `title` | 必填，中文显示名 | |
-| `type` | 必填，**英文枚举** `characters\|locations\|events\|items\|concepts` | ❌ 现有部分文件写成 `"事件"`/`"地点"`/`"概念"`，与路径派生 type 不一致，必须改回英文。 |
+| `type` | 必填，**英文枚举** `characters\|locations\|events\|items\|concepts\|features` | ❌ 现有部分文件写成 `"事件"`/`"地点"`/`"概念"`，与路径派生 type 不一致，必须改回英文。`features` 为工具/专题分析页专用（时间线、伏笔追踪、多视角对照、篇章概览等），见 CONTENT_GUIDE §11。 |
 | `canonicalId` | 全局页必填，点分式 `character.robert` | 篇章页也填，指向其全局设定页以建立互链。 |
 | `summary` | 纯文本、无 Markdown、无剧透、一句话 | 卡片摘要；优先级 `summary > description`。 |
 | `description` | 较长安全描述，无剧透 | 详情页/兜底。 |

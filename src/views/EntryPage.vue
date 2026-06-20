@@ -241,6 +241,7 @@ const categoryTitle = computed(() => {
     case 'events': return '事件';
     case 'items': return '物品';
     case 'concepts': return '概念';
+    case 'features': return '专题';
     default: return '未知分类';
   }
 });

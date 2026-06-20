@@ -55,6 +55,7 @@ const typeTitle = (t) => ({
   events: '事件',
   items: '物品',
   concepts: '概念',
+  features: '专题',
 }[t] || t);
 
 const title = computed(() => part.value?.title || partId.value);

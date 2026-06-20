@@ -186,6 +186,7 @@ async function buildContentIndex() {
             description: summary,
             tags: attributes.tags || [],
             image: attributes.image,
+            order: attributes.order ?? null,
             createdAt: attributes.createdAt || null,
             updatedAt: attributes.updatedAt || null,
             sourceScope: descriptor.sourceScope,
@@ -466,7 +467,15 @@ export async function getPart(workId, partId) {
   // materialize entriesByType maps
   const entries = {};
   part.entriesByType.forEach((arr, type) => {
-    entries[type] = arr.map(e => ({
+    // 组内排序：有 order 的按数字升序在前，没写的（null）保持原文件系统顺序垫后。
+    // Array.sort 稳定，故 null 之间相对顺序不变。
+    const sorted = [...arr].sort((a, b) => {
+      if (a.order == null && b.order == null) return 0;
+      if (a.order == null) return 1;
+      if (b.order == null) return -1;
+      return a.order - b.order;
+    });
+    entries[type] = sorted.map(e => ({
       id: e.routeId,
       title: e.title,
       description: e.description,

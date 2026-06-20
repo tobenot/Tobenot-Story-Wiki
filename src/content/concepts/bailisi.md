@@ -47,4 +47,4 @@ image: "/images/no_image.png"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.top/p/story-bb-silvermoon-director-cut/) - 了解更多关于贝利斯集团的故事 
+[《不止于纸上的故事：银月篇》](#/works/beyond-books/parts/silver-moon) - 了解更多关于贝利斯集团的故事 

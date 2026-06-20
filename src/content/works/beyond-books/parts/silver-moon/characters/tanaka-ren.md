@@ -82,5 +82,5 @@ related:
 
 ## 出处与外部链接
 
-- [《不止于纸上的故事：银月篇》导演剪辑版](https://tobenot.top/p/story-bb-silvermoon-director-cut/)
+- [《不止于纸上的故事：银月篇》导演剪辑版](#/works/beyond-books/parts/silver-moon)
 - 跨篇章设定见 [全局条目·田中连](#/entry/characters/globals/tanaka-ren)

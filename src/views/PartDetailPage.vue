@@ -9,7 +9,28 @@
     <div v-else-if="!part" class="py-12 text-center text-gray-600">未找到该篇章</div>
 
     <div v-else>
-      <p v-if="part.description" class="text-gray-700 mb-8">{{ part.description }}</p>
+      <!-- ponytail: cover 走与正文图片同一套根相对路径解析（/images/... + BASE_URL），无图则不渲染 -->
+      <img v-if="coverSrc" :src="coverSrc" :alt="title" class="w-full max-h-80 object-cover rounded-lg mb-6 border-2 border-slate-900" />
+      <p v-if="part.description" class="text-gray-700 mb-6">{{ part.description }}</p>
+
+      <!-- 门面入口：仅在该篇章存在 *-overview 专题页时显示，没写概览的篇章不显示 -->
+      <router-link
+        v-if="overviewEntry"
+        :to="`/entry/features/${overviewEntry.id}`"
+        class="btn btn-primary mb-6 inline-block"
+      >进入篇章导览 →</router-link>
+
+      <!-- 外站原作出口：真实 URL 单点维护在 parts/<partId>/index.md 的 links:，换址只改那一处 -->
+      <div v-if="part.links && part.links.length" class="flex flex-wrap gap-3 mb-8">
+        <a
+          v-for="l in part.links"
+          :key="l.url"
+          :href="l.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-secondary inline-flex items-center gap-1"
+        >{{ l.label }} <span class="text-xs">↗</span></a>
+      </div>
 
       <div v-for="type in orderedTypes" :key="type" class="mb-10">
         <h2 class="text-xl font-bold mb-4 text-gray-800">{{ typeTitle(type) }}</h2>
@@ -59,6 +80,20 @@ const typeTitle = (t) => ({
 }[t] || t);
 
 const title = computed(() => part.value?.title || partId.value);
+
+// ponytail: cover 走根相对路径（/images/...），前置 BASE_URL，与 MarkdownImage/ImageLoader 同一套
+const BASE_URL = import.meta.env.BASE_URL;
+const coverSrc = computed(() => {
+  const cover = part.value?.cover;
+  if (!cover || !cover.startsWith('/')) return null;
+  return `${BASE_URL.replace(/\/$/, '')}${cover}`;
+});
+
+// 篇章门面：features 里 id 以 -overview 结尾的专题页（零配置，没概览页的篇章返回 null）
+const overviewEntry = computed(() => {
+  const features = part.value?.entriesByType?.features || [];
+  return features.find((e) => e.id && e.id.endsWith('-overview')) || null;
+});
 
 usePageMeta({
   title,

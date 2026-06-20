@@ -40,4 +40,4 @@ image: "/images/works/beyond-books-silver-moon.webp"
 ## 外部链接
 
 本作品可在以下平台体验：
-[《不止于纸上的故事：银月篇》](https://tobenot.top/p/story-bb-silvermoon-director-cut/) - 点击了解更多 
+[《不止于纸上的故事：银月篇》](#/works/beyond-books/parts/silver-moon) - 点击了解更多 

@@ -48,4 +48,4 @@ image: "/images/events/dawn-action.webp"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.top/p/story-bb-silvermoon-director-cut/) - 了解完整的破晓行动故事 
+[《不止于纸上的故事：银月篇》](#/works/beyond-books/parts/silver-moon) - 了解完整的破晓行动故事 

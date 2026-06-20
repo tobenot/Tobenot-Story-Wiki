@@ -39,4 +39,4 @@ image: "/images/concepts/spirit-shield.webp"
 
 ## 外部链接
 
-[《不止于纸上的故事：银月篇》](https://tobenot.top/p/story-bb-silvermoon-director-cut/) - 了解更多关于灵能盾的故事 
+[《不止于纸上的故事：银月篇》](#/works/beyond-books/parts/silver-moon) - 了解更多关于灵能盾的故事 

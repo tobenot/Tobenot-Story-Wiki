@@ -13,6 +13,7 @@
         class="wiki-card p-5 flex flex-col justify-between group"
       >
         <div>
+          <img v-if="coverSrc(w.cover)" :src="coverSrc(w.cover)" :alt="w.title || w.workId" class="w-full h-32 object-cover rounded-md mb-3 border-2 border-slate-900" />
           <h2 class="text-2xl font-bold text-gray-800 group-hover:text-starlight-800 transition-colors">{{ w.title || w.workId }}</h2>
           <p v-if="w.description" class="text-gray-600 mt-3 line-clamp-3">{{ w.description }}</p>
           <div v-if="w.tags && w.tags.length" class="flex flex-wrap gap-2 mt-4">
@@ -28,6 +29,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getWorks } from '../services/contentService';
+
+// ponytail: cover 走根相对路径（/images/...），前置 BASE_URL，与 MarkdownImage/ImageLoader 同一套
+const BASE_URL = import.meta.env.BASE_URL;
+const coverSrc = (cover) => (!cover || !cover.startsWith('/')) ? null : `${BASE_URL.replace(/\/$/, '')}${cover}`;
 
 const loading = ref(true);
 const works = ref([]);

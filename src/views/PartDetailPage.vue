@@ -40,10 +40,21 @@
             v-for="entry in part.entriesByType[type]"
             :key="entry.id"
             :to="`/entry/${type}/${entry.id}`"
-            class="wiki-card p-5 group"
+            class="wiki-card p-5 group flex items-start gap-3"
           >
-            <h3 class="text-lg font-semibold text-gray-800 group-hover:text-starlight-800">{{ entry.title }}</h3>
-            <p v-if="entry.description" class="text-gray-600 mt-2 line-clamp-3">{{ entry.description }}</p>
+            <!-- 标题左侧小缩略图：复用 48px thumbs（吃 HTTP 缓存），懒加载，缺图静默不渲染 -->
+            <img
+              v-if="thumbSrc(entry.image)"
+              :src="thumbSrc(entry.image)"
+              :alt="entry.title"
+              loading="lazy"
+              decoding="async"
+              class="w-12 h-12 flex-shrink-0 object-cover border border-slate-900/40 rounded-sm"
+            />
+            <div class="min-w-0">
+              <h3 class="text-lg font-semibold text-gray-800 group-hover:text-starlight-800">{{ entry.title }}</h3>
+              <p v-if="entry.description" class="text-gray-600 mt-2 line-clamp-3">{{ entry.description }}</p>
+            </div>
           </router-link>
         </div>
       </div>
@@ -54,7 +65,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { getPart } from '../services/contentService';
+import { getPart, imageToThumb } from '../services/contentService';
 import { usePageMeta } from '../composables/usePageMeta';
 
 const route = useRoute();
@@ -89,6 +100,13 @@ const coverSrc = computed(() => {
   if (!cover || !cover.startsWith('/')) return null;
   return `${BASE_URL.replace(/\/$/, '')}${cover}`;
 });
+
+// 标题左侧小缩略图：原图 -> 48px thumbs -> 前置 BASE_URL。无图/不可推导返回 null（不渲染）
+function thumbSrc(image) {
+  const thumb = imageToThumb(image);
+  if (!thumb) return null;
+  return `${BASE_URL.replace(/\/$/, '')}${thumb}`;
+}
 
 // 篇章门面：features 里 id 以 -overview 结尾的专题页（零配置，没概览页的篇章返回 null）
 const overviewEntry = computed(() => {

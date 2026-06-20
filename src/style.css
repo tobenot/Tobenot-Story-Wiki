@@ -132,6 +132,10 @@
   /* 站内 wikilink 前的小图标：缩略图或类型图标 */
   .wikilink {
     @apply inline-flex items-center gap-1;
+    /* inline-flex 的默认基线是最后一个 flex 子项（头像图）的底部，
+       浏览器据此与文本基线对齐，导致带头像的链接整体上浮。
+       改为按中线对齐，让链接文字与周围正文居中对齐。 */
+    vertical-align: middle;
   }
   .wikilink .wl-thumb {
     @apply inline-block flex-shrink-0;

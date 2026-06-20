@@ -2,6 +2,7 @@
 title: "银（鸿律篇）"
 type: "characters"
 canonicalId: "character.silver"
+image: "/images/characters/honglv/silver.webp"
 summary: "银在鸿律篇中的经历：心界圣人，以引导者身份现身，引导苏敬峰与王烛馨介入光明境危机。"
 tags: ["鸿律篇"]
 role: "引导者 / 心棱域守护者"

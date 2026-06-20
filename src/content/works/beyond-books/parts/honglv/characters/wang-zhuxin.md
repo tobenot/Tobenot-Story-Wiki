@@ -2,6 +2,7 @@
 title: "王烛馨（鸿律篇）"
 type: "characters"
 canonicalId: "character.wang-zhuxin"
+image: "/images/characters/honglv/wang-zhuxin.webp"
 summary: "王烛馨在鸿律篇中的经历：苏敬峰的恋人，因与他的联系被光明境能量相通而觉醒异能的大学生。"
 tags: ["鸿律篇"]
 role: "光明境通道·觉醒者"

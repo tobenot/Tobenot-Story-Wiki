@@ -2,6 +2,7 @@
 title: "穿越者（鸿律篇）"
 type: "characters"
 canonicalId: "character.traveler"
+image: "/images/characters/honglv/traveler.webp"
 summary: "鸿律篇中自未来经时光机门框抵达现世的女子，持远程自愈异能。"
 tags: ["鸿律篇"]
 role: "自愈者 / 庇护者"

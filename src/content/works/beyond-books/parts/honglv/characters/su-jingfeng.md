@@ -2,6 +2,7 @@
 title: "苏敬峰（鸿律篇）"
 type: "characters"
 canonicalId: "character.su-jingfeng"
+image: "/images/characters/honglv/su-jingfeng.webp"
 summary: "苏敬峰在鸿律篇中的经历：因作者世界异能卷入时光机事件与规律机构阴谋的大三学生，本篇视角人物。"
 tags: ["鸿律篇"]
 role: "视角人物 / 通道"

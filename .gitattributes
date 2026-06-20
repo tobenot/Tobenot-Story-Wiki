@@ -1,0 +1,11 @@
+# 统一换行符：文本文件强制 LF（消除 Windows autocrlf 导致的 churn）
+# ponytail: 一行通配覆盖所有文本类型，二进制显式标记防误判
+* text=auto eol=lf
+
+# 二进制文件
+*.webp binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

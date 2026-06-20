@@ -724,6 +724,24 @@ function buildWikilinkPrefix(meta, linkThumbs) {
   return `<span class="wl-icon">${icon}</span>`;
 }
 
+// 给指向条目的站内 Markdown 链接（<a href="#/entry/...">）补上小头像缩略图，
+// 与 [[wikilink]] 行为一致。已是 wikilink（带 wl-thumb/wl-icon）的链接跳过，
+// 避免重复加图标。entryMetaResolver: href -> { type, image } | null。
+function decorateEntryLinks(html, linkThumbs, entryMetaResolver) {
+  if (!entryMetaResolver || !html) return html;
+  return html.replace(/<a href="#(\/entry\/[^"]*)"([^>]*)>([\s\S]*?)<\/a>/g, (match, href, attrs, label) => {
+    if (/\bclass="[^"]*wikilink/.test(attrs)) return match; // 已带缩略图，跳过
+    const meta = entryMetaResolver(href);
+    if (!meta) return match;
+    const prefix = buildWikilinkPrefix(meta, linkThumbs);
+    const typeAttr = meta.type ? ` data-type="${meta.type}"` : '';
+    const newAttrs = /\bclass="[^"]*"/.test(attrs)
+      ? attrs.replace(/\bclass="([^"]*)"/, 'class="$1 wikilink"')
+      : `${attrs} class="wikilink"`;
+    return `<a href="#${href}"${newAttrs}${typeAttr}>${prefix}${label}</a>`;
+  });
+}
+
 export function renderContent(content, options = {}) {
   if (!content) {
     return [];
@@ -737,6 +755,7 @@ export function renderContent(content, options = {}) {
   // 解析失败时保留原文，保证可读性。
   const linkResolver = typeof options.linkResolver === 'function' ? options.linkResolver : null;
   const linkThumbs = options.linkThumbs || null;
+  const entryMetaResolver = typeof options.entryMetaResolver === 'function' ? options.entryMetaResolver : null;
   const wikilinkRegex = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g;
   function resolveWikilinks(text) {
     if (!linkResolver) return text;
@@ -803,7 +822,7 @@ export function renderContent(content, options = {}) {
       const index = parseInt(spoilerMatch[1], 10);
       const spoilerData = spoilers[index];
       if (spoilerData) {
-        const innerHtml = marked(spoilerData.rawContent, { renderer });
+        const innerHtml = decorateEntryLinks(marked(spoilerData.rawContent, { renderer }), linkThumbs, entryMetaResolver);
         result.push({ type: 'spoiler', source: spoilerData.source, content: innerHtml });
       }
     } else if (imageMatch) {
@@ -822,6 +841,7 @@ export function renderContent(content, options = {}) {
   for (let i = 0; i < result.length; i++) {
     const item = result[i];
     if (item.type === 'html') {
+      item.content = decorateEntryLinks(item.content, linkThumbs, entryMetaResolver);
       item.content = item.content.replace(/<p>\s*:?\s*$/i, '');
       item.content = item.content.replace(/^\s*<\/p>/i, '');
       if (!item.content.trim()) {

@@ -319,6 +319,17 @@ const canonicalLinkMap = computed(() => {
 // NEW: Compute structured content (no change needed here for related links)
 // 内联缩略图映射：随条目一起加载，让 wikilink 缩略图用 data URI 零请求渲染。
 const linkThumbs = ref(null);
+
+// href(/entry/<type>/<id>) -> { type, image }，用于给正文里指向条目的 Markdown
+// 链接补小头像缩略图。allMetadata 已把 partEntry 缺图回退到全局规范图。
+const entryMetaByHref = computed(() => {
+  const map = new Map();
+  for (const m of allMetadata.value) {
+    map.set(`/entry/${m.type}/${m.id}`, { type: m.type, image: m.image || null });
+  }
+  return map;
+});
+
 const structuredContent = computed(() => {
   if (!entry.value || !entry.value.content) {
     return [];
@@ -332,6 +343,7 @@ const structuredContent = computed(() => {
       return { href: `#${meta.href}`, type: meta.type, image: meta.image };
     },
     linkThumbs: linkThumbs.value,
+    entryMetaResolver: (href) => entryMetaByHref.value.get(href) || null,
   });
   return result;
 });

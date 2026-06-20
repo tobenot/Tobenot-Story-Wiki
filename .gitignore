@@ -16,6 +16,10 @@ dist-ssr
 public/images/thumbs
 public/link-thumbs.json
 
+# 搜索索引：由 npm run build:index 生成，dev/build/deploy 均会自动重新生成
+public/search-index.json
+public/search-map.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -27,3 +31,6 @@ public/link-thumbs.json
 *.sln
 *.sw?
 story/story-bb-silvermoon-director-cut.md
+
+# 临时备份目录（不纳入版本库）
+.search-index-backup-*

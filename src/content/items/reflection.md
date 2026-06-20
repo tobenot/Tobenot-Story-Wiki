@@ -1,6 +1,6 @@
 ---
 title: "折射"
-type: "物品"
+type: "items"
 tags: ["银月篇", "能量之体", "银月寺"]
 related: ["银月寺", "能量之体", "贝利斯"]
 description: "银月寺持有的一种能量之体。"

@@ -1,6 +1,6 @@
 ---
 title: "示例角色"
-type: "人物"
+type: "characters"
 tags: ["标签1", "标签2", "标签3"]
 related: ["相关人物1", "相关人物2"]
 description: "一句话描述这个角色。"

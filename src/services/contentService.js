@@ -88,6 +88,19 @@ let metadataPromise = null;
 let contentIndexCache = null;
 let contentIndexPromise = null;
 
+// 基础设施：条目列表的默认排序。按 order 数字升序在前，无 order(null) 垫后并保持原序。
+// Array.sort 稳定，故 null 之间相对顺序不变。所有列条目的出口（getPart / loadContentList）都用它。
+function sortByOrder(arr) {
+  return arr.sort((a, b) => {
+    const ao = a.order == null ? null : a.order;
+    const bo = b.order == null ? null : b.order;
+    if (ao === null && bo === null) return 0;
+    if (ao === null) return 1;
+    if (bo === null) return -1;
+    return ao - bo;
+  });
+}
+
 async function buildContentIndex() {
   if (contentIndexCache) return contentIndexCache;
   if (contentIndexPromise) return contentIndexPromise;
@@ -313,11 +326,13 @@ export async function loadContentList(type, { tag } = {}) {
     tags: e.tags || [],
     type: type,
     image: e.image,
+    order: e.order ?? null,
     createdAt: e.createdAt || null,
     updatedAt: e.updatedAt || null,
   }));
 
-  return result;
+  // 默认按 order 排；CategoryPage 的用户显式排序(a-z 等)会覆盖此序。
+  return sortByOrder(result);
 }
 
 // Flexible single entry loader that resolves new paths
@@ -467,15 +482,7 @@ export async function getPart(workId, partId) {
   // materialize entriesByType maps
   const entries = {};
   part.entriesByType.forEach((arr, type) => {
-    // 组内排序：有 order 的按数字升序在前，没写的（null）保持原文件系统顺序垫后。
-    // Array.sort 稳定，故 null 之间相对顺序不变。
-    const sorted = [...arr].sort((a, b) => {
-      if (a.order == null && b.order == null) return 0;
-      if (a.order == null) return 1;
-      if (b.order == null) return -1;
-      return a.order - b.order;
-    });
-    entries[type] = sorted.map(e => ({
+    entries[type] = sortByOrder([...arr]).map(e => ({
       id: e.routeId,
       title: e.title,
       description: e.description,

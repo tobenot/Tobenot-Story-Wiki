@@ -9,11 +9,13 @@ Tobenot-Story-Wiki is a Vue 3 + TypeScript + Vite single-page app that serves as
 ## Common Commands
 
 ```bash
-npm run dev        # Build the search index, then start the Vite dev server
-npm run build      # Build search index, type-check (vue-tsc), then vite build
+npm run dev        # Build thumbs + search index + stats, then start the Vite dev server
+npm run build      # Build thumbs + search index + stats, type-check (vue-tsc), then vite build
 npm run preview    # Preview the production build
-npm run deploy     # Build, then force-push dist/ to gh-pages branch on GitHub
-npm run build:index # Only (re)generate public/search-index.json + search-map.json
+npm run deploy     # Build, then force-push dist/ to gh-pages branch on GitHub (manual alt. to CI)
+npm run build:index  # Only (re)generate public/search-index.json + search-map.json
+npm run build:thumbs # Only regenerate image thumbnails (sharp; caches by mtime)
+npm run build:stats  # Only regenerate public/sitemap.xml + public/robots.txt
 ```
 
 - There is no test runner or linter configured. Type errors surface via `vue-tsc -b` in `npm run build`.
@@ -89,6 +91,6 @@ The Lunr Chinese tokenizer expects `nodejieba`; the `@node-rs/jieba` import in `
 
 ## Notes
 
-- The repo deploys `dist/` as a separate git repo to `gh-pages` (see the `deploy` script). Do not commit `dist/` to `main` (it is gitignored).
+- Two deploy paths, both end on GitHub Pages (https://wiki.tobenot.top/): (1) **CI** — `.github/workflows/deploy.yml` builds on every push to `main`/`master` and deploys `dist/` via the Pages API; (2) **manual** — `npm run deploy` force-pushes `dist/` as a separate git repo to `gh-pages`. `commit-and-deploy.bat` uses the manual path. Do not commit `dist/` to `main` (it is gitignored).
 - Content is primarily in Chinese; commits and README are bilingual.
 - `.gitattributes` forces `eol=lf` on all text files and marks images binary. Do not delete it — without it, editing a single `.md`/`.vue` on Windows (`autocrlf=true`) churns dozens of CRLF-only diffs. Blobs are already LF, so the attribute just governs working-tree normalization; no `renormalize` migration needed.

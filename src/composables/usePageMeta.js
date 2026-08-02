@@ -1,7 +1,7 @@
 import { watch, unref } from 'vue';
 
 const SITE_NAME = '托贝诺特世界观 Wiki';
-const DEFAULT_IMAGE = 'https://wiki.tobenot.top/amber.jpg';
+const DEFAULT_IMAGE = 'https://wiki.tobenot.top/images/og-cover.jpg';
 const DEFAULT_DESCRIPTION = '人物、地点、事件、物品与概念的世界构建百科。';
 
 /**

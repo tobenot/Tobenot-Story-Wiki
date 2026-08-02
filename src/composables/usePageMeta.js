@@ -2,7 +2,7 @@ import { watch, unref } from 'vue';
 
 const SITE_NAME = '托贝诺特世界观 Wiki';
 const DEFAULT_IMAGE = 'https://wiki.tobenot.top/images/og-cover.jpg';
-const DEFAULT_DESCRIPTION = '人物、地点、事件、物品与概念的世界构建百科。';
+const DEFAULT_DESCRIPTION = '托贝诺特世界观的中文百科，收录人物、地点、事件、物品与概念等世界构建条目，覆盖作品与篇章的详细设定、能力体系、主题解析与剧情背景。';
 
 /**
  * 读取或创建一个 meta 标签并写入内容。

@@ -15,6 +15,9 @@ import matter from 'gray-matter';
 const contentDir = path.resolve(process.cwd(), 'src', 'content');
 const publicDir = path.resolve(process.cwd(), 'public');
 const outFilePath = path.join(publicDir, 'site-stats.json');
+const sitemapFilePath = path.join(publicDir, 'sitemap.xml');
+const robotsFilePath = path.join(publicDir, 'robots.txt');
+const SITE_BASE = 'https://wiki.tobenot.top';
 
 if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir, { recursive: true });
@@ -83,7 +86,9 @@ function buildStats() {
   const workIds = new Set();
   const partKeys = new Set();
   let themeCount = 0;
+  const themeIds = new Set();
   let lastUpdated = null;
+  const sitemapUrls = new Set(['/']); // 条目/作品/篇章/主题路由（去重、稳定序）
 
   for (const file of files) {
     const filePath = path.join(contentDir, file);
@@ -100,6 +105,8 @@ function buildStats() {
       if (!perTypeEntities[info.type]) perTypeEntities[info.type] = new Set();
       const entityKey = fm.canonicalId || `${info.type}:${info.fullId}`;
       perTypeEntities[info.type].add(entityKey);
+      // 占位条目（placeholder: true）是骨架页，内容为空，不进 sitemap 以免被当作薄内容。
+      if (fm.placeholder !== true) sitemapUrls.add(`/entry/${info.type}/${info.fullId}`);
 
       if (fm.updatedAt) {
         const t = typeof fm.updatedAt === 'string' ? fm.updatedAt : new Date(fm.updatedAt).toISOString();
@@ -107,11 +114,15 @@ function buildStats() {
       }
     } else if (info.kind === 'workIndex') {
       workIds.add(info.workId);
+      sitemapUrls.add(`/works/${info.workId}`);
     } else if (info.kind === 'partIndex') {
       partKeys.add(`${info.workId}/${info.partId}`);
       workIds.add(info.workId);
+      sitemapUrls.add(`/works/${info.workId}/parts/${info.partId}`);
     } else if (info.kind === 'theme') {
       themeCount++;
+      themeIds.add(info.themeId);
+      sitemapUrls.add(`/theme/${info.themeId}`);
       totalChars += countCJK(body);
     }
   }
@@ -130,6 +141,27 @@ function buildStats() {
         chars: perTypeChars[t] || 0,
       };
     });
+
+  // sitemap：聚合索引页 / 分类页 / 作品与主题索引
+  sitemapUrls.add('/works');
+  sitemapUrls.add('/themes');
+  TYPE_ORDER.filter((t) => perTypeEntities[t] || perTypeChars[t]).forEach((t) => {
+    sitemapUrls.add(`/category/${t}`);
+  });
+
+  // 写 sitemap.xml（含首页，URL 按字典序保证确定性）
+  const urlTags = Array.from(sitemapUrls)
+    .sort()
+    .map((u) => `  <url><loc>${SITE_BASE}${u}</loc></url>`)
+    .join('\n');
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlTags}\n</urlset>\n`;
+  fs.writeFileSync(sitemapFilePath, sitemapXml);
+  console.log(`[stats] 写入 ${sitemapFilePath}（${sitemapUrls.size} 个 URL）`);
+
+  // 写 robots.txt
+  const robotsTxt = `User-agent: *\nAllow: /\nSitemap: ${SITE_BASE}/sitemap.xml\n`;
+  fs.writeFileSync(robotsFilePath, robotsTxt);
+  console.log(`[stats] 写入 ${robotsFilePath}`);
 
   // 兜底：works/parts 计数以物理 index.md 为准（缺 index 的作品不计入）。
   const stats = {

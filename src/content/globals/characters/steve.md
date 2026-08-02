@@ -9,7 +9,7 @@ related:
   - "character.robert"
   - "character.corn"
   - "character.caspar"
-image: "/images/no_image.png"
+image: "/images/characters/bb/steven.webp"
 ---
 
 **史蒂文**是《不止于纸上的故事》系列中的角色，银月寺主持，保留地的最高负责人。他拥有使自身皮肤变得钻石般坚硬的异能【钢铁之躯】，肩负守护银月寺及其能量之体【折射】的重任。

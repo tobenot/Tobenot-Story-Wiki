@@ -8,7 +8,7 @@ tags: ["银月篇", "银月大学", "教师", "工程师", "异能者", "不止�
 related:
   - "character.robert"
   - "character.steve"
-image: "/images/characters/silvermoon/caspar.webp"
+image: "/images/characters/bb/caspar.webp"
 ---
 
 **卡斯帕**是《不止于纸上的故事》系列中的角色，银月大学的棍术教师兼工程师。他是异能者，却只有灵能盾、未觉醒具体异能，棍术高超，并以其工程头脑参与银月寺的基础设施建设。他是罗伯特的大学棍术老师。

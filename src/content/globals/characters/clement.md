@@ -11,7 +11,7 @@ related:
   - "character.tanaka-ren"
   - "character.corn"
   - "character.joan"
-image: "/images/characters/silvermoon/clement.webp"
+image: "/images/characters/bb/clement.webp"
 ---
 
 **克莱门特**是《不止于纸上的故事》系列中的角色，贝利斯集团精英雇佣兵，拥有长出白色羽翼飞行的异能【衔羽展翼】，惯用长锤。因初高中不同学校的关系，他在银月篇里认识的人是最多的。

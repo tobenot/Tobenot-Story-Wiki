@@ -2,7 +2,7 @@
 title: 珂茵（银月篇）
 type: characters
 canonicalId: character.corn
-image: /images/characters/silvermoon/corn.webp
+image: /images/characters/bb/corn.webp
 summary: 银月寺保安，弓箭手，能瞬移；本篇立场最游移的人物之一。
 tags:
   - 银月篇

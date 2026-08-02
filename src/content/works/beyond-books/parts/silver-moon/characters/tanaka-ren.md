@@ -2,7 +2,7 @@
 title: 田中连（银月篇）
 type: characters
 canonicalId: character.tanaka-ren
-image: /images/characters/silvermoon/tanaka_ren.webp
+image: /images/characters/bb/tanaka_ren.webp
 summary: 贝利斯集团领导人，本篇入侵方总指挥，以建立秩序之名征取能量之体。
 tags:
   - 银月篇

@@ -2,7 +2,7 @@
 title: 艾琳（银月篇）
 type: characters
 canonicalId: character.airin
-image: /images/characters/silvermoon/airin.webp
+image: /images/characters/bb/airin.webp
 summary: 银月大学新生，被贝利斯当作棋子送入银月寺就读。
 tags:
   - 银月篇

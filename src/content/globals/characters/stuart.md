@@ -10,7 +10,7 @@ related:
   - "character.clement"
   - "character.tanaka-ren"
   - "character.joan"
-image: "/images/characters/silvermoon/stuart.webp"
+image: "/images/characters/bb/stuart.webp"
 ---
 
 **斯图尔特**是《不止于纸上的故事》系列中的角色，贝利斯集团雇佣兵，拥有生成火焰的异能【内能构建】。他背上嵌有图尔斯以【芯铁消逝】打造的钢铁羽翼，可飞行并在羽翼上附加火焰射出铁火羽，进攻性强，是队伍主要火力输出。

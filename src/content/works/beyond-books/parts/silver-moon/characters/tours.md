@@ -2,7 +2,7 @@
 title: 图尔斯（银月篇）
 type: characters
 canonicalId: character.tours
-image: /images/characters/silvermoon/tours.webp
+image: /images/characters/bb/tours.webp
 summary: 贝利斯雇佣兵军官，持【芯铁消逝】，罗伯特的初中同学。
 tags:
   - 银月篇

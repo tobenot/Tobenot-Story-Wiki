@@ -2,7 +2,7 @@
 title: 辛妮亚（银月篇）
 type: characters
 canonicalId: character.xinnia
-image: /images/characters/silvermoon/xinnia.webp
+image: /images/characters/bb/xinnia.webp
 summary: 银月寺保安，珂茵的闺蜜，能力【音域净空】，于本篇遭遇核心悬念。
 tags:
   - 银月篇

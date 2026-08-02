@@ -2,7 +2,7 @@
 title: 罗伯特（银月篇）
 type: characters
 canonicalId: character.robert
-image: /images/characters/silvermoon/robert.webp
+image: /images/characters/bb/robert.webp
 summary: 银月寺保安，持时停异能【苍穹缝隙】，本篇主视角人物。
 tags:
   - 银月篇

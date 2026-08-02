@@ -9,7 +9,7 @@ related:
   - "character.robert"
   - "character.caspar"
   - "character.tanaka-ren"
-image: "/images/characters/silvermoon/airin.webp"
+image: "/images/characters/bb/airin.webp"
 ---
 
 **艾琳**是《不止于纸上的故事》系列中的角色，银月大学新生，来自凌水镇东部，拥有操控水的异能【鲸歌海铭】。她轻松愉快、好学上进，对政治事务不太关心。

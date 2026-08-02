@@ -9,7 +9,7 @@ related:
   - "character.caspar"
   - "character.steve"
   - "character.xinnia"
-image: "/images/characters/silvermoon/jerris.webp"
+image: "/images/characters/bb/jerry.webp"
 ---
 
 **杰瑞斯**是《不止于纸上的故事》系列中的角色，罪恶猎手组织的高级官员，拥有完全隐身的异能【潜龙无影】。他身为反异能者组织的高官却本身是异能者，行事冷静果断、善于隐藏真实意图，追求补齐能力短板、成为最强的异能者。

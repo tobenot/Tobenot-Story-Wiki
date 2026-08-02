@@ -2,7 +2,7 @@
 title: 诺顿（银月篇）
 type: characters
 canonicalId: character.norton
-image: /images/characters/silvermoon/norton.webp
+image: /images/characters/bb/norton.webp
 summary: 银月寺保安，罗伯特的搭档，性格跳脱，异能尚未觉醒。
 tags:
   - 银月篇

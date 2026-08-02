@@ -12,7 +12,7 @@ related:
   - "character.clement"
   - "character.tanaka-ren"
   - "character.steve"
-image: "/images/characters/silvermoon/corn.webp"
+image: "/images/characters/bb/corn.webp"
 ---
 
 **珂茵**是《不止于纸上的故事》系列中的角色，银月寺保安队成员，拥有以光弓射出光箭并瞬移至光箭位置的异能。她金色短发、蓝眼，性情外露，与罗伯特、诺顿、辛妮亚同列银月寺四大保安。

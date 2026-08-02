@@ -9,7 +9,7 @@ related:
   - "character.corn"
   - "character.robert"
   - "character.norton"
-image: "/images/characters/silvermoon/xinnia.webp"
+image: "/images/characters/bb/xinnia.webp"
 ---
 
 **辛妮亚**是《不止于纸上的故事》系列中的角色，银月寺保安队成员，拥有阻断周围音波传播的异能【音域净空】。她淡紫色长发及腰，气质优雅神秘，是珂茵的闺蜜，亦负责银月寺溢出人士关怀工作。

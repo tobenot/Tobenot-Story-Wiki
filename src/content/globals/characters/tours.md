@@ -10,7 +10,7 @@ related:
   - "character.tanaka-ren"
   - "character.stuart"
   - "character.clement"
-image: "/images/characters/silvermoon/tours.webp"
+image: "/images/characters/bb/tours.webp"
 ---
 
 **图尔斯**是《不止于纸上的故事》系列中的角色，贝利斯集团雇佣兵军官，拥有凭空生成与消逝钢铁的异能【芯铁消逝】。他是罗伯特的初中同学与曾经的知音，注重礼仪，信奉「赚钱不寒碜」。

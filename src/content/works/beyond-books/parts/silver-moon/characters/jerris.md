@@ -2,7 +2,7 @@
 title: 杰瑞斯（银月篇）
 type: characters
 canonicalId: character.jerris
-image: /images/characters/silvermoon/jerris.webp
+image: /images/characters/bb/jerry.webp
 summary: 罪恶猎手高官，自称补齐短板的异能者；本篇潜伏在暗处的第三只手。
 tags:
   - 银月篇

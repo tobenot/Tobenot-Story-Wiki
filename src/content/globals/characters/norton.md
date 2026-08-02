@@ -10,7 +10,7 @@ related:
   - "character.corn"
   - "character.xinnia"
   - "character.caspar"
-image: "/images/characters/silvermoon/norton.webp"
+image: "/images/characters/bb/norton.webp"
 ---
 
 **诺顿**是《不止于纸上的故事》系列中的角色，银月寺保安队成员。他尚未觉醒具体异能，但身具异能者基础的灵能盾，并以精湛的棍术作战，性格活泼、爱打趣同僚，正事上却极为可靠。

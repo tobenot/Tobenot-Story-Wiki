@@ -17,7 +17,7 @@ related:
   - "character.steve"
   - "character.joan"
   - "character.airin"
-image: "/images/characters/silvermoon/robert.webp"
+image: "/images/characters/bb/robert.webp"
 ---
 
 **罗伯特**是《不止于纸上的故事》系列中的角色，银月寺保留地的保安队成员。他持有停止时间的异能【苍穹缝隙】，惯用一柄黑色硬木长棍，性格缜密、善于观察与推理。

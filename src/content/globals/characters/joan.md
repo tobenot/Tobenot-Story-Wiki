@@ -10,7 +10,7 @@ related:
   - "character.robert"
   - "character.clement"
   - "character.tours"
-image: "/images/characters/silvermoon/joan.webp"
+image: "/images/characters/bb/joan.webp"
 ---
 
 **琼**是《不止于纸上的故事》系列中的角色，独居于银月寺西边森林深处望穿秋水附近的冰系异能少女。她既不属于银月寺也不属于贝利斯集团，保持中立立场；说话如高贵的公主，性格活泼好战、喜欢切磋，对政治毫无兴趣。

@@ -2,7 +2,7 @@
 title: 卡斯帕（银月篇）
 type: characters
 canonicalId: character.caspar
-image: /images/characters/silvermoon/caspar.webp
+image: /images/characters/bb/caspar.webp
 summary: 银月大学棍术教师，遭蓄意车祸暗杀未遂，后继任银月寺主持，推行防御与经济建设。
 tags:
   - 银月篇

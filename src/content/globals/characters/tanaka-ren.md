@@ -11,7 +11,7 @@ related:
   - "character.clement"
   - "character.corn"
   - "character.robert"
-image: "/images/characters/silvermoon/tanaka_ren.webp"
+image: "/images/characters/bb/tanaka_ren.webp"
 ---
 
 **田中连**是《不止于纸上的故事》系列中的角色，贝利斯集团新任领导人，水系异能者。他上任后积极奔赴各地征取能量之体，以「建立秩序、平定飞雁市暴乱」为旗，主张能量之体在贝利斯手中能发挥更大作用。

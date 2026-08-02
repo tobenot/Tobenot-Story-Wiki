@@ -2,7 +2,7 @@
 title: 琼（银月篇）
 type: characters
 canonicalId: character.joan
-image: /images/characters/silvermoon/joan.webp
+image: /images/characters/bb/joan.webp
 summary: 独居望穿秋水的冰系异能少女，立场独立，本篇改变战场灵力格局的变量。
 tags:
   - 银月篇

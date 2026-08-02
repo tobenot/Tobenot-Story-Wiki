@@ -2,7 +2,7 @@
 title: 克莱门特（银月篇）
 type: characters
 canonicalId: character.clement
-image: /images/characters/silvermoon/clement.webp
+image: /images/characters/bb/clement.webp
 summary: 贝利斯精英雇佣兵，白色羽翼与长锤，本篇两次抢夺能量之体的执行者。
 tags:
   - 银月篇

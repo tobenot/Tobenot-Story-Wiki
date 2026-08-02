@@ -2,7 +2,7 @@
 title: 斯图尔特（银月篇）
 type: characters
 canonicalId: character.stuart
-image: /images/characters/silvermoon/stuart.webp
+image: /images/characters/bb/stuart.webp
 summary: 贝利斯雇佣兵，钢铁羽翼与火焰的空中火力担当，因友人琼而立场动摇。
 tags:
   - 银月篇

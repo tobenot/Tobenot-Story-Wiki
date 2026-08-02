@@ -101,7 +101,8 @@ async function buildIndex() {
       type: type,
       fullId: fullId,
       description: frontmatter.description || '',
-      image: frontmatter.image || null
+      image: frontmatter.image || null,
+      placeholder: !!frontmatter.placeholder
     };
   }
 

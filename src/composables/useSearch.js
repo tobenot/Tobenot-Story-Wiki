@@ -200,6 +200,7 @@ export function useSearch() {
                  score: result.score,
                  title: docInfo ? docInfo.title : '未知标题',
                  type: docInfo ? docInfo.type : type,
+                 placeholder: docInfo ? !!docInfo.placeholder : false,
                  path: docInfo ? `/entry/${type}/${actualFullId}` : '/'
                };
             })

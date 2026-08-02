@@ -1,79 +1,25 @@
 ---
-title: "迎接者"
-type: "characters"
-canonicalId: "character.welcomer"
-summary: "规律机构核心执行者，墙上刻字者之一，本篇终战反派。"
-tags: ["鸿律篇", "规律机构", "反派"]
+title: 迎接者
+type: characters
+canonicalId: character.welcomer
+summary: 规律机构核心执行者，墙上刻字者之一，本篇终战反派。
+tags:
+  - 鸿律篇
+  - 规律机构
+  - 反派
 order: 7
-role: "规律机构核心 / 终战反派"
-firstSeenAt: "第二章·规律机构（墙刻场景）"
-chapters: ["第五章·聚散之律", "第五章·银剑"]
+role: 规律机构核心 / 终战反派
+firstSeenAt: 第二章·规律机构（墙刻场景）
+chapters:
+  - 第五章·聚散之律
+  - 第五章·银剑
 related:
-  - "character.su-jingfeng"
-  - "character.wang-zhuxin"
-  - "character.assailant"
-  - "location.rule-institution"
-  - "location.bright-realm"
-  - "concept.rule"
+  - character.su-jingfeng
+  - character.wang-zhuxin
+  - character.assailant
+  - location.rule-institution
+  - location.bright-realm
+  - concept.rule
+placeholder: true
 ---
-
-**迎接者**是《不止于纸上的故事：鸿律篇》中的角色，[[location.rule-institution|规律机构]]核心执行者，与[[character.assailant|行凶者]]共同刻下机构墙字。他是本篇的最终反派。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：鸿律篇》
-- **身份**：规律机构核心执行者、刻字者
-- **武器**：白剑（生成）
-
-## 本篇定位
-
-迎接者是鸿律篇的最终反派，代表规律机构毁灭[[location.bright-realm|光明境]]的核心意志。他以「公平对决」「欢迎你」的伪善面目示人，实则冷血而执念于不死，其手段与终局详见下文剧透块。
-
-## 经历
-
-### 墙刻与迎客
-
-墙刻场景中他即「迎接者」角色。苏敬峰携烛馨重返机构时，他与行凶者仍在长桌前埋头工作，见苏敬峰便起身相迎。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》规律机构 / 聚散之律"
-他与行凶者齐声道「你好」「欢迎你」，自称「等你很久了」，以时光机原理话题相诱。
-:::
-
-### 对王烛馨出手
-
-迎接者对王烛馨出手。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》聚散之律"
-他以「后三指」指向性能力指向王烛馨，令其异能盾从心口裂开、七彩裂纹铺满全身。烛馨以服务器、硬盘带枪反击，一度将他粉碎成尘土，但他旋即复活。他再次指向烛馨，王烛馨看着苏敬峰说「我爱你！」随后爆开染红长桌地面。
-:::
-
-### 消除死亡概念
-
-苏敬峰取「最危险的试剂」欲砸他。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》聚散之律"
-迎接者反折苏敬峰的手将试管刺入其喉咙，狂称「我做到了！花了我这么多年，总算消除了我身上『死亡』的概念」——其异能包含消除自身死亡概念、悟得[[concept.rule|鸿律]]自愈。他对苏敬峰施「死亡」概念、令其周身碎裂，银及时在光明境以图案之力消去苏敬峰的「死亡」概念。
-:::
-
-### 终战与终局
-
-终战苏敬峰返回后再度与他交锋。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》银剑"
-苏敬峰打他一巴掌，骨刺从脸刺出如刺猬——他并非异能者，并无灵能盾。他自述悟得鸿律、自愈完整、衣服加七彩装饰线。苏敬峰借墙刻将他拉入光明境，王烛馨持银剑飞至，斩断其白剑、将身体砍成两半，断面射出七彩螺旋线后失色开裂解体。他死不了，但王烛馨「让他从来没有存在过」，其碎片消失，规律机构内只剩苏敬峰与烛馨。
-:::
-
-## 该篇章的关系动态
-
-### 王烛馨
-
-他与王烛馨正面对立。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》聚散之律 / 银剑"
-他亲手令王烛馨爆开消亡，因而成为苏敬峰必杀的对象。终局王烛馨以更高标准的鸿律能量胜过他，令其从未存在。
-:::
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
-- 所属组织见 [规律机构](#/entry/locations/works/beyond-books/parts/rule/rule-institution)。
+> 占位：正文待作者手写。

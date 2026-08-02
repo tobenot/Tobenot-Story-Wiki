@@ -1,57 +1,22 @@
 ---
-title: "铜像男"
-type: "characters"
-canonicalId: "character.statue-assassin"
-summary: "规律机构派来追杀苏敬峰的众刺客之一，自称「公平对决」。"
-aliases: ["规律机构刺客"]
-tags: ["鸿律篇", "规律机构", "反派"]
-role: "规律机构末位刺客"
-firstSeenAt: "第四章·铜像"
-chapters: ["第四章·铜像"]
+title: 铜像男
+type: characters
+canonicalId: character.statue-assassin
+summary: 规律机构派来追杀苏敬峰的众刺客之一，自称「公平对决」。
+aliases:
+  - 规律机构刺客
+tags:
+  - 鸿律篇
+  - 规律机构
+  - 反派
+role: 规律机构末位刺客
+firstSeenAt: 第四章·铜像
+chapters:
+  - 第四章·铜像
 related:
-  - "character.su-jingfeng"
-  - "character.wang-zhuxin"
-  - "location.rule-institution"
+  - character.su-jingfeng
+  - character.wang-zhuxin
+  - location.rule-institution
+placeholder: true
 ---
-
-**铜像男**是《不止于纸上的故事：鸿律篇》中的角色，[[location.rule-institution|规律机构]]派来追杀苏敬峰的众刺客之一，以「公平对决」的骑士姿态现身。其异能与结局详见下文剧透块。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：鸿律篇》
-- **身份**：规律机构刺客
-- **武器**：突击步枪（赠予苏敬峰后自用）
-- **职业伪装**：食堂打饭的（自述）
-
-## 本篇定位
-
-铜像男是规律机构对苏敬峰清除行动的收尾执行者，也是苏敬峰在终战前的最后一名正面对手。他以「公平对决」姿态出现，是王烛馨能力成长的首个试金石。
-
-## 经历
-
-### 现身与赠枪
-
-他在广场现身，念出苏敬峰与王烛馨的姓名，称二人在规律机构招人名单上、苏敬峰具「通道」资质，自称「派来的刺客中的最后一个」，赠苏敬峰一把突击步枪与几个弹夹「公平对决」。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》铜像"
-其异能为可将自己化作白色雕塑以自愈伤口、免伤并弹开子弹。他闪身躲到广场铜像后开战。
-:::
-
-### 死斗
-
-战斗中苏敬峰以调包弹夹、油箱纵火等手段周旋。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》铜像"
-铜像男多次变白色雕塑免伤并自愈伤口，所变雕塑能弹开苏敬峰的模因子弹。苏敬峰以弹壳替子弹令其换弹失灵、以穿越者车的油箱纵火浇其断面、趁其雕像化时射击断面。他自述「我是食堂打饭的，这点重量变化我还不知道」，识破了调包。苏敬峰一度被其雕像之手扎穿额头，靠穿越者自愈小手摧毁雕像壳。
-:::
-
-### 终局
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》铜像 / 大理石"
-最终他「把自己完全变成了雕像，这个过程他自己都不知道怎么逆转」，化作一垒白色小石块。战后王烛馨演示能力，将断裂的广场铜像飘起、拆开、拼回复原。
-:::
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
-- 所属组织见 [规律机构](#/entry/locations/works/beyond-books/parts/rule/rule-institution)。
+> 占位：正文待作者手写。

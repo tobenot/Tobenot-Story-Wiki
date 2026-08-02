@@ -1,50 +1,19 @@
 ---
-title: "目盲者"
-type: "characters"
-canonicalId: "character.blind-one"
-summary: "鸿律篇中疑似规律机构所派的黄西装女刺客，眼珠浑浊。"
-tags: ["鸿律篇", "反派"]
-role: "触碰型刺客"
-firstSeenAt: "第三章·搀扶"
-chapters: ["第三章·搀扶"]
+title: 目盲者
+type: characters
+canonicalId: character.blind-one
+summary: 鸿律篇中疑似规律机构所派的黄西装女刺客，眼珠浑浊。
+tags:
+  - 鸿律篇
+  - 反派
+role: 触碰型刺客
+firstSeenAt: 第三章·搀扶
+chapters:
+  - 第三章·搀扶
 related:
-  - "character.su-jingfeng"
-  - "character.wang-zhuxin"
-  - "character.silver"
+  - character.su-jingfeng
+  - character.wang-zhuxin
+  - character.silver
+placeholder: true
 ---
-
-**目盲者**是《不止于纸上的故事：鸿律篇》中的角色，一名眼珠浑浊、着黄色西装（带红黑混色直线条纹污渍）的女子。她疑似[[location.rule-institution|规律机构]]所派，于苏敬峰赴医院途中现身。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：鸿律篇》
-- **身份**：刺客（疑规律机构所派）
-- **外貌**：黄色西装、红黑混色条纹污渍、眼珠浑浊
-
-## 本篇定位
-
-目盲者是苏敬峰赴医院途中遭遇的刺客，其攻击方式诡异——不显异能盾裂纹，具体手段与后果详见下文剧透块。
-
-## 经历
-
-### 搀扶与袭击
-
-苏敬峰等红灯时，目盲者请他带去医院。苏敬峰退避时一度坠入草地、见银发女孩警告。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》搀扶"
-银发女孩警告「不要让她碰到，你会死的」。目盲者搭上苏敬峰肩，以触碰扭曲他人体内——苏敬峰腹部内容物被扭曲却无异能盾裂纹显现，其异能属触碰型。她发现苏敬峰与「她」一样，大喊「不可饶恕」。苏敬峰摸出（非水果刀的）逆模因手枪连击她，异能盾纹路在她身上绽放；随后一辆快车将其撞飞，腹部痛感随她飞天而缓解。
-:::
-
-## 该篇章的关系动态
-
-### 王烛馨
-
-目盲者称苏敬峰「和她一样」。
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》搀扶"
-苏敬峰判断此「她」即王烛馨——目盲者曾触碰烛馨，是烛馨腹痛住院、觉醒异能的疑似源头。
-:::
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
+> 占位：正文待作者手写。

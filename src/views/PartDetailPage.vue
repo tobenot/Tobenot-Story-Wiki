@@ -40,8 +40,10 @@
             v-for="entry in part.entriesByType[type]"
             :key="entry.id"
             :to="`/entry/${type}/${entry.id}`"
-            class="wiki-card p-5 group flex items-start gap-3"
+            class="wiki-card p-5 group flex items-start gap-3 relative"
+            :class="entry.placeholder ? 'opacity-60' : ''"
           >
+            <span v-if="entry.placeholder" class="absolute top-2 right-2 text-[10px] px-1.5 py-0.5 border border-slate-400 text-slate-400 bg-white/80">占位</span>
             <!-- 标题左侧小缩略图：复用 48px thumbs（吃 HTTP 缓存），懒加载，缺图静默不渲染 -->
             <img
               v-if="thumbSrc(entry.image)"

@@ -1,50 +1,18 @@
 ---
-title: "无光空间死斗"
-type: "events"
-canonicalId: "event.lightless-space-battle"
-summary: "苏敬峰为寻论文原稿闯入实验室，于熄灯黑暗中遭遇袭击的近身死斗。"
-tags: ["鸿律篇"]
-role: "首战规律机构"
-firstSeenAt: "第二章·无光空间"
+title: 无光空间死斗
+type: events
+canonicalId: event.lightless-space-battle
+summary: 苏敬峰为寻论文原稿闯入实验室，于熄灯黑暗中遭遇袭击的近身死斗。
+tags:
+  - 鸿律篇
+role: 首战规律机构
+firstSeenAt: 第二章·无光空间
 order: 2
 related:
-  - "character.su-jingfeng"
-  - "character.assailant"
-  - "location.rule-institution"
-  - "concept.ability-shield"
+  - character.su-jingfeng
+  - character.assailant
+  - location.rule-institution
+  - concept.ability-shield
+placeholder: true
 ---
-
-**无光空间死斗**是《不止于纸上的故事：鸿律篇》中的事件：苏敬峰为寻时光机论文原稿循图探入一处秘密实验室，在熄灯的黑暗中遭遇袭击，展开近身搏杀。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：鸿律篇》
-- **时间**：苏敬峰首日午后
-- **地点**：规律机构实验室（熄灯黑暗状态）
-- **双方**：苏敬峰 vs 行凶者
-- **性质**：暗室近身搏杀
-
-## 起因
-
-苏敬峰借地图文字穿梭各实验室，发现一道虚掩刷卡门内的秘密实验室，墙刻宇宙通用语「规律机构」。探知墙刻时进入作者世界，见[[character.assailant|行凶者]]与迎接者正在刻字。
-
-## 经过
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》规律机构 / 无光空间"
-行凶者一见苏敬峰便喊「杀了你」。随后行凶者熄灯建立黑暗主场，以刻刀刺穿苏敬峰腹部、美工刀洞穿小臂、涂红刻刀贯穿左胸心脏。苏敬峰泼咖啡烫敌、以手电照明，并多次借作者世界回溯（打火机位置、服务器结构）。他识破灯开关被控、手电接触不良，扔刻刀扎进行凶者胸口，但行凶者似无痛觉。最终苏敬峰借作者世界所见的服务器薄壳与裸线结构，击穿外壳令电线短路，服务器爆炸、碎片扎满行凶者朝向服务器的半身，其如雕塑般流尽血倒下。
-:::
-
-## 结果与影响
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》病床"
-苏敬峰重伤昏迷，被穿越者救回病床，远程自愈能力持续跟随（伤口长出「小手」缝合）。穿越者告知他误入的是规律机构而非档案室，原稿不在那里。此战令苏敬峰初识规律机构的存在与敌意，并使其异能在实战中进阶（拉人入界、回溯结构的应用）。
-:::
-
-## 关联事件
-
-- 起因见 [[event.time-machine-incident|时光机事件]]（寻原稿动机）。
-- 后续：苏敬峰赴医院见烛馨，进入 [[event.blind-one-encounter|目盲者遭遇]]。
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
+> 占位：正文待作者手写。

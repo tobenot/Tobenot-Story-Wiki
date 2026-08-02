@@ -1,45 +1,17 @@
 ---
-title: "时光机研究中心"
-type: "locations"
-canonicalId: "location.time-machine-center"
-summary: "鸿律篇主舞台，一座玻璃幕墙研究机构，苏敬峰首日实习处。"
-tags: ["鸿律篇", "时光机"]
+title: 时光机研究中心
+type: locations
+canonicalId: location.time-machine-center
+summary: 鸿律篇主舞台，一座玻璃幕墙研究机构，苏敬峰首日实习处。
+tags:
+  - 鸿律篇
+  - 时光机
 related:
-  - "location.rule-institution"
-  - "location.bright-realm"
-  - "item.time-machine"
-  - "character.su-jingfeng"
-  - "character.traveler"
+  - location.rule-institution
+  - location.bright-realm
+  - item.time-machine
+  - character.su-jingfeng
+  - character.traveler
+placeholder: true
 ---
-
-**时光机研究中心**是《不止于纸上的故事：鸿律篇》的主舞台，一座位于大城市、与周围自然环境格格不入的玻璃幕墙建筑，[[character.su-jingfeng|苏敬峰]]首日实习之处。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：鸿律篇》
-- **类别**：研究机构
-- **位置**：大城市
-- **标志性设施**：[[item.time-machine|时光机]]
-
-## 地理与设施
-
-- **外观**：表面光滑、无植被、冷冰冰的玻璃幕墙，与周围花海树林格格不入。
-- **时光机实验室**：空间宏大，中央为门框式时光机入口，周围拉满电线与白色集装箱。
-- **各学科实验室**：材料科学、物理学等实验室，门禁不一，部分虚掩。
-- **广场大理石**：大楼侧面广场上一块集装箱大小的石刻，刻有「时光机研究中心」。
-
-## 历史
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》时光机事件"
-人类首次启动时光机实验时，一名来自未来的女子从门框中探出，拔断电线中止实验，警告众人不要启动时光机——否则亿万年后敌人可通过通道到来。实验自此永久停止，苏敬峰首日即「失业」。
-:::
-
-## 隐藏的门户与据点
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》规律机构 / 聚散之律 / 大理石"
-广场上的刻字大理石实为通往[[location.bright-realm|光明境]]无垠草地的门户，刻字须保持完整方能穿梭。研究中心内还隐藏着[[location.rule-institution|规律机构]]——一间布满服务器、卷宗与仪器的秘密实验室，墙刻宇宙通用语「规律机构」，是汲取光明境能量、毁灭心界的执行地，也是本篇最终决战的舞台。
-:::
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
+> 占位：正文待作者手写。

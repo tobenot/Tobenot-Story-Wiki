@@ -42,6 +42,7 @@
       <span class="foot-chip">篇章 {{ stats.parts }}</span>
       <span class="foot-chip">主题 {{ stats.themes }}</span>
       <span class="foot-chip">物理文件 {{ stats.entryFiles }}</span>
+      <span class="foot-chip">占位 {{ stats.placeholderEntries }}</span>
       <span v-if="stats.lastUpdated" class="foot-time">
         最近更新 · {{ fmtDate(stats.lastUpdated) }}
       </span>

@@ -1,51 +1,19 @@
 ---
-title: "烛馨觉醒"
-type: "events"
-canonicalId: "event.zhuxin-awakening"
-summary: "王烛馨在医院与苏敬峰重逢期间，一连串异常陆续显现的转折事件。"
-tags: ["鸿律篇"]
-role: "烛馨觉醒失控"
-firstSeenAt: "第四章·烛馨同学"
+title: 烛馨觉醒
+type: events
+canonicalId: event.zhuxin-awakening
+summary: 王烛馨在医院与苏敬峰重逢期间，一连串异常陆续显现的转折事件。
+tags:
+  - 鸿律篇
+role: 烛馨觉醒失控
+firstSeenAt: 第四章·烛馨同学
 order: 4
 related:
-  - "character.wang-zhuxin"
-  - "character.su-jingfeng"
-  - "character.silver"
-  - "character.blind-one"
-  - "location.bright-realm"
+  - character.wang-zhuxin
+  - character.su-jingfeng
+  - character.silver
+  - character.blind-one
+  - location.bright-realm
+placeholder: true
 ---
-
-**烛馨觉醒**是《不止于纸上的故事：鸿律篇》中的事件：苏敬峰赶到医院与[[character.wang-zhuxin|王烛馨]]重逢，病房与外界一连串异常陆续显现，令他对烛馨的状况产生疑虑。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：鸿律篇》
-- **时间**：苏敬峰抵医院后下午
-- **地点**：医院病房 / 食堂
-- **当事人**：王烛馨、苏敬峰
-- **性质**：异能觉醒失控
-
-## 起因
-
-王烛馨先前腹痛住院（疑被目盲者触碰所致）。苏敬峰赶到医院与她重逢，发现病房窗台红掌变黑、康乃馨变绿，标牌文字可溯回一支笔的主人。
-
-## 经过
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》沉重之色"
-苏敬峰发现烛馨盘中食物成色极差、指甲咬痕透出异能盾蓝光——她已觉醒结构操控异能却毫无感觉。此时吊扇松脱落下，苏敬峰以穿越者自愈能力接扇断指复接。食堂停电、外界马路上多车连环相撞、高铁数节车厢脱轨，苏敬峰判断是烛馨新能力失控所致。他借大理石照片进入无垠草地，见银，问烛馨异能为何失控。银一字一顿「你需要，带她过来这里」，对视数秒后两行泪流下，歪头重复「把她，带过来这里」。
-:::
-
-## 结果与影响
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》勿忘我"
-苏敬峰携烛馨赴大理石，欲将其带入光明境。途中遭逆模因伏击，烛馨以能力克服逆模因、拆解电锯，能力进一步成长。此事件确立烛馨为光明境危机的破局关键，其能力本质被揭示为「结构」——颜色只是结构的一种。
-:::
-
-## 关联事件
-
-- 诱因见 [[event.blind-one-encounter|目盲者遭遇]]。
-- 后续见 [[event.antimeme-ambush|逆模因伏击]]、[[event.bright-realm-revelation|光明境真相]]。
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
+> 占位：正文待作者手写。

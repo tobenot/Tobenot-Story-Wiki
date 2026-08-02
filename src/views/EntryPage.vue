@@ -97,7 +97,11 @@
             </div>
 
             <div class="p-5 md:p-8">
-              <h1 class="text-3xl md:text-4xl font-bold mb-4 text-starlight-500">{{ entry.title }}</h1>
+              <!-- 占位条目：作者尚未手写正文，整体置灰提示 -->
+              <div v-if="entry.placeholder" class="mb-4 px-4 py-2 border-2 border-dashed border-slate-400 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-sm font-medium">
+                占位条目 · 正文待作者手写
+              </div>
+              <h1 :class="entry.placeholder ? 'text-slate-400' : 'text-starlight-500'" class="text-3xl md:text-4xl font-bold mb-4">{{ entry.title }}</h1>
 
               <div class="flex flex-wrap gap-2 mb-6" v-if="entry.tags && entry.tags.length > 0">
                 <Tag

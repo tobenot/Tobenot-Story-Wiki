@@ -72,12 +72,14 @@
     
     <div v-else class="wiki-grid">
       <!-- 条目卡片 -->
-      <router-link 
-        v-for="entry in paginatedEntries" 
-        :key="entry.id" 
+      <router-link
+        v-for="entry in paginatedEntries"
+        :key="entry.id"
         :to="`/entry/${categoryType}/${entry.id}`"
         class="wiki-card group flex flex-col overflow-hidden"
+        :class="entry.placeholder ? 'opacity-60' : ''"
       >
+        <span v-if="entry.placeholder" class="absolute top-2 right-2 z-10 text-[10px] px-1.5 py-0.5 border border-slate-400 text-slate-400 bg-white/80">占位</span>
         <div v-if="entry.image" class="aspect-video overflow-hidden bg-gray-100 relative">
           <ImageLoader
             :src="entry.image"

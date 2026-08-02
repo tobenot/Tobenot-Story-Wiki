@@ -1,53 +1,21 @@
 ---
-title: "艾琳（银月篇）"
-type: "characters"
-canonicalId: "character.airin"
-image: "/images/characters/silvermoon/airin.webp"
-summary: "银月大学新生，被贝利斯当作棋子送入银月寺就读。"
-tags: ["银月篇"]
-role: "银月大学新生"
-firstSeenAt: "罗伯特主线1-银月寺保安"
-chapters: ["罗伯特主线1-银月寺保安", "罗伯特主线2-银月寺保安", "罗伯特主线3-银月寺保安"]
+title: 艾琳（银月篇）
+type: characters
+canonicalId: character.airin
+image: /images/characters/silvermoon/airin.webp
+summary: 银月大学新生，被贝利斯当作棋子送入银月寺就读。
+tags:
+  - 银月篇
+role: 银月大学新生
+firstSeenAt: 罗伯特主线1-银月寺保安
+chapters:
+  - 罗伯特主线1-银月寺保安
+  - 罗伯特主线2-银月寺保安
+  - 罗伯特主线3-银月寺保安
 related:
-  - "character.robert"
-  - "character.caspar"
-  - "character.tanaka-ren"
+  - character.robert
+  - character.caspar
+  - character.tanaka-ren
+placeholder: true
 ---
-
-**艾琳**是《不止于纸上的故事：银月篇》中的角色，银月大学新生。本页记载她在银月篇中的具体经历与该篇章揭示的关于她的信息；其跨篇章设定见 [全局条目·艾琳](#/entry/characters/globals/airin)。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：银月篇》
-- **身份**：银月大学新生
-- **异能**：水系（与水刀相关）
-- **关键章节**：罗伯特主线 1–3
-
-## 本篇定位
-
-艾琳是本篇中被贝利斯当作棋子送入银月寺的新生。她以水系异能在清扫行动中正面顶撞田中连，是少数敢于当场反抗其宣传的角色。
-
-## 经历
-
-### 后座吃冰淇淋的少女
-
-:::spoiler source="《不止于纸上的故事：银月篇》贝利斯使者来索要折射 / 田中连的遭遇"
-艾琳来自凌水镇东部，想进银月寺上大一，被田中连带着同去银月寺门卫——她在后座吃冰淇淋，贝利斯使者以她相威胁。罗伯特拒绝交出【折射】并要带艾琳去大学报到，用时停顶飞使者后，带艾琳去大学报到。
-:::
-
-### 棍术课堂重逢：「罗伯特前辈！」
-
-:::spoiler source="《不止于纸上的故事：银月篇》棍术课堂"
-罗伯特赴银月大学宣讲，常看着艾琳讲。课后在操场，听到罗伯特的声音，一旁拿小本子做笔记的艾琳抬起头认出他，亲切喊「啊，罗伯特前辈！寺门前的事谢谢了！我们也能参与防卫吗？总是在教室里学理论好无聊啊～」。
-:::
-
-### 清扫行动：「哪有闯进人家里宣传的道理」
-
-:::spoiler source="《不止于纸上的故事：银月篇》最终决战：清扫行动"
-清扫行动中田中连带突击队员闯入艾琳所在的教室，宣传贝利斯、展示飞雁市暴乱受害者惨状，并生成一把水刀。艾琳的异能正好与水相关，当场化解田中连的水刀，喊「哪有闯进人家里宣传的道理！」。突击队员欲制服艾琳，田中连只看了看，招呼大家离开。
-:::
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：银月篇》导演剪辑版](#/works/beyond-books/parts/silver-moon)
-- 跨篇章设定见 [全局条目·艾琳](#/entry/characters/globals/airin)
+> 占位：正文待作者手写。

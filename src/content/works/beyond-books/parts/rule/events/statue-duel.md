@@ -1,51 +1,19 @@
 ---
-title: "铜像之战"
-type: "events"
-canonicalId: "event.statue-duel"
-summary: "一名自称规律机构末位刺客者于研究中心广场现身，以「公平对决」展开的对决。"
-tags: ["鸿律篇"]
-role: "终战前的最后刺客"
-firstSeenAt: "第四章·铜像"
+title: 铜像之战
+type: events
+canonicalId: event.statue-duel
+summary: 一名自称规律机构末位刺客者于研究中心广场现身，以「公平对决」展开的对决。
+tags:
+  - 鸿律篇
+role: 终战前的最后刺客
+firstSeenAt: 第四章·铜像
 order: 6
 related:
-  - "character.su-jingfeng"
-  - "character.wang-zhuxin"
-  - "character.statue-assassin"
-  - "character.traveler"
-  - "location.time-machine-center"
+  - character.su-jingfeng
+  - character.wang-zhuxin
+  - character.statue-assassin
+  - character.traveler
+  - location.time-machine-center
+placeholder: true
 ---
-
-**铜像之战**是《不止于纸上的故事：鸿律篇》中的事件：一名自称规律机构末位刺客的[[character.statue-assassin|铜像男]]在研究中心广场现身，赠苏敬峰突击步枪，以「公平对决」姿态开战。
-
-## 身份卡
-
-- **所属篇章**：《不止于纸上的故事：鸿律篇》
-- **时间**：大理石门前
-- **地点**：时光机研究中心广场（铜像前）
-- **双方**：苏敬峰、王烛馨 vs 铜像男
-- **性质**：广场对决
-
-## 起因
-
-苏敬峰扶烛馨至刻字大理石前，铜像男登广场，念出二人姓名，称他们在规律机构招人名单上、苏敬峰具「通道」资质。他自称「派来的刺客中的最后一个」，赠突击步枪与弹夹「公平对决」。
-
-## 经过
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》铜像"
-铜像男多次变白色雕塑免伤并自愈，所变雕塑能弹开模因子弹。苏敬峰打碎广场铜像、以调包弹夹令其换弹失灵、以穿越者车的油箱纵火浇其断面、趁雕像化射击断面。铜像男识破弹夹调包（自述食堂打饭的）。苏敬峰一度被其雕像手扎穿额头，靠穿越者自愈小手摧毁雕像壳脱困。
-:::
-
-## 结果与影响
-
-:::spoiler source="《不止于纸上的故事：鸿律篇》铜像 / 大理石"
-铜像男把自己完全变成雕像，无法逆转，化作一垒白色小石块。战后王烛馨演示能力——将断裂的广场铜像飘起、拆开、拼回复原，自述「我感觉我什么都能控制，颜色只是结构的一种」。此战清除机构外围最后一名刺客，为苏敬峰直捣 [[event.rule-institution-final-battle|规律机构终战]] 扫清障碍。
-:::
-
-## 关联事件
-
-- 前序见 [[event.antimeme-ambush|逆模因伏击]]。
-- 随后银揭示光明境真相，见 [[event.bright-realm-revelation|光明境真相]]。
-
-## 出处与外部链接
-
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
+> 占位：正文待作者手写。

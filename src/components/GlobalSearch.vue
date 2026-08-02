@@ -66,10 +66,11 @@
                 </span>
               </div>
               <div class="flex-1">
-                <div class="text-gray-800 font-medium">{{ item.title }}</div>
+                <div :class="item.placeholder ? 'text-slate-400' : 'text-gray-800'" class="font-medium">{{ item.title }}</div>
                 <div v-if="item.description" class="text-gray-600 text-sm mt-1 line-clamp-1">{{ item.description }}</div>
                 <div class="flex mt-1.5 space-x-2">
                   <span class="text-xs px-2 py-0.5 border border-slate-900 bg-slate-900 text-starlight-300">{{ getCategoryName(item.type) }}</span>
+                  <span v-if="item.placeholder" class="text-xs px-2 py-0.5 border border-slate-400 text-slate-400 bg-white">占位</span>
                   <span v-for="(tag, tagIndex) in item.tags?.slice(0, 2)" :key="tagIndex" class="text-xs px-2 py-0.5 border border-slate-900 bg-gray-100 text-gray-600">{{ tag }}</span>
                 </div>
               </div>

@@ -79,6 +79,7 @@ function buildStats() {
   const perTypeEntities = {};   // type -> Set<entityKey>（去重）
   let totalChars = 0;
   let entryFileCount = 0;
+  let placeholderCount = 0;     // placeholder: true 的条目文件数（占位）
   const workIds = new Set();
   const partKeys = new Set();
   let themeCount = 0;
@@ -92,6 +93,7 @@ function buildStats() {
 
     if (info.kind === 'entry') {
       entryFileCount++;
+      if (fm.placeholder === true) placeholderCount++;
       const chars = countCJK(body);
       totalChars += chars;
       perTypeChars[info.type] = (perTypeChars[info.type] || 0) + chars;
@@ -135,6 +137,7 @@ function buildStats() {
     totalChars,
     totalEntries,
     entryFiles: entryFileCount,
+    placeholderEntries: placeholderCount,
     works: workIds.size,
     parts: partKeys.size,
     themes: themeCount,

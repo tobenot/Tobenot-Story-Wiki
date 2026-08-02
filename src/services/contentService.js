@@ -199,6 +199,7 @@ async function buildContentIndex() {
             description: summary,
             tags: attributes.tags || [],
             image: attributes.image,
+            placeholder: !!attributes.placeholder,
             order: attributes.order ?? null,
             createdAt: attributes.createdAt || null,
             updatedAt: attributes.updatedAt || null,
@@ -326,6 +327,7 @@ export async function loadContentList(type, { tag } = {}) {
     tags: e.tags || [],
     type: type,
     image: e.image,
+    placeholder: e.placeholder || false,
     order: e.order ?? null,
     createdAt: e.createdAt || null,
     updatedAt: e.updatedAt || null,
@@ -422,6 +424,7 @@ export async function getAllEntriesMetadata() {
           description: attributes.summary || attributes.description || '',
           tags: attributes.tags || [],
           image: attributes.image || '',
+          placeholder: !!attributes.placeholder,
           // Kept for related-entry & wikilink resolution (canonicalId is the
           // identity key; sourceScope lets callers prefer the global page).
           canonicalId: attributes.canonicalId || null,
@@ -488,6 +491,7 @@ export async function getPart(workId, partId) {
       description: e.description,
       tags: e.tags,
       image: e.image,
+      placeholder: e.placeholder || false,
       category: e.category,
     }));
   });

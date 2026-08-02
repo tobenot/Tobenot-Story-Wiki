@@ -19,7 +19,7 @@ function setMeta(attr, key, content) {
 }
 
 /**
- * 解析成绝对 URL（用于 og:url / og:image）。
+ * 解析成绝对 URL（用于 og:url / og:image / canonical）。
  */
 function toAbsolute(path) {
   if (!path) return '';
@@ -27,6 +27,20 @@ function toAbsolute(path) {
   const origin = window.location.origin;
   if (path.startsWith('/')) return `${origin}${path}`;
   return `${origin}/${path}`;
+}
+
+/**
+ * 创建或更新 <link rel="canonical">。
+ */
+function setCanonical(url) {
+  if (!url) return;
+  let el = document.head.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement('link');
+    el.setAttribute('rel', 'canonical');
+    document.head.appendChild(el);
+  }
+  el.setAttribute('href', url);
 }
 
 /**
@@ -57,6 +71,8 @@ export function usePageMeta(opts = {}) {
 
     setMeta('property', 'og:title', title || SITE_NAME);
     setMeta('property', 'og:description', description);
+    const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
+    setCanonical(canonicalUrl);
     setMeta('property', 'og:url', window.location.href);
     setMeta('property', 'og:site_name', SITE_NAME);
     if (image) setMeta('property', 'og:image', toAbsolute(image));

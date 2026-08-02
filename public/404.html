@@ -4,16 +4,14 @@
   <meta charset="utf-8">
   <title>重定向中...</title>
   <script>
-    // 单页应用的GitHub Pages重定向
-    // 收集URL路径
-    const path = window.location.pathname.slice(1);
-    // 存储路径到会话存储
+    // 单页应用的GitHub Pages重定向（history 模式 SPA 兜底）
+    // 收集完整路径与查询串，存到会话存储，然后回到首页由应用读取并路由。
+    var path = window.location.pathname.slice(1) + window.location.search;
     sessionStorage.setItem('redirect', path);
-    // 重定向到主页
-    window.location.href = '/';
+    window.location.replace('/');
   </script>
 </head>
 <body>
   <p>正在重定向...</p>
 </body>
-</html> 
+</html>

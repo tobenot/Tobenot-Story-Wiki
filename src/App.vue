@@ -37,21 +37,45 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 import Header from './components/layout/Header.vue';
 import Footer from './components/layout/Footer.vue';
+
+const router = useRouter();
 
 // 检查系统主题偏好和已保存的设置
 onMounted(() => {
   if (
-    localStorage.theme === 'dark' || 
+    localStorage.theme === 'dark' ||
     (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
   ) {
     document.documentElement.classList.add('dark');
   } else {
     document.documentElement.classList.remove('dark');
   }
+  document.addEventListener('click', onDocClick);
 });
+
+onUnmounted(() => document.removeEventListener('click', onDocClick));
+
+// history 模式下，v-html 里的站内 <a href="/...">（wikilink/正文链接）需要拦截
+// 交给 router.push 做 SPA 导航，否则会触发整页刷新。跳过分页锚点、站外链接、
+// target=_blank、带修饰键的点击（新标签页）与 download 链接。
+function onDocClick(e) {
+  if (e.defaultPrevented || e.button !== 0) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const a = e.target.closest('a');
+  if (!a) return;
+  if (a.target === '_blank' || a.hasAttribute('download')) return;
+  const href = a.getAttribute('href');
+  if (!href) return;
+  if (href.startsWith('#') || href.startsWith('//')) return; // 页内锚点 / 协议相对
+  if (/^(https?:|mailto:|tel:)/i.test(href)) return; // 站外
+  if (!href.startsWith('/')) return; // 相对路径（如 markdown 内相对链接）交给默认行为
+  e.preventDefault();
+  router.push(href);
+}
 </script>
 
 <style>

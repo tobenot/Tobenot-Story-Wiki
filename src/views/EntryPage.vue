@@ -370,12 +370,12 @@ const structuredContent = computed(() => {
     return [];
   }
   const result = renderContent(entry.value.content, {
-    // Wikilinks render as raw <a> tags via v-html, so they need the hash
-    // prefix to play nice with createWebHashHistory (avoid full page reload).
+    // Wikilinks render as raw <a href="/..."> tags via v-html; App.vue 的
+    // 全局点击拦截会把它们转成 router.push 做 SPA 导航（history 模式）。
     linkResolver: (cid) => {
       const meta = canonicalLinkMap.value.get(cid);
       if (!meta) return null;
-      return { href: `#${meta.href}`, type: meta.type, image: meta.image };
+      return { href: meta.href, type: meta.type, image: meta.image };
     },
     linkThumbs: linkThumbs.value,
     entryMetaResolver: (href) => entryMetaByHref.value.get(href) || null,

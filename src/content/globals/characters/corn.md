@@ -54,7 +54,7 @@ image: "/images/characters/bb/corn.webp"
 - **[[character.xinnia|辛妮亚]]**：闺蜜，二人异能在战斗中可形成配合。
 
 :::spoiler source="《不止于纸上的故事：银月篇》珂茵的恋人 / 两个世界的边缘"
-珂茵的真实阵营与部分核心关系在银月篇中逐步揭示，详见 [银月篇 · 珂茵](#/entry/characters/works/beyond-books/parts/silver-moon/corn)。
+珂茵的真实阵营与部分核心关系在银月篇中逐步揭示，详见 [银月篇 · 珂茵](/entry/characters/works/beyond-books/parts/silver-moon/corn)。
 :::
 
 :::spoiler source="《不止于纸上的故事：舞龙篇》完结"
@@ -63,9 +63,9 @@ image: "/images/characters/bb/corn.webp"
 
 ## 登场作品
 
-- 《不止于纸上的故事：银月篇》——详见 [银月篇 · 珂茵](#/entry/characters/works/beyond-books/parts/silver-moon/corn)
+- 《不止于纸上的故事：银月篇》——详见 [银月篇 · 珂茵](/entry/characters/works/beyond-books/parts/silver-moon/corn)
 
 ## 出处与外部链接
 
-- [《不止于纸上的故事：银月篇》导演剪辑版](#/works/beyond-books/parts/silver-moon)
+- [《不止于纸上的故事：银月篇》导演剪辑版](/works/beyond-books/parts/silver-moon)
 - 本条目为跨篇章设定真源；剧情揭示集中于各篇章专属页。

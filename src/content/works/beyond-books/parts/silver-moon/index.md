@@ -10,4 +10,4 @@ links:
     url: "https://tobenot.top/p/story-bb-silvermoon-director-cut/"
 ---
 
-本篇章聚焦银月寺保留地与贝利斯集团之间的冲突，以多视角非线性剪辑呈现。门面与导览见专题页 [银月篇 · 篇章概览](#/entry/features/works/beyond-books/parts/silver-moon/silver-moon-overview)。
+本篇章聚焦银月寺保留地与贝利斯集团之间的冲突，以多视角非线性剪辑呈现。门面与导览见专题页 [银月篇 · 篇章概览](/entry/features/works/beyond-books/parts/silver-moon/silver-moon-overview)。

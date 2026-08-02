@@ -37,5 +37,5 @@ related:
 
 ## 出处与外部链接
 
-- [《不止于纸上的故事：鸿律篇》](#/works/beyond-books/parts/rule)
+- [《不止于纸上的故事：鸿律篇》](/works/beyond-books/parts/rule)
 - 本条目为设定词典；鸿律的领悟剧情属高剧透，置于上方剧透块内。

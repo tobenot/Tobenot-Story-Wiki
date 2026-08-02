@@ -744,12 +744,12 @@ function buildWikilinkPrefix(meta, linkThumbs) {
   return `<span class="wl-icon">${icon}</span>`;
 }
 
-// 给指向条目的站内 Markdown 链接（<a href="#/entry/...">）补上小头像缩略图，
+// 给指向条目的站内 Markdown 链接（<a href="/entry/...">）补上小头像缩略图，
 // 与 [[wikilink]] 行为一致。已是 wikilink（带 wl-thumb/wl-icon）的链接跳过，
 // 避免重复加图标。entryMetaResolver: href -> { type, image } | null。
 function decorateEntryLinks(html, linkThumbs, entryMetaResolver) {
   if (!entryMetaResolver || !html) return html;
-  return html.replace(/<a href="#(\/entry\/[^"]*)"([^>]*)>([\s\S]*?)<\/a>/g, (match, href, attrs, label) => {
+  return html.replace(/<a href="(\/entry\/[^"]*)"([^>]*)>([\s\S]*?)<\/a>/g, (match, href, attrs, label) => {
     if (/\bclass="[^"]*wikilink/.test(attrs)) return match; // 已带缩略图，跳过
     const meta = entryMetaResolver(href);
     if (!meta) return match;
@@ -758,7 +758,7 @@ function decorateEntryLinks(html, linkThumbs, entryMetaResolver) {
     const newAttrs = /\bclass="[^"]*"/.test(attrs)
       ? attrs.replace(/\bclass="([^"]*)"/, 'class="$1 wikilink"')
       : `${attrs} class="wikilink"`;
-    return `<a href="#${href}"${newAttrs}${typeAttr}>${prefix}${label}</a>`;
+    return `<a href="${href}"${newAttrs}${typeAttr}>${prefix}${label}</a>`;
   });
 }
 

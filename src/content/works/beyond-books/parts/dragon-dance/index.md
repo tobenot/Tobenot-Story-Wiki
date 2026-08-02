@@ -10,4 +10,4 @@ links:
     url: "https://tobenot.top/p/story-bb-dragon-dance/"
 ---
 
-本篇章为《不止于纸上的故事》第二部。多视角多线叙事：进攻组、杰瑞斯线、望穿秋水组与往事副线并行推进，围绕真【折射】的归属展开。门面与导览见专题页 [舞龙篇 · 篇章概览](#/entry/features/works/beyond-books/parts/dragon-dance/dragon-dance-overview)。
+本篇章为《不止于纸上的故事》第二部。多视角多线叙事：进攻组、杰瑞斯线、望穿秋水组与往事副线并行推进，围绕真【折射】的归属展开。门面与导览见专题页 [舞龙篇 · 篇章概览](/entry/features/works/beyond-books/parts/dragon-dance/dragon-dance-overview)。

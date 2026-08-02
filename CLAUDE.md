@@ -49,7 +49,7 @@ When adding new content layout conventions, update path parsing in **both** `con
 - **`cover:`** — root-relative path (`/images/...`), same resolution path as `MarkdownImage`/`ImageLoader` (`BASE_URL` prefix), file lives under `public/images/`. No `cover` → not rendered (no broken image). Works page cards also show `cover` thumbnails.
 - **Overview entry** — `PartDetailPage` auto-detects a feature entry whose route id ends in `-overview` (e.g. `silver-moon-overview`) and shows an "进入篇章导览" button. Parts without an overview page simply don't show it — no forced content authoring.
 
-**Link policy (do not regress):** entry bodies must **not** hardcode external story URLs inline. Link in-body "see the original story" references to the **in-site part page** `#/works/<workId>/parts/<partId>` instead, so the external URL stays centralized in one `links:` field. The silver-moon link was previously spread across 68 files; it is now in-site everywhere except the two `index.md` `links:` fields.
+**Link policy (do not regress):** entry bodies must **not** hardcode external story URLs inline. Link in-body "see the original story" references to the **in-site part page** `/works/<workId>/parts/<partId>` instead, so the external URL stays centralized in one `links:` field. The silver-moon link was previously spread across 68 files; it is now in-site everywhere except the two `index.md` `links:` fields.
 
 ### Rendering & dedup rule
 
@@ -62,7 +62,7 @@ Global (`globals/*`) and part (`works/<workId>/parts/<partId>/<type>/*`) entries
 
 ### Routing
 
-`src/router/index.ts` uses **hash history** (`createWebHashHistory`) — important for the static GitHub Pages deploy. Routes:
+`src/router/index.ts` uses **HTML5 history mode** (`createWebHistory`). GitHub Pages serves `404.html` (which stores the path and redirects to `/`), and `src/main.ts` reads the stored path on boot to restore the deep link — see `public/404.html` + `main.ts`. Routes:
 - `/` Home · `/category/:type` type aggregation
 - `/entry/:type/:id(.*)` — `id` is a catch-all supporting `globals/<slug>` or `works/<workId>/parts/<partId>/<slug>`
 - `/works`, `/works/:workId`, `/works/:workId/parts/:partId`

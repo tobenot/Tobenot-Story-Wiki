@@ -109,8 +109,8 @@
 
 `contentService.js` 的 `parsePathForEntry` 和 `scripts/build-search-index.js` 的 `deriveTypeAndFullId` 都是**类型无关**的——`<type>` 是任意目录名。所以新建 `locations/`、`events/`、`concepts/`、`items/` 目录直接放文件即可，路由与索引自动解析：
 
-- 全局：`globals/<type>/<slug>.md` → 路由 `#/entry/<type>/globals/<slug>`
-- 篇章：`works/<workId>/parts/<partId>/<type>/<slug>.md` → 路由 `#/entry/<type>/works/.../parts/.../<slug>`
+- 全局：`globals/<type>/<slug>.md` → 路由 `/entry/<type>/globals/<slug>`
+- 篇章：`works/<workId>/parts/<partId>/<type>/<slug>.md` → 路由 `/entry/<type>/works/.../parts/.../<slug>`
 
 **唯一例外**：若引入全新的内容布局约定（不止是新 type 目录），才需要同步改这两个文件的路径解析，且二者必须一致（CLAUDE.md 有强调）。
 
